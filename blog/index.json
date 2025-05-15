@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "slug": "getting-started-with-github-pages",
+      "title": "Getting Started with GitHub Pages",
+      "date": "2025-05-15",
+      "description": "Learn how to set up your own blog using GitHub Pages with HTML, CSS, and JavaScript.",
+      "image": "blog/getting-started-with-github-pages/image.jpg",
+      "tags": ["web-development", "github", "tutorial"]
+    },
+    {
+      "slug": "my-journey-into-web-development",
+      "title": "My Journey into Web Development",
+      "date": "2025-05-10",
+      "description": "Personal reflections on learning web development and building my first projects.",
+      "image": "blog/my-journey-into-web-development/image.jpg",
+      "tags": ["personal", "web-development", "learning"]
+    },
+    {
+      "slug": "css-glass-effect-tutorial",
+      "title": "Creating Beautiful Glass Effect UI with CSS",
+      "date": "2025-05-05",
+      "description": "A step-by-step guide to creating modern glass morphism effects in your web projects.",
+      "image": "blog/css-glass-effect-tutorial/image.jpg",
+      "tags": ["css", "design", "tutorial"]
+    }
+  ]
+}
