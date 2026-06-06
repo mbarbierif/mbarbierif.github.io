@@ -1,0 +1,118 @@
+---
+layout: page
+permalink: /asociate/
+title: "Asociate a la <em>APA</em>"
+label: "Membresía"
+description: "Formá parte de la comunidad parasitológica argentina y accedé a todos los beneficios."
+
+---
+
+<section class="section" style="padding-top:0;">
+  <div class="section-inner">
+
+    <!-- Benefits intro -->
+    <div style="text-align:center; max-width:600px; margin:0 auto 3rem;">
+      <p style="color:var(--text-mid); font-size:1.05rem; line-height:1.8;">
+        Ser socio/a de la APA te conecta con la comunidad parasitológica de todo el país,
+        te da acceso a la Revista Argentina de Parasitología y te abre las puertas a
+        financiamiento, formación y participación científica.
+      </p>
+    </div>
+
+    <!-- Membership tiers -->
+    <div id="aranceles" class="membership-grid" style="max-width:900px; margin:0 auto 4rem;">
+
+      <div class="membership-card fade-up">
+        <div class="membership-type">Estudiante de grado</div>
+        <div class="membership-price">$<span id="arancel-grado">—</span></div>
+        <div class="membership-period">por año</div>
+        <ul class="membership-features">
+          <li>Acceso a la Revista APA</li>
+          <li>Descuento en congresos</li>
+          <li>Convocatorias a becas</li>
+          <li>Lista de socios/as</li>
+        </ul>
+        <a href="#como-asociarse" class="btn btn-secondary" style="width:100%;justify-content:center;">Asociarme →</a>
+      </div>
+
+      <div class="membership-card featured fade-up">
+        <div class="membership-type">Estudiante posgrado / Postdoc</div>
+        <div class="membership-price">$<span id="arancel-posgrado">—</span></div>
+        <div class="membership-period">por año</div>
+        <ul class="membership-features">
+          <li>Todo lo anterior</li>
+          <li>Apoyo económico a cursos</li>
+          <li>Apoyo económico a campo</li>
+          <li>Apoyo a proyectos de investigación</li>
+        </ul>
+        <a href="#como-asociarse" class="btn btn-primary" style="width:100%;justify-content:center;">Asociarme →</a>
+      </div>
+
+      <div class="membership-card fade-up">
+        <div class="membership-type">Profesional / Investigador</div>
+        <div class="membership-price">$<span id="arancel-profesional">—</span></div>
+        <div class="membership-period">por año</div>
+        <ul class="membership-features">
+          <li>Todo lo anterior</li>
+          <li>Voto en asambleas</li>
+          <li>Elegible para Comisión Directiva</li>
+          <li>Publicación en RAP sin cargo</li>
+        </ul>
+        <a href="#como-asociarse" class="btn btn-secondary" style="width:100%;justify-content:center;">Asociarme →</a>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; font-size:0.82rem; color:var(--text-dim); margin-top:-2rem; margin-bottom:3rem;">
+      ✏️ <em>Actualizá los aranceles editando <code>pages/asociate.html</code> o conectando con la tabla de <code>data/aranceles.csv</code></em>
+    </p>
+
+    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
+
+    <!-- Cómo asociarse -->
+    <div id="como-asociarse">
+      <div class="section-label" style="margin-bottom:0.5rem;">Pasos para asociarse</div>
+      <h2 class="section-title" style="margin-bottom:2rem;">¿Cómo <em>asociarse</em>?</h2>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:1.5rem; margin-bottom:3rem;">
+        {% assign pasos = "Completar el formulario,Realizar el pago,Enviar comprobante,¡Bienvenido/a a la APA!" | split: "," %}
+        {% assign nums = "01,02,03,04" | split: "," %}
+        {% for paso in pasos %}
+        <div class="card fade-up">
+          <div class="card-body">
+            <div style="font-family:var(--font-mono); font-size:1.8rem; color:var(--green); opacity:0.4; margin-bottom:0.5rem;">{{ nums[forloop.index0] }}</div>
+            <div style="font-size:0.95rem; color:var(--text); font-weight:500;">{{ paso }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="card" style="max-width:640px;">
+        <div class="card-body">
+          <div class="section-label" style="margin-bottom:1rem;">Datos bancarios para transferencia</div>
+          <dl style="font-size:0.88rem; display:flex; flex-direction:column; gap:0.6rem;">
+            <div>
+              <dt style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Titular</dt>
+              <dd style="color:var(--text);">Asociación Parasitológica Argentina</dd>
+            </div>
+            <div>
+              <dt style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">CUIT</dt>
+              <dd style="color:var(--text);">30-71051474-3</dd>
+            </div>
+            <div>
+              <dt style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Banco / CBU</dt>
+              <dd style="color:var(--text);">Completar con datos bancarios actuales</dd>
+            </div>
+          </dl>
+          <div style="margin-top:1.5rem;">
+            <a href="mailto:{{ site.email }}?subject=Solicitud%20de%20asociación%20APA"
+               class="btn btn-primary">
+              Enviar comprobante por email →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

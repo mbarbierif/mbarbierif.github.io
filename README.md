@@ -1,80 +1,180 @@
-# README.md - Personal Blog with GitHub Pages
+# Sitio Web — Asociación Parasitológica Argentina
 
-This repository contains a personal blog website built with GitHub Pages using vanilla HTML, CSS, and JavaScript. The blog features a glass-effect UI with a dynamic content loading system.
+Sitio estático generado con [Jekyll](https://jekyllrb.com/) y desplegado automáticamente en GitHub Pages.
 
-## Features
+---
 
-- 🏗️ Built with plain HTML, CSS, and JavaScript (no frameworks required)
-- 🔍 Dynamic content loading with URL-based navigation
-- 🏷️ Tag filtering and search functionality
-- 💎 Modern glass morphism UI design
-- 📱 Fully responsive for all devices
-- 📝 Markdown support for blog posts
-- 🔗 SEO-friendly with proper URL handling
+## 🚀 Configuración inicial (una sola vez)
 
-## Repository Structure
+### 1. Crear el repositorio en GitHub
+
+1. Entrá a [github.com](https://github.com) con la cuenta institucional de la APA
+2. Clic en **"New repository"**
+3. Nombre: `apargentina.github.io` (o el que corresponda)
+4. Marcá **"Public"**
+5. Clic en **"Create repository"**
+
+### 2. Subir estos archivos
+
+1. En el repositorio vacío, clic en **"uploading an existing file"**
+2. Arrastrá todos los archivos de este proyecto
+3. Clic en **"Commit changes"**
+
+### 3. Activar GitHub Pages
+
+1. Ir a **Settings** → **Pages**
+2. En "Source" elegir **"Deploy from a branch"**
+3. Branch: **`main`** / folder: **`/ (root)`**
+4. Clic en **Save**
+
+En 1-2 minutos el sitio estará en `https://apargentina.github.io`
+
+### 4. Conectar el dominio propio
+
+1. En **Settings** → **Pages** → **Custom domain**
+2. Escribir: `apargentina.org.ar`
+3. Clic en Save
+4. En el panel DNS del dominio, agregar un registro CNAME:
+   - Tipo: `CNAME`
+   - Nombre: `www`
+   - Valor: `apargentina.github.io`
+
+---
+
+## ✏️ Cómo agregar una novedad (sin terminal)
+
+1. Ir al repositorio en GitHub.com
+2. Navegar a la carpeta **`_posts/`**
+3. Clic en **"Add file"** → **"Create new file"**
+4. Nombrar el archivo así: `YYYY-MM-DD-titulo-breve.md`
+   - Ejemplo: `2026-07-15-apertura-convocatoria-becas.md`
+5. Pegar este encabezado y completarlo:
+
+```yaml
+---
+layout: post
+title: "Título de la novedad"
+date: 2026-07-15
+categoria: convocatoria
+imagen: /assets/img/noticias/mi-imagen.jpg
+excerpt: "Breve descripción que aparece en las tarjetas del listado."
+---
+
+Texto de la novedad en Markdown...
+
+## Subtítulo opcional
+
+Más contenido.
+```
+
+6. Clic en **"Commit changes"** → el sitio se actualiza solo en ~1 minuto
+
+### Categorías disponibles
+
+| Valor | Dónde aparece |
+|-------|--------------|
+| `convocatoria` | Página Eventos → sección Convocatorias abiertas |
+| `congreso` | Página Eventos → sección Congresos |
+| `curso` | Página Eventos → novedades generales |
+| `charla` | Página Actividades → Parasitología en la Nube |
+| `conversatorio` | Página Actividades → Conversatorios |
+| `arte` | Página Actividades → Arte y Ciencia |
+
+---
+
+## 🗺️ Actualizar el mapa de delegados
+
+El mapa lee el archivo **`data/delegados.csv`**.
+
+### Editar desde GitHub web
+
+1. Navegar a `data/delegados.csv`
+2. Clic en el ícono ✏️ (Edit)
+3. Agregar o modificar filas respetando el formato:
 
 ```
-/
-├── index.html              # Main page
-├── css/
-│   └── styles.css          # Main stylesheet
-├── js/
-│   └── blog.js             # Main JavaScript file
-├── blog/
-│   ├── index.json          # Blog posts index
-│   ├── post-slug-1/
-│   │   ├── meta.json       # Post metadata
-│   │   ├── content.md      # Post content in Markdown
-│   │   └── image.jpg       # Post featured image
-│   ├── post-slug-2/
-│   │   ├── meta.json
-│   │   ├── content.md
-│   │   └── image.jpg
-│   └── ...
-└── README.md               # This file
+nombre,institucion,ciudad,provincia,lat,lon,email,foto_url
+Dra. María García,CONICET - CENPAT,Puerto Madryn,Chubut,-42.7682,-65.0385,garcia@cenpat.edu.ar,
 ```
 
-## How It Works
+### Columnas
 
-1. The `index.html` file contains the structure of the website with a blog grid and post overlay.
-2. The `blog.js` file loads posts from `blog/index.json` and creates preview cards for each post.
-3. When a card is clicked, the JavaScript fetches the corresponding Markdown content from the post's folder and displays it in an overlay.
-4. The URL is updated using the History API to enable direct linking to posts and proper browser navigation.
+| Columna | Descripción | Obligatorio |
+|---------|-------------|-------------|
+| `nombre` | Nombre completo con título | ✅ |
+| `institucion` | Nombre de la institución | ✅ |
+| `ciudad` | Ciudad | ✅ |
+| `provincia` | Provincia | ✅ |
+| `lat` | Latitud (decimal, negativa para Argentina) | ✅ |
+| `lon` | Longitud (decimal, negativa para Argentina) | ✅ |
+| `email` | Email de contacto | Opcional |
+| `foto_url` | Ruta a la foto (ej: `/assets/img/delegados/garcia.jpg`) | Opcional |
 
-## Adding a New Blog Post
+### Obtener coordenadas
 
-To add a new blog post:
+Buscá la ciudad en [Google Maps](https://maps.google.com), clic derecho → "¿Qué hay aquí?" → copiar las coordenadas.
 
-1. Create a new folder in the `blog/` directory with a slug name (e.g., `my-new-post`).
-2. Add the following files to the folder:
-   - `meta.json` - Contains post metadata (title, description, date, tags)
-   - `content.md` - The post content in Markdown format
-   - `image.jpg` - Featured image for the post
-3. Add the post information to `blog/index.json`
+---
 
-Example `meta.json`:
-```json
-{
-  "title": "My New Post",
-  "description": "A short description of the post.",
-  "date": "2025-06-01",
-  "tags": ["tag1", "tag2"],
-  "image": "image.jpg"
-}
+## 📁 Estructura de carpetas
+
+```
+apa-site/
+│
+├── _config.yml          ← Configuración global (título, email, nav)
+├── _layouts/            ← Plantillas HTML base
+├── _includes/           ← Componentes reutilizables (navbar, footer)
+├── _posts/              ← ⭐ Novedades y noticias (formato YYYY-MM-DD-slug.md)
+│
+├── assets/
+│   ├── css/main.css     ← Estilos (no modificar salvo cambios de diseño)
+│   ├── js/main.js       ← JavaScript global
+│   ├── js/map.js        ← Lógica del mapa de delegados
+│   └── img/             ← Imágenes (noticias, delegados, hero)
+│
+├── data/
+│   └── delegados.csv    ← ⭐ Datos del mapa (editar para actualizar)
+│
+├── pages/               ← Páginas estáticas
+│   ├── asociacion.html
+│   ├── revista.html
+│   ├── actividades.html
+│   ├── eventos.html
+│   ├── delegados.html
+│   └── asociate.html
+│
+└── index.html           ← Página de inicio
 ```
 
-## Customization
+---
 
-- Edit `styles.css` to change the visual appearance
-- Modify `index.html` to update the site structure and header/footer
-- Adjust `blog.js` to modify the filtering, sorting, or display behavior
+## 🖼️ Agregar imágenes a noticias
 
-## License
+1. Subir la imagen a `assets/img/noticias/` (desde GitHub: Add file → Upload files)
+2. Referenciarla en el post:
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+```yaml
+imagen: /assets/img/noticias/nombre-archivo.jpg
+```
 
-## Acknowledgments
+Tamaño recomendado: **1200 × 630 px**, formato JPG o WebP.
 
-- [Marked.js](https://marked.js.org/) for Markdown parsing
-- GitHub Pages for hosting
+---
+
+## 🔧 Desarrollo local (opcional, para el equipo técnico)
+
+```bash
+# Instalar dependencias
+bundle install
+
+# Servidor local con recarga automática
+bundle exec jekyll serve --livereload
+
+# El sitio queda en http://localhost:4000
+```
+
+---
+
+## 📞 Soporte
+
+Ante dudas sobre el sitio, contactar al equipo técnico o abrir un **Issue** en el repositorio de GitHub.

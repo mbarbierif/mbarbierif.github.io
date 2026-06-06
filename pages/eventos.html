@@ -1,0 +1,132 @@
+---
+layout: page
+permalink: /eventos/
+title: "Eventos y <em>Convocatorias</em>"
+label: "Agenda científica"
+description: "Congresos, cursos, becas y convocatorias abiertas de la APA."
+
+---
+
+<section class="section" style="padding-top:0;">
+  <div class="section-inner">
+
+    <!-- Convocatorias abiertas -->
+    <div id="convocatorias" style="margin-bottom:4rem;">
+      <div class="section-label" style="margin-bottom:0.5rem;">En curso</div>
+      <h2 class="section-title" style="margin-bottom:2rem;">Convocatorias <em>abiertas</em></h2>
+      <div class="grid-3">
+        {% assign convocatorias = site.posts | where: "categoria", "convocatoria" | limit: 6 %}
+        {% if convocatorias.size > 0 %}
+          {% for post in convocatorias %}
+          <a href="{{ post.url | relative_url }}" style="text-decoration:none;">
+            <article class="card fade-up">
+              <div class="card-body">
+                <span class="card-tag">Convocatoria</span>
+                <h3 class="card-title">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+                <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+                <span class="card-link">Ver detalle →</span>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        {% else %}
+          <div class="card"><div class="card-body" style="color:var(--text-dim); font-size:0.88rem;">
+            No hay convocatorias abiertas en este momento.<br/>
+            Agregá entradas con <code>categoria: convocatoria</code> en <code>_posts/</code>
+          </div></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
+
+    <!-- Becas y apoyo económico -->
+    <div id="becas" style="margin-bottom:4rem;">
+      <div class="section-label" style="margin-bottom:0.5rem;">Financiamiento</div>
+      <h2 class="section-title" style="margin-bottom:2rem;">Apoyos <em>económicos</em></h2>
+      <div class="grid-3">
+        <div class="card fade-up">
+          <div class="card-body">
+            <span class="card-tag">Postgrado</span>
+            <h3 class="card-title">Apoyo para cursos de posgrado</h3>
+            <p class="card-excerpt">Financiamiento para socios/as estudiantes que asisten a cursos de posgrado en Argentina.</p>
+            <a href="{{ '/assets/docs/apoyo-postgrado.pdf' | relative_url }}" class="card-link">Ver bases →</a>
+          </div>
+        </div>
+        <div class="card fade-up">
+          <div class="card-body">
+            <span class="card-tag">Salidas de campo</span>
+            <h3 class="card-title">Apoyo para salidas de campo</h3>
+            <p class="card-excerpt">Para socios/as estudiantes de posgrado y posdoctorales que realizan trabajo de campo.</p>
+            <a href="{{ '/assets/docs/apoyo-campo.pdf' | relative_url }}" class="card-link">Ver bases →</a>
+          </div>
+        </div>
+        <div class="card fade-up">
+          <div class="card-body">
+            <span class="card-tag">Investigación</span>
+            <h3 class="card-title">Apoyo a proyectos de investigación</h3>
+            <p class="card-excerpt">Para socios/as estudiantes y posdoctorales con proyectos de investigación en parasitología.</p>
+            <a href="{{ '/assets/docs/apoyo-investigacion.pdf' | relative_url }}" class="card-link">Ver bases →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
+
+    <!-- Congresos -->
+    <div id="congresos" style="margin-bottom:4rem;">
+      <div class="section-label" style="margin-bottom:0.5rem;">Congreso bienal</div>
+      <h2 class="section-title" style="margin-bottom:2rem;">Congreso Argentino de <em>Parasitología</em></h2>
+      {% assign congreso_posts = site.posts | where: "categoria", "congreso" %}
+      {% if congreso_posts.size > 0 %}
+        <div class="grid-2">
+          {% for post in congreso_posts limit:4 %}
+          <a href="{{ post.url | relative_url }}" style="text-decoration:none;">
+            <article class="card fade-up">
+              {% if post.imagen %}
+              <img src="{{ post.imagen | relative_url }}" alt="{{ post.title }}" style="width:100%;height:180px;object-fit:cover;" />
+              {% endif %}
+              <div class="card-body">
+                <span class="card-tag">Congreso</span>
+                <h3 class="card-title">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+                <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+                <span class="card-link">Más información →</span>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="card"><div class="card-body" style="color:var(--text-dim); font-size:0.88rem;">
+          Agregá entradas con <code>categoria: congreso</code> en <code>_posts/</code>
+        </div></div>
+      {% endif %}
+    </div>
+
+    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
+
+    <!-- Todas las novedades -->
+    <div id="noticias">
+      <div class="section-label" style="margin-bottom:0.5rem;">Archivo</div>
+      <h2 class="section-title" style="margin-bottom:2rem;">Todas las <em>novedades</em></h2>
+      <div class="grid-3">
+        {% for post in site.posts limit:12 %}
+        <a href="{{ post.url | relative_url }}" style="text-decoration:none;">
+          <article class="card fade-up">
+            <div class="card-body">
+              {% if post.categoria %}<span class="card-tag">{{ post.categoria }}</span>{% endif %}
+              <h3 class="card-title" style="font-size:1rem;">{{ post.title }}</h3>
+              <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+              <p class="card-excerpt" style="font-size:0.82rem;">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+            </div>
+          </article>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,58 @@
+title: "Asociación Parasitológica Argentina"
+description: "Entidad científica sin fines de lucro dedicada a la promoción y difusión de la Parasitología en Argentina y el mundo."
+url: "https://apargentina.org.ar"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+
+# Collections
+collections:
+  posts:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Plugins (available natively in GitHub Pages)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+
+# Site info
+email: info@apargentina.org.ar
+twitter: "@APA_Argentina"
+
+# Navigation
+nav:
+  - title: "La Asociación"
+    url: "/asociacion/"
+  - title: "Revista"
+    url: "/revista/"
+  - title: "Actividades"
+    url: "/actividades/"
+  - title: "Eventos"
+    url: "/eventos/"
+  - title: "Delegados"
+    url: "/delegados/"
+  - title: "Asociate"
+    url: "/asociate/"
