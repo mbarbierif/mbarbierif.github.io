@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juli App — Iteración 2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Fredoka:wght@500;700&display=swap');
+
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: #111; color: #fff; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ===== INTRO ===== */
+.intro {
+  min-height: 55vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 50px 24px 36px; background: #0c0c0c;
+}
+.intro h1 { font-size: clamp(24px, 5vw, 44px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+.intro p { color: #888; font-size: 14px; max-width: 460px; margin-bottom: 30px; line-height: 1.55; }
+.nav-group { margin-bottom: 14px; }
+.nav-group-label { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; font-weight: 700; }
+.nav { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.nav a {
+  text-decoration: none; color: #fff; border: 1px solid #2a2a2a;
+  padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  transition: all 0.2s ease;
+}
+.nav a:hover { background: #fff; color: #111; border-color: #fff; }
+.back-link { display: block; text-align: center; padding: 16px; font-size: 12px; color: #444; text-decoration: none; }
+.back-link:hover { color: #888; }
+
+/* ===== SECTION WRAPPER ===== */
+.style-section {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 60px 20px 80px;
+}
+.section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+.section-title { font-size: clamp(22px, 4vw, 32px); font-weight: 800; margin-bottom: 8px; text-align: center; }
+.section-desc { font-size: 13px; color: #888; margin-bottom: 28px; text-align: center; max-width: 340px; line-height: 1.5; }
+.back-to-top { margin-top: 32px; font-size: 12px; color: #666; text-decoration: none; border-bottom: 1px solid #333; padding-bottom: 2px; }
+.back-to-top:hover { color: #fff; border-color: #fff; }
+
+/* ===== PHONE FRAME ===== */
+.phone { width: 360px; max-width: 93vw; border-radius: 36px; padding: 14px; }
+.phone-screen {
+  border-radius: 26px; overflow: hidden;
+  height: 680px; display: flex; flex-direction: column;
+  position: relative;
+}
+
+/* ===== SHARED SCROLLABLE BODY ===== */
+.screen-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+/* ===== VIDEO PLACEHOLDER ===== */
+.vid-thumb {
+  width: 100%; height: 130px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  position: relative; overflow: hidden;
+  margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.vid-thumb .play-btn {
+  width: 42px; height: 42px; background: rgba(255,0,0,0.9);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; z-index: 1;
+}
+.vid-thumb .duration {
+  position: absolute; bottom: 6px; right: 8px;
+  background: rgba(0,0,0,0.8); color: #fff;
+  font-size: 10px; padding: 2px 5px; border-radius: 3px;
+}
+.vid-thumb .thumb-bg {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px; opacity: 0.15;
+}
+
+/* =================================================================
+   ENERGETIC TOKENS
+================================================================= */
+.e-screen { background: #3D1A5B; font-family: 'Inter', sans-serif; }
+
+/* header */
+.e-header { background: #3D1A5B; padding: 26px 20px 22px; position: relative; overflow: hidden; flex-shrink: 0; }
+.e-header::before {
+  content: ''; position: absolute; top: -55px; right: -55px; width: 200px; height: 200px;
+  background: #C6FF3D;
+  clip-path: polygon(50% 0%,65% 25%,95% 15%,80% 42%,100% 60%,72% 65%,78% 95%,52% 75%,28% 100%,25% 70%,0% 78%,18% 50%,0% 25%,30% 32%,35% 2%);
+  transform: rotate(8deg); z-index: 0;
+}
+.e-header-content { position: relative; z-index: 1; }
+.e-greet { color: #C6FF3D; font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.e-title { font-family: 'Anton', sans-serif; color: #fff; font-size: 28px; margin-top: 6px; line-height: 1.05; max-width: 72%; }
+.e-zigzag { margin-top: 10px; }
+.e-zigzag svg { display: block; overflow: visible; }
+
+/* upgrade card */
+.e-upgrade-card {
+  margin: 16px 16px 0;
+  background: #FF4D6D; border-radius: 16px; padding: 16px;
+  box-shadow: 0 6px 0 #c4324d;
+}
+.e-upgrade-card .uc-label { font-size: 10px; font-weight: 800; color: #ffe1e8; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.e-upgrade-card .uc-text { font-size: 13px; color: #fff; line-height: 1.45; margin-bottom: 14px; }
+.e-upgrade-card .uc-btns { display: flex; gap: 8px; }
+.e-upgrade-card .uc-btn-primary {
+  flex: 1; background: #C6FF3D; color: #1a0e2e; border: none;
+  padding: 10px; border-radius: 10px; font-weight: 800; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.03em;
+  box-shadow: 0 3px 0 #8fc424; transition: transform 0.1s, box-shadow 0.1s;
+}
+.e-upgrade-card .uc-btn-primary:active { transform: translateY(2px); box-shadow: none; }
+.e-upgrade-card .uc-btn-secondary {
+  flex: 1; background: rgba(255,255,255,0.15); color: #fff; border: none;
+  padding: 10px; border-radius: 10px; font-weight: 700; font-size: 12px;
+}
+
+/* plan del día */
+.e-plan-label {
+  margin: 20px 16px 12px;
+  font-size: 11px; font-weight: 800; color: #C6FF3D;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.e-ex-card {
+  margin: 0 16px 12px; background: #fff; border-radius: 16px;
+  overflow: hidden; cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.e-ex-card:hover { transform: rotate(-0.8deg) scale(1.01); }
+.e-ex-card .card-body { padding: 12px 14px 14px; }
+.e-ex-card .card-body .ex-name { color: #1a0e2e; font-weight: 800; font-size: 14px; margin-bottom: 4px; }
+.e-ex-card .card-body .ex-desc { color: #666; font-size: 12px; line-height: 1.4; }
+
+/* special cards */
+.e-warmup-card { margin: 0 16px 12px; background: #C6FF3D; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+.e-warmup-card .wm-icon { font-size: 24px; }
+.e-warmup-card .wm-text .ex-name { color: #1a0e2e; font-weight: 800; font-size: 14px; }
+.e-warmup-card .wm-text .ex-desc { color: #3D1A5B; font-size: 12px; margin-top: 2px; }
+
+.e-joke-card {
+  margin: 0 16px 20px; background: #FF4D6D; border-radius: 16px; padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  box-shadow: 0 4px 0 #c4324d;
+}
+.e-joke-card .joke-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.e-joke-card .joke-text { color: #fff; font-size: 13px; line-height: 1.45; font-weight: 600; }
+
+/* =================================================================
+   FUNNY TOKENS
+================================================================= */
+.f-screen { background: #FFF8E7; font-family: 'Fredoka', sans-serif; }
+
+.f-header { background: #F2B705; padding: 24px 18px 20px; border-bottom: 4px dashed #5C2751; flex-shrink: 0; }
+.f-greet { color: #5C2751; font-size: 13px; font-weight: 700; }
+.f-title { color: #5C2751; font-size: 24px; font-weight: 700; margin-top: 4px; }
+
+.f-upgrade-card {
+  margin: 14px 14px 0;
+  background: #fff; border: 3px solid #5C2751; border-radius: 18px; padding: 14px;
+  transform: rotate(-0.5deg);
+}
+.f-upgrade-card .uc-label { font-size: 10px; font-weight: 700; color: #FF6F91; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.f-upgrade-card .uc-text { font-size: 13px; color: #5C2751; line-height: 1.45; margin-bottom: 12px; font-weight: 500; }
+.f-upgrade-card .uc-btns { display: flex; gap: 8px; }
+.f-upgrade-card .uc-btn-primary {
+  flex: 1; background: #5C2751; color: #FFF8E7; border: none;
+  padding: 10px; border-radius: 10px; font-weight: 700; font-size: 12px;
+  font-family: 'Fredoka', sans-serif;
+}
+.f-upgrade-card .uc-btn-secondary {
+  flex: 1; background: #F2B705; color: #5C2751; border: 2px solid #5C2751;
+  padding: 10px; border-radius: 10px; font-weight: 700; font-size: 12px;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.f-plan-label {
+  margin: 18px 14px 10px;
+  font-size: 13px; font-weight: 700; color: #5C2751;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.f-ex-card {
+  margin: 0 14px 12px; background: #fff;
+  border: 2.5px solid #5C2751; border-radius: 18px; overflow: hidden; cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.f-ex-card:nth-child(odd) { transform: rotate(0.5deg); }
+.f-ex-card:nth-child(even) { transform: rotate(-0.5deg); }
+.f-ex-card:hover { transform: rotate(0deg) scale(1.02); }
+.f-ex-card .card-body { padding: 12px 14px 14px; }
+.f-ex-card .card-body .ex-name { color: #5C2751; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.f-ex-card .card-body .ex-desc { color: #a06; font-size: 12px; line-height: 1.4; opacity: 0.75; font-family: 'Inter', sans-serif; }
+
+.f-warmup-card {
+  margin: 0 14px 12px; background: #F2B705;
+  border: 2.5px solid #5C2751; border-radius: 18px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  transform: rotate(0.4deg);
+}
+.f-warmup-card .wm-icon { font-size: 24px; }
+.f-warmup-card .wm-text .ex-name { color: #5C2751; font-weight: 700; font-size: 14px; }
+.f-warmup-card .wm-text .ex-desc { color: #5C2751; font-size: 12px; margin-top: 2px; opacity: 0.75; font-family: 'Inter', sans-serif; }
+
+.f-joke-card {
+  margin: 0 14px 20px; background: #FF6F91;
+  border: 2.5px solid #5C2751; border-radius: 18px; padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  transform: rotate(-0.6deg);
+  position: relative;
+}
+.f-joke-card .joke-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.f-joke-card .joke-text { color: #fff; font-size: 13px; line-height: 1.45; font-weight: 600; }
+
+/* =================================================================
+   JULI DASHBOARD SHARED
+================================================================= */
+.dash-screen-wrap { position: relative; }
+.dash-screen { display: none; flex-direction: column; height: 100%; }
+.dash-screen.active { display: flex; }
+.slide-in { animation: slideIn 0.22s ease; }
+.slide-out-back { animation: slideBack 0.22s ease; }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideBack { from { transform: translateX(-30%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* ============================
+   ENERGETIC DASHBOARD
+============================ */
+.e-dash-header {
+  background: #3D1A5B; padding: 22px 18px 18px;
+  position: relative; overflow: hidden; flex-shrink: 0;
+}
+.e-dash-header::before {
+  content: ''; position: absolute; top: -55px; right: -55px; width: 160px; height: 160px;
+  background: #C6FF3D;
+  clip-path: polygon(50% 0%,65% 25%,95% 15%,80% 42%,100% 60%,72% 65%,78% 95%,52% 75%,28% 100%,25% 70%,0% 78%,18% 50%,0% 25%,30% 32%,35% 2%);
+  transform: rotate(8deg); z-index: 0;
+}
+.e-dash-header-content { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; }
+.e-dash-back { background: none; border: none; color: #C6FF3D; font-size: 20px; padding: 0; margin-right: 2px; }
+.e-dash-greet { color: #C6FF3D; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.e-dash-title { font-family: 'Anton', sans-serif; color: #fff; font-size: 24px; line-height: 1.1; }
+
+.e-student-row {
+  margin: 0 16px; padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 12px; cursor: pointer;
+  transition: opacity 0.15s;
+}
+.e-student-row:hover { opacity: 0.75; }
+.e-student-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: #C6FF3D; color: #1a0e2e;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px; flex-shrink: 0;
+}
+.e-student-name { color: #fff; font-weight: 700; font-size: 14px; }
+.e-student-meta { color: #9b8bb0; font-size: 12px; margin-top: 2px; }
+.e-student-arrow { color: #5a4a7a; font-size: 16px; margin-left: auto; }
+
+.e-profile-stat-row { display: flex; gap: 8px; margin: 16px 16px 0; }
+.e-profile-stat {
+  flex: 1; background: rgba(255,255,255,0.07); border-radius: 12px; padding: 12px 8px;
+  text-align: center;
+}
+.e-profile-stat .pnum { font-family: 'Anton', sans-serif; font-size: 20px; color: #C6FF3D; display: block; }
+.e-profile-stat .plbl { font-size: 10px; color: #9b8bb0; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; display: block; }
+
+.e-profile-section-label {
+  margin: 18px 16px 10px;
+  font-size: 10px; font-weight: 800; color: #C6FF3D;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.e-profile-plan-row {
+  margin: 0 16px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; justify-content: space-between; font-size: 13px;
+}
+.e-profile-plan-row .pk { color: #9b8bb0; }
+.e-profile-plan-row .pv { color: #fff; font-weight: 600; }
+
+.e-session-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(198,255,61,0.12); border: 1px solid rgba(198,255,61,0.3);
+  border-radius: 10px; padding: 8px 12px; margin: 0 4px 8px 0;
+  font-size: 12px; color: #C6FF3D; font-weight: 700;
+}
+
+.e-cta-bar { padding: 14px 16px 18px; flex-shrink: 0; }
+.e-cta {
+  width: 100%; background: #C6FF3D; color: #1a0e2e; border: none;
+  padding: 15px; border-radius: 14px; font-weight: 800; font-size: 14px;
+  text-transform: uppercase; letter-spacing: 0.03em;
+  box-shadow: 0 5px 0 #8fc424; transition: transform 0.1s, box-shadow 0.1s;
+}
+.e-cta:active { transform: translateY(3px); box-shadow: 0 2px 0 #8fc424; }
+
+/* ============================
+   FUNNY DASHBOARD
+============================ */
+.f-dash-header {
+  background: #F2B705; padding: 22px 18px 18px;
+  border-bottom: 4px dashed #5C2751; flex-shrink: 0;
+}
+.f-dash-header-content { display: flex; align-items: center; gap: 8px; }
+.f-dash-back { background: none; border: none; color: #5C2751; font-size: 20px; padding: 0; }
+.f-dash-greet { color: #5C2751; font-size: 12px; font-weight: 700; }
+.f-dash-title { color: #5C2751; font-size: 22px; font-weight: 700; margin-top: 2px; }
+
+.f-student-row {
+  margin: 0 14px; padding: 14px 0;
+  border-bottom: 2px dashed #e8d4b8;
+  display: flex; align-items: center; gap: 12px; cursor: pointer;
+  transition: transform 0.15s;
+}
+.f-student-row:hover { transform: scale(1.02); }
+.f-student-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: #F2B705; border: 2.5px solid #5C2751; color: #5C2751;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; flex-shrink: 0;
+  font-family: 'Fredoka', sans-serif;
+}
+.f-student-name { color: #5C2751; font-weight: 700; font-size: 14px; }
+.f-student-meta { color: #a06; font-size: 11px; margin-top: 2px; opacity: 0.7; font-family: 'Inter', sans-serif; }
+.f-student-arrow { color: #d4a0b0; font-size: 16px; margin-left: auto; }
+
+.f-profile-stat-row { display: flex; gap: 8px; margin: 14px 14px 0; }
+.f-profile-stat {
+  flex: 1; background: #F2B705; border: 2px solid #5C2751;
+  border-radius: 14px; padding: 12px 6px; text-align: center;
+  transform: rotate(-0.5deg);
+}
+.f-profile-stat:nth-child(2) { transform: rotate(0.5deg); }
+.f-profile-stat .pnum { font-family: 'Fredoka', sans-serif; font-size: 20px; color: #5C2751; display: block; font-weight: 700; }
+.f-profile-stat .plbl { font-size: 10px; color: #7a3a5a; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; display: block; font-family: 'Inter', sans-serif; }
+
+.f-profile-section-label {
+  margin: 16px 14px 8px;
+  font-size: 12px; font-weight: 700; color: #5C2751;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.f-profile-plan-row {
+  margin: 0 14px; padding: 10px 0; border-bottom: 1.5px dashed #e8d4b8;
+  display: flex; justify-content: space-between; font-size: 13px;
+}
+.f-profile-plan-row .pk { color: #a06; opacity: 0.7; font-family: 'Inter', sans-serif; }
+.f-profile-plan-row .pv { color: #5C2751; font-weight: 700; }
+
+.f-session-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #FFF8E7; border: 2px solid #5C2751;
+  border-radius: 10px; padding: 7px 10px; margin: 0 4px 8px 0;
+  font-size: 12px; color: #5C2751; font-weight: 700;
+}
+
+.f-cta-bar { padding: 12px 14px 16px; flex-shrink: 0; }
+.f-cta {
+  width: 100%; background: #5C2751; color: #FFF8E7; border: none;
+  padding: 14px; border-radius: 14px; font-weight: 700; font-size: 14px;
+  font-family: 'Fredoka', sans-serif;
+  transform: rotate(-0.5deg); transition: transform 0.15s;
+}
+.f-cta:hover { transform: rotate(0.5deg) scale(1.02); }
+
+/* ============================
+   F3 LIBRARY/BUILDER (shared for both dashboards)
+============================ */
+.lib-screen { background: #fff; display: flex; flex-direction: column; height: 100%; }
+.lib-header { padding: 18px 20px 14px; border-bottom: 1px solid #ececec; flex-shrink: 0; background: #fff; }
+.lib-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.lib-back { background: none; border: none; font-size: 18px; padding: 0; color: #1a1a1a; }
+.lib-eyebrow { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'Inter', sans-serif; }
+.lib-title { font-size: 18px; font-weight: 700; color: #1a1a1a; font-family: 'Inter', sans-serif; }
+.lib-filters { display: flex; gap: 6px; overflow-x: auto; padding: 12px 20px 0; flex-shrink: 0; }
+.lib-filter {
+  white-space: nowrap; border: 1px solid #ddd; background: #fff; color: #1a1a1a;
+  padding: 6px 12px; border-radius: 999px; font-size: 12px; cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.lib-filter.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+.lib-list { flex: 1; overflow-y: auto; padding: 12px 20px; }
+.lib-ex-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid #ececec; cursor: pointer;
+}
+.lib-ex-icon {
+  width: 36px; height: 36px; border-radius: 8px; background: #f3f3f3;
+  display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.lib-ex-text { flex: 1; font-family: 'Inter', sans-serif; }
+.lib-ex-text .en { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+.lib-ex-text .em { font-size: 12px; color: #999; margin-top: 2px; }
+.lib-check { width: 18px; height: 18px; border: 1.5px solid #ccc; border-radius: 3px; flex-shrink: 0; transition: all 0.15s; }
+.lib-check.checked { background: #0E7C7B; border-color: #0E7C7B; }
+.lib-footer { padding: 12px 20px 14px; border-top: 1px solid #ececec; flex-shrink: 0; background: #fff; }
+.lib-footer-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-family: 'Inter', sans-serif; font-size: 13px; color: #999; }
+.lib-footer-row span { color: #0E7C7B; font-weight: 600; }
+.lib-cta {
+  width: 100%; background: #1a1a1a; color: #fff; border: none;
+  padding: 14px; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif;
+  border-radius: 0; transition: background 0.2s;
+}
+.lib-cta:hover { background: #0E7C7B; }
+.lib-cta:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Builder step */
+.builder-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 0; border-bottom: 1px solid #ececec;
+}
+.builder-icon {
+  width: 36px; height: 36px; border-radius: 8px; background: #f3f3f3;
+  display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.builder-text { flex: 1; font-family: 'Inter', sans-serif; }
+.builder-text .en { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+.builder-text .em { font-size: 12px; color: #999; }
+.builder-remove { background: none; border: none; color: #ccc; font-size: 20px; padding: 4px; }
+
+/* Done step */
+.done-step {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 40px 28px;
+  font-family: 'Inter', sans-serif;
+}
+.done-check {
+  width: 56px; height: 56px; border-radius: 50%; background: #0E7C7B; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 16px;
+}
+.done-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.done-sub { font-size: 13px; color: #999; margin-bottom: 24px; line-height: 1.4; }
+.done-reset { border: 1px solid #ddd; background: #fff; padding: 11px 18px; border-radius: 8px; font-size: 13px; font-family: 'Inter', sans-serif; }
+
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>Iteración 2 🏋️‍♀️</h1>
+  <p>Home del alumno con plan del día, y dashboard de Juli con perfiles de alumnas. Todo en los dos estilos que le gustaron a Juli.</p>
+  <div class="nav-group">
+    <div class="nav-group-label">Home del alumno — vertical</div>
+    <nav class="nav">
+      <a href="#sh-energetic">⚡ Energético</a>
+      <a href="#sh-funny">😜 Divertido</a>
+    </nav>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Home del alumno — horizontal</div>
+    <nav class="nav">
+      <a href="#sh-energetic-h">⚡ Energético</a>
+      <a href="#sh-funny-h">😜 Divertido</a>
+    </nav>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Dashboard de Juli</div>
+    <nav class="nav">
+      <a href="#jd-energetic">⚡ Energético</a>
+      <a href="#jd-funny">😜 Divertido</a>
+    </nav>
+  </div>
+</div>
+<a href="index.html" class="back-link">← volver al inicio</a>
+
+<!-- =====================================================================
+     S1 — STUDENT HOME · ENERGETIC
+====================================================================== -->
+<section class="style-section" id="sh-energetic" style="background:#1a0e2e;">
+  <div class="section-eyebrow" style="color:#C6FF3D;">Home del alumno</div>
+  <div class="section-title">Energético ⚡</div>
+
+  <div class="phone" style="background:#1a0e2e;">
+    <div class="phone-screen e-screen">
+      <div class="e-header">
+        <div class="e-header-content">
+          <div class="e-greet">Bienvenida de vuelta</div>
+          <div class="e-title">Hola, Cami 👋</div>
+          <div class="e-zigzag"><svg width="220" height="14" viewBox="0 0 220 14" fill="none"><path d="M2 10 L20 4 L38 10 L56 4 L74 10 L92 4 L110 10 L128 4 L146 10 L164 4 L182 10 L200 4 L218 8" stroke="#FF4D6D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="screen-body">
+        <!-- upgrade card -->
+        <div class="e-upgrade-card">
+          <div class="uc-label">💡 Un momento, Cami</div>
+          <div class="uc-text">Hola corazón, acordate que podés mejorar tu plan para agendar clases presenciales en SportClub 54 🏟️</div>
+          <div class="uc-btns">
+            <button class="uc-btn-primary">Mejorar plan</button>
+            <button class="uc-btn-secondary">Agendar clase</button>
+          </div>
+        </div>
+
+        <!-- plan label -->
+        <div class="e-plan-label">Tu plan para hoy 🔥</div>
+
+        <!-- warmup -->
+        <div class="e-warmup-card">
+          <div class="wm-icon">🔥</div>
+          <div class="wm-text">
+            <div class="ex-name">Entrada en calor</div>
+            <div class="ex-desc">10 min · trote suave + movilidad articular</div>
+          </div>
+        </div>
+
+        <!-- exercise cards -->
+        <div class="e-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🦵</div><div class="play-btn">▶</div><div class="duration">1:24</div></div>
+          <div class="card-body"><div class="ex-name">Sentadilla goblet</div><div class="ex-desc">4 series × 12 reps · Mantenés la espalda derecha y los talones apoyados.</div></div>
+        </div>
+        <div class="e-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🍑</div><div class="play-btn">▶</div><div class="duration">1:38</div></div>
+          <div class="card-body"><div class="ex-name">Hip thrust</div><div class="ex-desc">4 series × 15 reps · Apretás glúteo arriba y bajás controlado.</div></div>
+        </div>
+        <div class="e-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🦿</div><div class="play-btn">▶</div><div class="duration">2:05</div></div>
+          <div class="card-body"><div class="ex-name">Zancadas búlgaras</div><div class="ex-desc">3 series × 10 reps por lado · El pie de atrás va en el banco.</div></div>
+        </div>
+        <div class="e-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">💪</div><div class="play-btn">▶</div><div class="duration">1:52</div></div>
+          <div class="card-body"><div class="ex-name">Peso muerto rumano</div><div class="ex-desc">3 series × 12 reps · La barra baja pegada a las piernas.</div></div>
+        </div>
+        <div class="e-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🏋️</div><div class="play-btn">▶</div><div class="duration">1:17</div></div>
+          <div class="card-body"><div class="ex-name">Prensa de pierna</div><div class="ex-desc">3 series × 15 reps · Pies al ancho de hombros, bajás hasta 90°.</div></div>
+        </div>
+        <div class="e-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🧘</div><div class="play-btn">▶</div><div class="duration">1:10</div></div>
+          <div class="card-body"><div class="ex-name">Plancha lateral</div><div class="ex-desc">3 series × 30 seg por lado · Cuerpo en línea recta.</div></div>
+        </div>
+
+        <!-- stretch -->
+        <div class="e-warmup-card" style="background: rgba(198,255,61,0.12); border: 1px solid rgba(198,255,61,0.25);">
+          <div class="wm-icon">🌿</div>
+          <div class="wm-text">
+            <div class="ex-name" style="color:#C6FF3D;">Vuelta a la calma</div>
+            <div class="ex-desc" style="color:#9b8bb0;">8 min · elongación de cuádriceps, isquio y glúteo</div>
+          </div>
+        </div>
+
+        <!-- shower joke -->
+        <div class="e-joke-card">
+          <div class="joke-icon">🚿</div>
+          <div class="joke-text">Recordá que es muy importante bañarse después del ejercicio. No dejés pasar otra semana, eh 👀</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#C6FF3D;">↑ volver arriba</a>
+</section>
+
+<!-- =====================================================================
+     S2 — STUDENT HOME · FUNNY
+====================================================================== -->
+<section class="style-section" id="sh-funny" style="background:#3a2410;">
+  <div class="section-eyebrow" style="color:#F2B705;">Home del alumno</div>
+  <div class="section-title" style="color:#fff;">Divertido 😜</div>
+
+  <div class="phone" style="background:#3a2410;">
+    <div class="phone-screen f-screen">
+      <div class="f-header">
+        <div class="f-greet">Bienvenida de vuelta 👋</div>
+        <div class="f-title">Hola, Cami!</div>
+      </div>
+
+      <div class="screen-body">
+        <!-- upgrade card -->
+        <div class="f-upgrade-card">
+          <div class="uc-label">💡 Psst, Cami!</div>
+          <div class="uc-text">Hola corazón, acordate que podés mejorar tu plan para agendar clases presenciales en SportClub 54 🏟️</div>
+          <div class="uc-btns">
+            <button class="uc-btn-primary">Mejorar plan</button>
+            <button class="uc-btn-secondary">Agendar clase</button>
+          </div>
+        </div>
+
+        <!-- plan label -->
+        <div class="f-plan-label">Tu plan para hoy 🔥</div>
+
+        <!-- warmup -->
+        <div class="f-warmup-card">
+          <div class="wm-icon">🔥</div>
+          <div class="wm-text">
+            <div class="ex-name">Entrada en calor</div>
+            <div class="ex-desc">10 min · trote suave + movilidad articular</div>
+          </div>
+        </div>
+
+        <!-- exercise cards -->
+        <div class="f-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🦵</div><div class="play-btn">▶</div><div class="duration">1:24</div></div>
+          <div class="card-body"><div class="ex-name">Sentadilla goblet</div><div class="ex-desc">4 series × 12 reps · Mantenés la espalda derecha y los talones apoyados.</div></div>
+        </div>
+        <div class="f-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🍑</div><div class="play-btn">▶</div><div class="duration">1:38</div></div>
+          <div class="card-body"><div class="ex-name">Hip thrust</div><div class="ex-desc">4 series × 15 reps · Apretás glúteo arriba y bajás controlado.</div></div>
+        </div>
+        <div class="f-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🦿</div><div class="play-btn">▶</div><div class="duration">2:05</div></div>
+          <div class="card-body"><div class="ex-name">Zancadas búlgaras</div><div class="ex-desc">3 series × 10 reps por lado · El pie de atrás va en el banco.</div></div>
+        </div>
+        <div class="f-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">💪</div><div class="play-btn">▶</div><div class="duration">1:52</div></div>
+          <div class="card-body"><div class="ex-name">Peso muerto rumano</div><div class="ex-desc">3 series × 12 reps · La barra baja pegada a las piernas.</div></div>
+        </div>
+        <div class="f-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🏋️</div><div class="play-btn">▶</div><div class="duration">1:17</div></div>
+          <div class="card-body"><div class="ex-name">Prensa de pierna</div><div class="ex-desc">3 series × 15 reps · Pies al ancho de hombros, bajás hasta 90°.</div></div>
+        </div>
+        <div class="f-ex-card">
+          <div class="vid-thumb"><div class="thumb-bg">🧘</div><div class="play-btn">▶</div><div class="duration">1:10</div></div>
+          <div class="card-body"><div class="ex-name">Plancha lateral</div><div class="ex-desc">3 series × 30 seg por lado · Cuerpo en línea recta.</div></div>
+        </div>
+
+        <!-- stretch -->
+        <div class="f-warmup-card" style="background:#e8f4e8; border-color:#5C2751;">
+          <div class="wm-icon">🌿</div>
+          <div class="wm-text">
+            <div class="ex-name">Vuelta a la calma</div>
+            <div class="ex-desc">8 min · elongación de cuádriceps, isquio y glúteo</div>
+          </div>
+        </div>
+
+        <!-- shower joke -->
+        <div class="f-joke-card">
+          <div class="joke-icon">🚿</div>
+          <div class="joke-text">Recordá que es muy importante bañarse después del ejercicio. No dejés pasar otra semana, eh 👀😂</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#F2B705;">↑ volver arriba</a>
+</section>
+
+<!-- =====================================================================
+     S2b — STUDENT HOME HORIZONTAL · ENERGETIC
+====================================================================== -->
+<section class="style-section" id="sh-energetic-h" style="background:#1a0e2e;">
+  <div class="section-eyebrow" style="color:#C6FF3D;">Home del alumno · Horizontal</div>
+  <div class="section-title">Energético ⚡</div>
+  <div class="phone" style="background:#1a0e2e;">
+    <div class="phone-screen e-screen">
+      <div class="e-header" style="flex-shrink:0;">
+        <div class="e-header-content">
+          <div class="e-greet">Bienvenida de vuelta</div>
+          <div class="e-title">Hola, Cami 👋</div>
+          <div class="e-zigzag"><svg width="220" height="14" viewBox="0 0 220 14" fill="none"><path d="M2 10 L20 4 L38 10 L56 4 L74 10 L92 4 L110 10 L128 4 L146 10 L164 4 L182 10 L200 4 L218 8" stroke="#FF4D6D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <!-- progress bar -->
+      <div style="padding: 10px 18px 0; flex-shrink:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span id="eh-step-label" style="font-size:11px; color:#C6FF3D; font-weight:800; text-transform:uppercase; letter-spacing:0.06em;">Entrada en calor</span>
+          <span id="eh-step-count" style="font-size:11px; color:#9b8bb0;">1 / 9</span>
+        </div>
+        <div style="height:3px; background:rgba(255,255,255,0.1); border-radius:2px;">
+          <div id="eh-progress-bar" style="height:3px; background:#C6FF3D; border-radius:2px; width:11%; transition:width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <!-- carousel -->
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:12px 8px; overflow:hidden; position:relative;">
+        <div id="eh-card" style="width:100%; transition: transform 0.22s ease, opacity 0.22s ease;"></div>
+      </div>
+
+      <!-- nav arrows -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:0 18px 18px; flex-shrink:0;">
+        <button onclick="ehNav(-1)" id="eh-prev" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;">‹</button>
+        <div id="eh-dots" style="display:flex;gap:6px;"></div>
+        <button onclick="ehNav(1)" id="eh-next" style="width:44px;height:44px;border-radius:50%;background:#C6FF3D;border:none;color:#1a0e2e;font-size:20px;display:flex;align-items:center;justify-content:center;">›</button>
+      </div>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#C6FF3D;">↑ volver arriba</a>
+</section>
+
+<!-- =====================================================================
+     S2c — STUDENT HOME HORIZONTAL · FUNNY
+====================================================================== -->
+<section class="style-section" id="sh-funny-h" style="background:#3a2410;">
+  <div class="section-eyebrow" style="color:#F2B705;">Home del alumno · Horizontal</div>
+  <div class="section-title" style="color:#fff;">Divertido 😜</div>
+  <div class="phone" style="background:#3a2410;">
+    <div class="phone-screen f-screen">
+      <div class="f-header" style="flex-shrink:0;">
+        <div class="f-greet">Bienvenida de vuelta 👋</div>
+        <div class="f-title">Hola, Cami!</div>
+      </div>
+
+      <!-- progress bar -->
+      <div style="padding: 10px 16px 0; flex-shrink:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span id="fh-step-label" style="font-size:12px; color:#5C2751; font-weight:700;">Entrada en calor</span>
+          <span id="fh-step-count" style="font-size:11px; color:#a06; opacity:0.7; font-family:'Inter',sans-serif;">1 / 9</span>
+        </div>
+        <div style="height:4px; background:#e8d4b8; border-radius:2px;">
+          <div id="fh-progress-bar" style="height:4px; background:#F2B705; border:1.5px solid #5C2751; border-radius:2px; width:11%; transition:width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <!-- carousel -->
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:12px 8px; overflow:hidden;">
+        <div id="fh-card" style="width:100%; transition: transform 0.22s ease, opacity 0.22s ease;"></div>
+      </div>
+
+      <!-- nav arrows -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:0 16px 16px; flex-shrink:0;">
+        <button onclick="fhNav(-1)" id="fh-prev" style="width:44px;height:44px;border-radius:50%;background:#e8d4b8;border:2px solid #5C2751;color:#5C2751;font-size:20px;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;">‹</button>
+        <div id="fh-dots" style="display:flex;gap:6px;"></div>
+        <button onclick="fhNav(1)" id="fh-next" style="width:44px;height:44px;border-radius:50%;background:#F2B705;border:2px solid #5C2751;color:#5C2751;font-size:20px;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;">›</button>
+      </div>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#F2B705;">↑ volver arriba</a>
+</section>
+
+<!-- =====================================================================
+     S3 — JULI DASHBOARD · ENERGETIC
+====================================================================== -->
+<section class="style-section" id="jd-energetic" style="background:#1a0e2e;">
+  <div class="section-eyebrow" style="color:#C6FF3D;">Dashboard de Juli</div>
+  <div class="section-title">Energético ⚡</div>
+
+  <div class="phone" style="background:#1a0e2e;">
+    <div class="phone-screen e-screen" style="height:680px; position:relative;">
+
+      <!-- PANEL: STUDENT LIST -->
+      <div id="e-dash-list" style="display:flex; flex-direction:column; height:100%;">
+
+        <!-- Sub-view A: student list -->
+        <div id="e-dash-student-list-view" style="display:flex; flex-direction:column; height:100%;">
+          <div class="e-dash-header">
+            <div class="e-dash-header-content">
+              <div>
+                <div class="e-dash-greet">Panel de entrenadora</div>
+                <div class="e-dash-title">Mis alumnas 💪</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-body" style="padding: 8px 0;">
+            <div style="padding: 14px 16px 6px; font-size:10px; color:#9b8bb0; text-transform:uppercase; letter-spacing:0.08em; font-weight:700;">4 alumnas activas</div>
+            <div class="e-student-row" onclick="eDashState.pickStudent('cami')">
+              <div class="e-student-avatar">CR</div>
+              <div><div class="e-student-name">Cami Rodríguez</div><div class="e-student-meta">Online + Presencial · activa hoy</div></div>
+              <span class="e-student-arrow">›</span>
+            </div>
+            <div class="e-student-row" onclick="eDashState.pickStudent('sol')">
+              <div class="e-student-avatar" style="background:#FF4D6D; color:#fff;">SI</div>
+              <div><div class="e-student-name">Sol Ibáñez</div><div class="e-student-meta">Solo Online · activa ayer</div></div>
+              <span class="e-student-arrow">›</span>
+            </div>
+            <div class="e-student-row" onclick="eDashState.pickStudent('mar')">
+              <div class="e-student-avatar" style="background:#9b5de5; color:#fff;">MP</div>
+              <div><div class="e-student-name">Mariana Paz</div><div class="e-student-meta">Solo Presencial · racha 20 días 🔥</div></div>
+              <span class="e-student-arrow">›</span>
+            </div>
+            <div class="e-student-row" onclick="eDashState.pickStudent('vale')">
+              <div class="e-student-avatar" style="background:#555; color:#fff;">VG</div>
+              <div><div class="e-student-name">Vale García</div><div class="e-student-meta">Solo Online · inactiva 4 días</div></div>
+              <span class="e-student-arrow">›</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-view B: student profile -->
+        <div id="e-dash-student-profile-view" style="display:none; flex-direction:column; height:100%;">
+          <div class="e-dash-header">
+            <div class="e-dash-header-content">
+              <button class="e-dash-back" onclick="eDashState.showStudentList()">←</button>
+              <div>
+                <div class="e-dash-greet">Perfil de alumna</div>
+                <div class="e-dash-title" id="e-dash-profile-name">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-body" id="e-dash-profile-content"></div>
+          <div class="e-cta-bar">
+            <button class="e-cta" onclick="eDashState.goTo('library')">Cambiar rutina ✏️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: LIBRARY -->
+      <div id="e-dash-library" style="display:none;">
+        <div class="lib-screen">
+          <div class="lib-header">
+            <div class="lib-header-row">
+              <button class="lib-back" onclick="eDashState.showStudentList()">←</button>
+              <div><div class="lib-eyebrow">Biblioteca de ejercicios</div><div class="lib-title">Elegí ejercicios</div></div>
+            </div>
+          </div>
+          <div class="lib-filters">
+            <button class="lib-filter e-dash-filter active" data-group="todos" onclick="eDashState.filter('todos')">Todos</button>
+            <button class="lib-filter e-dash-filter" data-group="pierna" onclick="eDashState.filter('pierna')">Pierna</button>
+            <button class="lib-filter e-dash-filter" data-group="espalda" onclick="eDashState.filter('espalda')">Espalda</button>
+            <button class="lib-filter e-dash-filter" data-group="core" onclick="eDashState.filter('core')">Core</button>
+          </div>
+          <div class="lib-list" id="e-dash-lib-list"></div>
+          <div class="lib-footer">
+            <div class="lib-footer-row"><span id="e-dash-lib-count">0</span> seleccionados</div>
+            <button class="lib-cta" id="e-dash-lib-cta" onclick="eDashState.goTo('builder')" disabled>Armar rutina →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: BUILDER -->
+      <div id="e-dash-builder" style="display:none;">
+        <div class="lib-screen">
+          <div class="lib-header">
+            <div class="lib-header-row">
+              <button class="lib-back" onclick="eDashState.goTo('library')">←</button>
+              <div><div class="lib-eyebrow">Armando la rutina</div><div class="lib-title">Revisá y confirmá</div></div>
+            </div>
+          </div>
+          <div class="lib-list" id="e-dash-builder-list"></div>
+          <div class="lib-footer">
+            <button class="lib-cta" onclick="eDashState.confirm()">Asignar rutina ✓</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: DONE -->
+      <div id="e-dash-done" style="display:none;">
+        <div class="lib-screen">
+          <div class="done-step">
+            <div class="done-check">✓</div>
+            <div class="done-title">Rutina asignada</div>
+            <div class="done-sub">La alumna ya puede verla en su app.</div>
+            <button class="done-reset" onclick="eDashState.reset(); eDashState.goTo('library')">Modificar de nuevo</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#C6FF3D;">↑ volver arriba</a>
+</section>
+
+<!-- =====================================================================
+     S4 — JULI DASHBOARD · FUNNY
+====================================================================== -->
+<section class="style-section" id="jd-funny" style="background:#3a2410;">
+  <div class="section-eyebrow" style="color:#F2B705;">Dashboard de Juli</div>
+  <div class="section-title" style="color:#fff;">Divertido 😜</div>
+
+  <div class="phone" style="background:#3a2410;">
+    <div class="phone-screen f-screen" style="height:680px;">
+
+      <!-- PANEL: STUDENT LIST -->
+      <div id="f-dash-list" style="display:flex; flex-direction:column; height:100%;">
+
+        <!-- Sub-view A: student list -->
+        <div id="f-dash-student-list-view" style="display:flex; flex-direction:column; height:100%;">
+          <div class="f-dash-header">
+            <div class="f-dash-header-content">
+              <div>
+                <div class="f-dash-greet">Panel de Juli 🏋️‍♀️</div>
+                <div class="f-dash-title">Mis alumnas!</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-body" style="padding: 8px 0;">
+            <div style="padding: 14px 14px 6px; font-size:11px; color:#a06; font-weight:700;">4 alumnas activas 🌟</div>
+            <div class="f-student-row" onclick="fDashState.pickStudent('cami')">
+              <div class="f-student-avatar">CR</div>
+              <div><div class="f-student-name">Cami Rodríguez</div><div class="f-student-meta">Online + Presencial · activa hoy</div></div>
+              <span class="f-student-arrow">›</span>
+            </div>
+            <div class="f-student-row" onclick="fDashState.pickStudent('sol')">
+              <div class="f-student-avatar" style="background:#FF6F91;">SI</div>
+              <div><div class="f-student-name">Sol Ibáñez</div><div class="f-student-meta">Solo Online · activa ayer</div></div>
+              <span class="f-student-arrow">›</span>
+            </div>
+            <div class="f-student-row" onclick="fDashState.pickStudent('mar')">
+              <div class="f-student-avatar" style="background:#9b5de5; color:#fff;">MP</div>
+              <div><div class="f-student-name">Mariana Paz</div><div class="f-student-meta">Solo Presencial · racha 20 días 🔥</div></div>
+              <span class="f-student-arrow">›</span>
+            </div>
+            <div class="f-student-row" onclick="fDashState.pickStudent('vale')">
+              <div class="f-student-avatar" style="background:#ccc; color:#5C2751;">VG</div>
+              <div><div class="f-student-name">Vale García</div><div class="f-student-meta">Solo Online · inactiva 4 días</div></div>
+              <span class="f-student-arrow">›</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-view B: student profile -->
+        <div id="f-dash-student-profile-view" style="display:none; flex-direction:column; height:100%;">
+          <div class="f-dash-header">
+            <div class="f-dash-header-content">
+              <button class="f-dash-back" onclick="fDashState.showStudentList()">←</button>
+              <div>
+                <div class="f-dash-greet">Perfil</div>
+                <div class="f-dash-title" id="f-dash-profile-name">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-body" id="f-dash-profile-content"></div>
+          <div class="f-cta-bar">
+            <button class="f-cta" onclick="fDashState.goTo('library')">Cambiar rutina ✏️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: LIBRARY -->
+      <div id="f-dash-library" style="display:none;">
+        <div class="lib-screen">
+          <div class="lib-header">
+            <div class="lib-header-row">
+              <button class="lib-back" onclick="fDashState.showStudentList()">←</button>
+              <div><div class="lib-eyebrow">Biblioteca</div><div class="lib-title">Elegí ejercicios</div></div>
+            </div>
+          </div>
+          <div class="lib-filters">
+            <button class="lib-filter f-dash-filter active" data-group="todos" onclick="fDashState.filter('todos')">Todos</button>
+            <button class="lib-filter f-dash-filter" data-group="pierna" onclick="fDashState.filter('pierna')">Pierna</button>
+            <button class="lib-filter f-dash-filter" data-group="espalda" onclick="fDashState.filter('espalda')">Espalda</button>
+            <button class="lib-filter f-dash-filter" data-group="core" onclick="fDashState.filter('core')">Core</button>
+          </div>
+          <div class="lib-list" id="f-dash-lib-list"></div>
+          <div class="lib-footer">
+            <div class="lib-footer-row"><span id="f-dash-lib-count">0</span> seleccionados</div>
+            <button class="lib-cta" id="f-dash-lib-cta" onclick="fDashState.goTo('builder')" disabled>Armar rutina →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: BUILDER -->
+      <div id="f-dash-builder" style="display:none;">
+        <div class="lib-screen">
+          <div class="lib-header">
+            <div class="lib-header-row">
+              <button class="lib-back" onclick="fDashState.goTo('library')">←</button>
+              <div><div class="lib-eyebrow">Armando la rutina</div><div class="lib-title">Revisá y confirmá</div></div>
+            </div>
+          </div>
+          <div class="lib-list" id="f-dash-builder-list"></div>
+          <div class="lib-footer">
+            <button class="lib-cta" onclick="fDashState.confirm()">Asignar rutina ✓</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: DONE -->
+      <div id="f-dash-done" style="display:none;">
+        <div class="lib-screen">
+          <div class="done-step">
+            <div class="done-check">✓</div>
+            <div class="done-title">Rutina asignada! 🎉</div>
+            <div class="done-sub">La alumna ya puede verla en su app. ¡Dale que se puede!</div>
+            <button class="done-reset" onclick="fDashState.reset(); fDashState.goTo('library')">Modificar de nuevo</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#F2B705;">↑ volver arriba</a>
+</section>
+
+
+<footer style="text-align:center; padding:50px 20px; color:#444; font-size:13px; background:#0c0c0c;">
+  Hecho para Juli 💛 — iteración 2
+</footer>
+
+<script>
+// Shared exercise library data
+const EXERCISES = [
+  { id: 'sq',  name: 'Sentadilla goblet',    group: 'pierna',  icon: '🦵', sets: 4, reps: 12 },
+  { id: 'ht',  name: 'Hip thrust',           group: 'pierna',  icon: '🍑', sets: 4, reps: 15 },
+  { id: 'bl',  name: 'Zancadas búlgaras',    group: 'pierna',  icon: '🦿', sets: 3, reps: 10 },
+  { id: 'rdl', name: 'Peso muerto rumano',   group: 'pierna',  icon: '💪', sets: 3, reps: 12 },
+  { id: 'lp',  name: 'Prensa de pierna',     group: 'pierna',  icon: '🏋️', sets: 3, reps: 15 },
+  { id: 'row', name: 'Remo con barra',       group: 'espalda', icon: '🏋️', sets: 4, reps: 10 },
+  { id: 'lat', name: 'Jalón al pecho',       group: 'espalda', icon: '🔽', sets: 3, reps: 12 },
+  { id: 'pul', name: 'Pull-over',            group: 'espalda', icon: '🙌', sets: 3, reps: 12 },
+  { id: 'pl',  name: 'Plancha',              group: 'core',    icon: '🧘', sets: 3, reps: 40 },
+  { id: 'db',  name: 'Dead bug',             group: 'core',    icon: '🐞', sets: 3, reps: 12 },
+  { id: 'cr',  name: 'Crunch bicicleta',     group: 'core',    icon: '🚴', sets: 3, reps: 20 },
+];
+
+const STUDENTS = [
+  { id: 'cami', name: 'Cami Rodríguez',  initials: 'CR', plan: 'Online + Presencial', sessions: 3, streak: 12, nextSessions: ['Lun 22 · 08:00', 'Mié 24 · 18:00'] },
+  { id: 'sol',  name: 'Sol Ibáñez',      initials: 'SI', plan: 'Solo Online',          sessions: 2, streak: 5,  nextSessions: ['Mar 23 · 10:00'] },
+  { id: 'mar',  name: 'Mariana Paz',     initials: 'MP', plan: 'Solo Presencial',      sessions: 4, streak: 20, nextSessions: ['Jue 25 · 17:00', 'Vie 26 · 09:00'] },
+  { id: 'vale', name: 'Vale García',     initials: 'VG', plan: 'Solo Online',          sessions: 1, streak: 3,  nextSessions: [] },
+];
+
+// ---- Generic library/builder state machine (used by both dashboard styles) ----
+function makeLibState(prefix) {
+  return {
+    prefix,
+    step: 'list',       // list | library | builder | done
+    selected: new Set(),
+    filter: 'todos',
+    student: null,
+  };
+}
+
+function libGoTo(state, step) {
+  state.step = step;
+  renderDash(state);
+}
+
+function libToggle(state, id) {
+  if (state.selected.has(id)) state.selected.delete(id);
+  else state.selected.add(id);
+  renderLibrary(state);
+}
+
+function libFilter(state, group) {
+  state.filter = group;
+  renderLibrary(state);
+}
+
+function libRemove(state, id) {
+  state.selected.delete(id);
+  if (state.selected.size === 0) { libGoTo(state, 'library'); return; }
+  renderBuilder(state);
+}
+
+function libConfirm(state) {
+  libGoTo(state, 'done');
+}
+
+function libReset(state) {
+  state.step = 'library';
+  state.selected = new Set();
+  state.filter = 'todos';
+  renderLibrary(state);
+}
+
+// ---- Render functions ----
+
+function renderLibrary(state) {
+  const items = EXERCISES.filter(e => state.filter === 'todos' || e.group === state.filter);
+  const listEl = document.getElementById(`${state.prefix}-lib-list`);
+  if (!listEl) return;
+  listEl.innerHTML = items.map(ex => `
+    <div class="lib-ex-row" onclick="window['${state.prefix}State'].toggle('${ex.id}')">
+      <div class="lib-ex-icon">${ex.icon}</div>
+      <div class="lib-ex-text">
+        <div class="en">${ex.name}</div>
+        <div class="em">${ex.sets} series × ${ex.reps} ${ex.reps > 30 ? 'seg' : 'reps'}</div>
+      </div>
+      <div class="lib-check ${state.selected.has(ex.id) ? 'checked' : ''}"></div>
+    </div>
+  `).join('');
+
+  const countEl = document.getElementById(`${state.prefix}-lib-count`);
+  if (countEl) countEl.textContent = state.selected.size;
+  const ctaEl = document.getElementById(`${state.prefix}-lib-cta`);
+  if (ctaEl) ctaEl.disabled = state.selected.size === 0;
+
+  // Update filter buttons
+  document.querySelectorAll(`.${state.prefix}-filter`).forEach(btn => {
+    const active = btn.dataset.group === state.filter;
+    btn.classList.toggle('active', active);
+  });
+}
+
+function renderBuilder(state) {
+  const items = EXERCISES.filter(e => state.selected.has(e.id));
+  const listEl = document.getElementById(`${state.prefix}-builder-list`);
+  if (!listEl) return;
+  listEl.innerHTML = items.map(ex => `
+    <div class="builder-row">
+      <div class="builder-icon">${ex.icon}</div>
+      <div class="builder-text">
+        <div class="en">${ex.name}</div>
+        <div class="em">${ex.sets} series × ${ex.reps} ${ex.reps > 30 ? 'seg' : 'reps'}</div>
+      </div>
+      <button class="builder-remove" onclick="window['${state.prefix}State'].remove('${ex.id}')">×</button>
+    </div>
+  `).join('');
+}
+
+function renderDash(state) {
+  // Hide all panels
+  ['list','library','builder','done'].forEach(s => {
+    const el = document.getElementById(`${state.prefix}-${s}`);
+    if (el) el.style.display = 'none';
+  });
+
+  const target = document.getElementById(`${state.prefix}-${state.step}`);
+  if (target) {
+    target.style.display = 'flex';
+    target.style.flexDirection = 'column';
+    target.style.height = '100%';
+  }
+
+  if (state.step === 'library') renderLibrary(state);
+  if (state.step === 'builder') renderBuilder(state);
+}
+
+// ---- State wrappers (exposed globally for onclick handlers) ----
+
+function makeDashState(prefix) {
+  const s = makeLibState(prefix);
+
+  // Attach methods directly so eDashState.goTo() works in onclick handlers
+  s.goTo = (step) => { s.step = step; renderDash(s); };
+  s.toggle = (id) => { libToggle(s, id); };
+  s.filter = (group) => { libFilter(s, group); };
+  s.remove = (id) => { libRemove(s, id); };
+  s.confirm = () => { libConfirm(s); };
+  s.reset = () => { s.selected = new Set(); s.filter2 = 'todos'; renderLibrary(s); };
+  s.pickStudent = (id) => {
+    s.student = STUDENTS.find(st => st.id === id);
+    renderStudentProfile(s);
+  };
+  s.showStudentList = () => {
+    if (s.student) {
+      // Coming back from library — restore profile view
+      document.getElementById(`${prefix}-student-list-view`).style.display = 'none';
+      document.getElementById(`${prefix}-student-profile-view`).style.display = 'flex';
+    } else {
+      document.getElementById(`${prefix}-student-list-view`).style.display = 'flex';
+      document.getElementById(`${prefix}-student-profile-view`).style.display = 'none';
+    }
+    s.step = 'list';
+    renderDash(s);
+  };
+
+  return s;
+}
+
+// ---- Student list renderers ----
+function renderStudentList(state) {
+  // handled inline in HTML for first load, but also called on back navigation
+  const screenEl = document.getElementById(`${state.prefix}-list`);
+  if (!screenEl) return;
+  // Re-use the already rendered HTML (it's static), just switch panel
+  state.step = 'list';
+  renderDash(state);
+}
+
+function renderStudentProfile(state) {
+  const st = state.student;
+  if (!st) return;
+  const profileEl = document.getElementById(`${state.prefix}-profile-content`);
+  if (profileEl) {
+    const sessionsHTML = st.nextSessions.length
+      ? st.nextSessions.map(s => `<span class="${state.prefix === 'e-dash' ? 'e-session-chip' : 'f-session-chip'}">📅 ${s}</span>`).join('')
+      : `<span style="font-size:13px; color:#888; font-family:'Inter',sans-serif;">Sin clases agendadas</span>`;
+
+    if (state.prefix === 'e-dash') {
+      profileEl.innerHTML = `
+        <div class="e-profile-stat-row">
+          <div class="e-profile-stat"><span class="pnum">${st.sessions}</span><span class="plbl">Sesiones/sem</span></div>
+          <div class="e-profile-stat"><span class="pnum">${st.streak}</span><span class="plbl">Días seguidos</span></div>
+          <div class="e-profile-stat"><span class="pnum">↑12%</span><span class="plbl">Progreso</span></div>
+        </div>
+        <div class="e-profile-section-label">Plan</div>
+        <div class="e-profile-plan-row"><span class="pk">Tipo</span><span class="pv">${st.plan}</span></div>
+        <div class="e-profile-plan-row"><span class="pk">Próxima renovación</span><span class="pv">1 jul</span></div>
+        <div class="e-profile-section-label">Próximas clases presenciales</div>
+        <div style="padding: 6px 16px 4px; flex-wrap:wrap; display:flex;">${sessionsHTML}</div>
+        <div class="e-profile-section-label">Rutina asignada</div>
+        <div class="e-profile-plan-row"><span class="pk">Programa actual</span><span class="pv">Pierna · 5 ejs.</span></div>
+        <div class="e-profile-plan-row"><span class="pk">Última modificación</span><span class="pv">hace 3 días</span></div>
+      `;
+    } else {
+      profileEl.innerHTML = `
+        <div class="f-profile-stat-row">
+          <div class="f-profile-stat"><span class="pnum">${st.sessions}</span><span class="plbl">Sesiones/sem</span></div>
+          <div class="f-profile-stat"><span class="pnum">${st.streak}</span><span class="plbl">Racha 🔥</span></div>
+          <div class="f-profile-stat"><span class="pnum">↑12%</span><span class="plbl">Progreso</span></div>
+        </div>
+        <div class="f-profile-section-label">Plan</div>
+        <div class="f-profile-plan-row"><span class="pk">Tipo</span><span class="pv">${st.plan}</span></div>
+        <div class="f-profile-plan-row"><span class="pk">Próxima renovación</span><span class="pv">1 jul</span></div>
+        <div class="f-profile-section-label">Próximas clases</div>
+        <div style="padding: 4px 14px; flex-wrap:wrap; display:flex;">${sessionsHTML}</div>
+        <div class="f-profile-section-label">Rutina asignada</div>
+        <div class="f-profile-plan-row"><span class="pk">Programa actual</span><span class="pv">Pierna · 5 ejs.</span></div>
+        <div class="f-profile-plan-row"><span class="pk">Última modificación</span><span class="pv">hace 3 días</span></div>
+      `;
+    }
+  }
+
+  // Update profile header name
+  const nameEl = document.getElementById(`${state.prefix}-profile-name`);
+  if (nameEl) nameEl.textContent = st.name;
+
+  // Switch to profile panel, then library sub-step resets
+  state.step = 'list'; // profile is inside 'list' panel with its own show/hide
+  const listPanel = document.getElementById(`${state.prefix}-list`);
+  if (listPanel) {
+    listPanel.style.display = 'flex';
+    listPanel.style.flexDirection = 'column';
+    listPanel.style.height = '100%';
+  }
+  const studentListView = document.getElementById(`${state.prefix}-student-list-view`);
+  const studentProfileView = document.getElementById(`${state.prefix}-student-profile-view`);
+  if (studentListView) studentListView.style.display = 'none';
+  if (studentProfileView) { studentProfileView.style.display = 'flex'; studentProfileView.style.flexDirection = 'column'; studentProfileView.style.height = '100%'; }
+}
+
+// Init both dashboard states (methods are attached directly on the object)
+const eDashState = makeDashState('e-dash');
+const fDashState = makeDashState('f-dash');
+
+// Init library lists on load
+renderLibrary(eDashState);
+renderLibrary(fDashState);
+
+// ---- CAROUSEL DATA ----
+const CAROUSEL_STEPS = [
+  { type: 'warmup',  icon: '🔥', name: 'Entrada en calor',    meta: '10 min · trote suave + movilidad articular', desc: 'Activá el cuerpo antes de empezar. Trotá suave 5 minutos y hacé rotaciones de cadera, hombros y tobillos.' },
+  { type: 'ex',      icon: '🦵', name: 'Sentadilla goblet',   meta: '4 series × 12 reps',  desc: 'Mantenés la espalda derecha y los talones apoyados. Bajás hasta que los muslos queden paralelos al piso.' },
+  { type: 'ex',      icon: '🍑', name: 'Hip thrust',          meta: '4 series × 15 reps',  desc: 'Apretás glúteo arriba y bajás controlado. La barra queda sobre las caderas, no sobre el abdomen.' },
+  { type: 'ex',      icon: '🦿', name: 'Zancadas búlgaras',   meta: '3 × 10 c/lado',       desc: 'El pie de atrás va en el banco. Bajás hasta que la rodilla delantera llegue a 90°.' },
+  { type: 'ex',      icon: '💪', name: 'Peso muerto rumano',  meta: '3 series × 12 reps',  desc: 'La barra baja pegada a las piernas. Sentís el estiramiento de isquiotibiales antes de subir.' },
+  { type: 'ex',      icon: '🏋️', name: 'Prensa de pierna',   meta: '3 series × 15 reps',  desc: 'Pies al ancho de hombros, bajás hasta 90° y empujás sin bloquear las rodillas.' },
+  { type: 'ex',      icon: '🧘', name: 'Plancha lateral',     meta: '3 × 30 seg c/lado',   desc: 'Cuerpo en línea recta. Apoyás antebrazo y borde del pie. No dejés caer la cadera.' },
+  { type: 'stretch', icon: '🌿', name: 'Vuelta a la calma',   meta: '8 min · elongación',  desc: 'Elongación de cuádriceps, isquiotibiales y glúteo. Mantené cada posición 30 segundos sin rebotar.' },
+  { type: 'joke',    icon: '🚿', name: 'Recordatorio importante', meta: '', desc: 'Recordá que es muy importante bañarse después del ejercicio. No dejés pasar otra semana, eh 👀' },
+];
+
+function makeCarousel(prefix, accentColor, cardRenderer) {
+  let cur = 0;
+  const total = CAROUSEL_STEPS.length;
+
+  function render(dir) {
+    const step = CAROUSEL_STEPS[cur];
+    const cardEl = document.getElementById(`${prefix}-card`);
+    if (!cardEl) return;
+
+    // animate out
+    cardEl.style.transform = dir > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+    cardEl.style.opacity = '0';
+
+    setTimeout(() => {
+      cardEl.innerHTML = cardRenderer(step);
+      cardEl.style.transition = 'none';
+      cardEl.style.transform = dir > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+      cardEl.style.opacity = '0';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          cardEl.style.transition = 'transform 0.22s ease, opacity 0.22s ease';
+          cardEl.style.transform = 'translateX(0)';
+          cardEl.style.opacity = '1';
+        });
+      });
+    }, 180);
+
+    // label + count
+    document.getElementById(`${prefix}-step-label`).textContent = step.name;
+    document.getElementById(`${prefix}-step-count`).textContent = `${cur + 1} / ${total}`;
+    document.getElementById(`${prefix}-progress-bar`).style.width = `${((cur + 1) / total) * 100}%`;
+
+    // dots
+    const dotsEl = document.getElementById(`${prefix}-dots`);
+    dotsEl.innerHTML = CAROUSEL_STEPS.map((_, i) =>
+      `<div style="width:${i===cur?'18px':'6px'};height:6px;border-radius:3px;background:${i===cur?accentColor:'rgba(255,255,255,0.2)'};transition:all 0.2s ease;"></div>`
+    ).join('');
+
+    // prev/next state
+    const prev = document.getElementById(`${prefix}-prev`);
+    const next = document.getElementById(`${prefix}-next`);
+    if (prev) prev.style.opacity = cur === 0 ? '0.3' : '1';
+    if (next) next.textContent = cur === total - 1 ? '✓' : '›';
+  }
+
+  function nav(dir) {
+    const next = cur + dir;
+    if (next < 0 || next >= total) return;
+    cur = next;
+    render(dir);
+  }
+
+  render(0);
+  return nav;
+}
+
+// Energetic carousel card renderer
+function ehCardHTML(step) {
+  if (step.type === 'warmup') return `
+    <div style="background:#C6FF3D;border-radius:16px;padding:18px 16px;">
+      <div style="font-size:36px;margin-bottom:10px;">${step.icon}</div>
+      <div style="font-family:'Anton',sans-serif;color:#1a0e2e;font-size:18px;margin-bottom:4px;">${step.name}</div>
+      <div style="color:#3D1A5B;font-size:12px;margin-bottom:10px;">${step.meta}</div>
+      <div style="color:#3D1A5B;font-size:13px;line-height:1.5;">${step.desc}</div>
+    </div>`;
+  if (step.type === 'stretch') return `
+    <div style="background:rgba(198,255,61,0.1);border:1px solid rgba(198,255,61,0.25);border-radius:16px;padding:18px 16px;">
+      <div style="font-size:36px;margin-bottom:10px;">${step.icon}</div>
+      <div style="font-family:'Anton',sans-serif;color:#C6FF3D;font-size:18px;margin-bottom:4px;">${step.name}</div>
+      <div style="color:#9b8bb0;font-size:12px;margin-bottom:10px;">${step.meta}</div>
+      <div style="color:#ccc;font-size:13px;line-height:1.5;">${step.desc}</div>
+    </div>`;
+  if (step.type === 'joke') return `
+    <div style="background:#FF4D6D;border-radius:16px;padding:18px 16px;box-shadow:0 4px 0 #c4324d;">
+      <div style="font-size:36px;margin-bottom:10px;">${step.icon}</div>
+      <div style="font-family:'Anton',sans-serif;color:#fff;font-size:18px;margin-bottom:10px;">${step.name}</div>
+      <div style="color:#fff;font-size:14px;line-height:1.5;font-weight:600;">${step.desc}</div>
+    </div>`;
+  return `
+    <div style="background:#fff;border-radius:16px;overflow:hidden;">
+      <div style="background:#1a1a1a;height:140px;display:flex;align-items:center;justify-content:center;position:relative;">
+        <div style="font-size:52px;opacity:0.15;position:absolute;">${step.icon}</div>
+        <div style="width:46px;height:46px;background:rgba(255,0,0,0.9);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:1;">▶</div>
+        <div style="position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:10px;padding:2px 5px;border-radius:3px;">1:30</div>
+      </div>
+      <div style="padding:14px;">
+        <div style="color:#1a0e2e;font-weight:800;font-size:15px;margin-bottom:4px;">${step.name}</div>
+        <div style="color:#C6FF3D;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">${step.meta}</div>
+        <div style="color:#666;font-size:12px;line-height:1.45;">${step.desc}</div>
+      </div>
+    </div>`;
+}
+
+// Funny carousel card renderer
+function fhCardHTML(step) {
+  if (step.type === 'warmup') return `
+    <div style="background:#F2B705;border:2.5px solid #5C2751;border-radius:18px;padding:18px 16px;transform:rotate(-0.5deg);">
+      <div style="font-size:36px;margin-bottom:10px;">${step.icon}</div>
+      <div style="font-family:'Fredoka',sans-serif;color:#5C2751;font-size:20px;font-weight:700;margin-bottom:4px;">${step.name}</div>
+      <div style="color:#7a3a5a;font-size:12px;margin-bottom:10px;font-family:'Inter',sans-serif;">${step.meta}</div>
+      <div style="color:#5C2751;font-size:13px;line-height:1.5;font-family:'Inter',sans-serif;">${step.desc}</div>
+    </div>`;
+  if (step.type === 'stretch') return `
+    <div style="background:#e8f4e8;border:2.5px solid #5C2751;border-radius:18px;padding:18px 16px;transform:rotate(0.5deg);">
+      <div style="font-size:36px;margin-bottom:10px;">${step.icon}</div>
+      <div style="font-family:'Fredoka',sans-serif;color:#5C2751;font-size:20px;font-weight:700;margin-bottom:4px;">${step.name}</div>
+      <div style="color:#7a3a5a;font-size:12px;margin-bottom:10px;font-family:'Inter',sans-serif;">${step.meta}</div>
+      <div style="color:#5C2751;font-size:13px;line-height:1.5;font-family:'Inter',sans-serif;">${step.desc}</div>
+    </div>`;
+  if (step.type === 'joke') return `
+    <div style="background:#FF6F91;border:2.5px solid #5C2751;border-radius:18px;padding:18px 16px;transform:rotate(-0.6deg);">
+      <div style="font-size:36px;margin-bottom:10px;">${step.icon}</div>
+      <div style="font-family:'Fredoka',sans-serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:10px;">${step.name}</div>
+      <div style="color:#fff;font-size:14px;line-height:1.5;font-weight:600;">${step.desc}</div>
+    </div>`;
+  return `
+    <div style="background:#fff;border:2.5px solid #5C2751;border-radius:18px;overflow:hidden;">
+      <div style="background:#1a1a1a;height:140px;display:flex;align-items:center;justify-content:center;position:relative;">
+        <div style="font-size:52px;opacity:0.15;position:absolute;">${step.icon}</div>
+        <div style="width:46px;height:46px;background:rgba(255,0,0,0.9);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:1;">▶</div>
+        <div style="position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:10px;padding:2px 5px;border-radius:3px;">1:30</div>
+      </div>
+      <div style="padding:14px;">
+        <div style="font-family:'Fredoka',sans-serif;color:#5C2751;font-weight:700;font-size:16px;margin-bottom:4px;">${step.name}</div>
+        <div style="color:#F2B705;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;font-family:'Inter',sans-serif;">${step.meta}</div>
+        <div style="color:#a06;font-size:12px;line-height:1.45;opacity:0.85;font-family:'Inter',sans-serif;">${step.desc}</div>
+      </div>
+    </div>`;
+}
+
+const ehNav = makeCarousel('eh', '#C6FF3D', ehCardHTML);
+const fhNav = makeCarousel('fh', '#F2B705', fhCardHTML);
+
+</script>
+</body>
+</html>

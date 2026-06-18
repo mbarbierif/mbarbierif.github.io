@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juli App — Exploración completa</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Fredoka:wght@500;700&family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #111;
+    color: #fff;
+  }
+  button { font-family: inherit; }
+  :focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+  /* ===== INTRO / NAV ===== */
+  .intro {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 40px;
+    background: #0c0c0c;
+  }
+  .intro h1 {
+    font-size: clamp(26px, 5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .intro p {
+    color: #999;
+    font-size: 15px;
+    max-width: 480px;
+    margin-bottom: 32px;
+    line-height: 1.55;
+  }
+  .nav-group { margin-bottom: 18px; }
+  .nav-group-label {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav a {
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .nav a:hover { background: #fff; color: #111; border-color: #fff; }
+
+  /* ===== SECTION WRAPPER (style cards) ===== */
+  .style-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 20px 90px;
+    position: relative;
+  }
+  .style-label { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; opacity: 0.7; }
+  .style-title { font-size: clamp(24px, 4vw, 34px); font-weight: 800; margin-bottom: 32px; text-align: center; }
+  .section-divider {
+    width: 100%;
+    text-align: center;
+    padding: 50px 20px 10px;
+    background: #0c0c0c;
+  }
+  .section-divider .eyebrow {
+    font-size: 12px;
+    color: #555;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .section-divider h2 {
+    font-size: clamp(24px, 4.5vw, 38px);
+    font-weight: 800;
+  }
+  .section-divider p {
+    color: #888;
+    font-size: 14px;
+    max-width: 480px;
+    margin: 12px auto 0;
+    line-height: 1.5;
+  }
+
+  /* Phone frame shared shell */
+  .phone {
+    width: 360px;
+    max-width: 92vw;
+    border-radius: 36px;
+    padding: 14px;
+  }
+  .phone-screen {
+    border-radius: 26px;
+    overflow: hidden;
+    min-height: 660px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .back-to-top {
+    margin-top: 36px;
+    font-size: 13px;
+    color: #777;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+    padding-bottom: 2px;
+  }
+  .back-to-top:hover { color: #fff; border-color: #fff; }
+
+  /* =========================================================
+     STYLE 1 — ENERGETIC (locked v3: solid header, zigzag, faceted burst)
+  ========================================================= */
+  #energetic { background: #1a0e2e; }
+  .energetic-phone { background: #1a0e2e; }
+  .energetic-phone .phone-screen { background: #3D1A5B; }
+  .e-header { background: #3D1A5B; padding: 28px 22px 26px; position: relative; overflow: hidden; }
+  .e-header::before {
+    content: ''; position: absolute; top: -55px; right: -55px; width: 200px; height: 200px;
+    background: #C6FF3D;
+    clip-path: polygon(50% 0%, 65% 25%, 95% 15%, 80% 42%, 100% 60%, 72% 65%, 78% 95%, 52% 75%, 28% 100%, 25% 70%, 0% 78%, 18% 50%, 0% 25%, 30% 32%, 35% 2%);
+    transform: rotate(8deg); opacity: 0.95; z-index: 0;
+  }
+  .e-header-content { position: relative; z-index: 1; }
+  .e-greet { color: #C6FF3D; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+  .e-day { font-family: 'Anton', sans-serif; color: #fff; font-size: 30px; margin-top: 8px; letter-spacing: 0.01em; line-height: 1.05; max-width: 70%; }
+  .e-zigzag { position: relative; z-index: 1; margin-top: 12px; width: 100%; height: 16px; }
+  .e-zigzag svg { display: block; overflow: visible; }
+  .e-body { padding: 20px 18px 0; flex: 1; }
+  .e-stat-row { display: flex; gap: 10px; margin-bottom: 18px; }
+  .e-stat { flex: 1; background: #FF4D6D; border-radius: 14px; padding: 14px 10px; text-align: center; box-shadow: 0 6px 0 #c4324d; }
+  .e-stat .num { font-family: 'Anton', sans-serif; font-size: 24px; color: #fff; display: block; }
+  .e-stat .lbl { font-size: 10px; color: #ffe1e8; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-top: 2px; display: block; }
+  .e-card { background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; transition: transform 0.15s ease; cursor: pointer; }
+  .e-card:hover { transform: rotate(-1.5deg) scale(1.02); }
+  .e-card-icon { width: 44px; height: 44px; background: #C6FF3D; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .e-card-text { flex: 1; }
+  .e-card-text .ex-name { color: #1a0e2e; font-weight: 800; font-size: 15px; }
+  .e-card-text .ex-meta { color: #888; font-size: 12px; font-weight: 600; margin-top: 2px; }
+  .e-check { width: 26px; height: 26px; border: 3px solid #3D1A5B; border-radius: 50%; flex-shrink: 0; }
+  .e-card.done .e-check { background: #C6FF3D; border-color: #C6FF3D; }
+  .e-card.done { opacity: 0.55; }
+  .e-cta { margin: 18px; background: #C6FF3D; color: #1a0e2e; border: none; padding: 16px; border-radius: 14px; font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: 0.03em; cursor: pointer; box-shadow: 0 6px 0 #8fc424; transition: transform 0.1s ease, box-shadow 0.1s ease; width: calc(100% - 36px); }
+  .e-cta:active { transform: translateY(4px); box-shadow: 0 2px 0 #8fc424; }
+
+  /* =========================================================
+     STYLE 2 — FUNNY (locked)
+  ========================================================= */
+  #funny { background: #3a2410; }
+  .funny-phone { background: #3a2410; }
+  .funny-phone .phone-screen { background: #FFF8E7; font-family: 'Fredoka', sans-serif; }
+  .f-header { background: #F2B705; padding: 26px 20px 22px; border-bottom: 4px dashed #5C2751; }
+  .f-greet { color: #5C2751; font-size: 13px; font-weight: 700; }
+  .f-day { color: #5C2751; font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .f-body { padding: 18px; flex: 1; }
+  .f-bubble { background: #FF6F91; color: #fff; border-radius: 16px; padding: 12px 16px; font-size: 13px; font-weight: 500; margin-bottom: 18px; position: relative; transform: rotate(-1deg); }
+  .f-bubble:after { content: ''; position: absolute; bottom: -8px; left: 24px; border-width: 10px 8px 0; border-style: solid; border-color: #FF6F91 transparent transparent; }
+  .f-card { background: #fff; border: 3px solid #5C2751; border-radius: 18px; padding: 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; transform: rotate(0.6deg); transition: transform 0.2s ease; }
+  .f-card:nth-child(odd) { transform: rotate(-0.8deg); }
+  .f-card:hover { transform: rotate(0deg) scale(1.03); }
+  .f-card-icon { width: 42px; height: 42px; background: #F2B705; border: 2px solid #5C2751; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .f-card-text { flex: 1; }
+  .f-card-text .ex-name { color: #5C2751; font-weight: 700; font-size: 14px; }
+  .f-card-text .ex-meta { color: #a06; font-size: 11px; font-weight: 500; opacity: 0.7; }
+  .f-check { width: 28px; height: 28px; border: 3px solid #5C2751; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .f-card.done { background: #ffe9c7; }
+  .f-card.done .f-check { background: #5C2751; color: #fff; }
+  .f-cta { margin: 14px 18px 18px; background: #5C2751; color: #FFF8E7; border: none; padding: 16px; border-radius: 16px; font-weight: 700; font-size: 15px; cursor: pointer; transform: rotate(-1deg); transition: transform 0.15s ease; width: calc(100% - 36px); }
+  .f-cta:hover { transform: rotate(1deg) scale(1.02); }
+
+  /* =========================================================
+     STYLE 3 — FEMININE (locked)
+  ========================================================= */
+  #feminine { background: #2a1a1d; }
+  .feminine-phone { background: #2a1a1d; }
+  .feminine-phone .phone-screen { background: #FAF3EE; font-family: 'Jost', sans-serif; }
+  .fe-header { padding: 32px 24px 20px; text-align: center; border-bottom: 1px solid #d8b8bc; }
+  .fe-greet { color: #A8826B; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .fe-day { font-family: 'Cormorant Garamond', serif; color: #7D2E4A; font-size: 30px; font-weight: 600; margin-top: 6px; }
+  .fe-body { padding: 24px; flex: 1; }
+  .fe-ring-wrap { display: flex; justify-content: center; margin-bottom: 22px; }
+  .fe-ring { width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(#7D2E4A 0deg 144deg, #e8d9d2 144deg 360deg); display: flex; align-items: center; justify-content: center; }
+  .fe-ring-inner { width: 86px; height: 86px; border-radius: 50%; background: #FAF3EE; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .fe-ring-inner .num { color: #7D2E4A; font-size: 20px; font-weight: 600; font-family: 'Cormorant Garamond', serif; }
+  .fe-ring-inner .lbl { color: #A8826B; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .fe-card { background: #fff; border-radius: 20px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; cursor: pointer; box-shadow: 0 2px 12px rgba(125,46,74,0.06); transition: box-shadow 0.2s ease; }
+  .fe-card:hover { box-shadow: 0 4px 18px rgba(125,46,74,0.14); }
+  .fe-card-icon { width: 40px; height: 40px; background: #f3e3e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; color: #7D2E4A; }
+  .fe-card-text { flex: 1; }
+  .fe-card-text .ex-name { color: #5c3a3e; font-weight: 500; font-size: 14px; }
+  .fe-card-text .ex-meta { color: #A8826B; font-size: 11px; }
+  .fe-check { width: 22px; height: 22px; border: 1.5px solid #d8b8bc; border-radius: 50%; flex-shrink: 0; }
+  .fe-card.done { opacity: 0.5; }
+  .fe-card.done .fe-check { background: #7D2E4A; border-color: #7D2E4A; }
+  .fe-cta { margin: 8px 24px 24px; background: #7D2E4A; color: #FAF3EE; border: none; padding: 15px; border-radius: 999px; font-weight: 500; font-size: 14px; letter-spacing: 0.04em; cursor: pointer; transition: background 0.2s ease; width: calc(100% - 48px); }
+  .fe-cta:hover { background: #642339; }
+
+  /* =========================================================
+     STYLE 4 — MINIMAL / CLEAN (locked) — also used for F1-F6
+  ========================================================= */
+  #minimal { background: #fafafa; color: #1a1a1a; }
+  .minimal-phone { background: #fafafa; }
+  .minimal-phone .phone-screen, .m-phone .phone-screen { background: #fff; border: 1px solid #e5e5e5; font-family: 'Inter', sans-serif; }
+  .m-header { padding: 28px 24px 18px; border-bottom: 1px solid #ececec; }
+  .m-greet { color: #999; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .m-day { color: #1a1a1a; font-size: 22px; font-weight: 600; margin-top: 6px; letter-spacing: -0.01em; }
+  .m-body { padding: 20px 24px; flex: 1; overflow-y: auto; }
+  .m-progress-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 24px; }
+  .m-progress-row .num { font-size: 13px; font-weight: 600; color: #0E7C7B; }
+  .m-progress-row .of { font-size: 13px; color: #999; }
+  .m-bar { height: 2px; background: #ececec; margin-bottom: 28px; position: relative; }
+  .m-bar-fill { position: absolute; top: 0; left: 0; height: 2px; background: #0E7C7B; transition: width 0.3s ease; }
+  .m-card { padding: 16px 0; border-bottom: 1px solid #ececec; display: flex; align-items: center; gap: 14px; cursor: pointer; }
+  .m-card:first-of-type { padding-top: 0; }
+  .m-index { color: #ccc; font-size: 12px; font-weight: 600; width: 18px; flex-shrink: 0; }
+  .m-card-text { flex: 1; }
+  .m-card-text .ex-name { color: #1a1a1a; font-weight: 500; font-size: 14px; }
+  .m-card-text .ex-meta { color: #999; font-size: 12px; margin-top: 2px; }
+  .m-check { width: 18px; height: 18px; border: 1.5px solid #ccc; flex-shrink: 0; }
+  .m-card.done .ex-name { color: #bbb; text-decoration: line-through; }
+  .m-card.done .m-check { background: #0E7C7B; border-color: #0E7C7B; }
+  .m-cta { margin: 24px; background: #1a1a1a; color: #fff; border: none; padding: 15px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s ease; width: calc(100% - 48px); }
+  .m-cta:hover { background: #0E7C7B; }
+
+  footer { text-align: center; padding: 60px 20px; color: #666; font-size: 13px; background: #0c0c0c; }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>Exploración completa 🏋️‍♀️</h1>
+  <p>Primero los 4 estilos visuales sobre la misma pantalla. Después, las funcionalidades clave del producto, en minimal, para que el estilo no distraiga de lo que cada pantalla hace.</p>
+  <div class="nav-group">
+    <div class="nav-group-label">Estilos visuales</div>
+    <nav class="nav">
+      <a href="#energetic">Energético</a>
+      <a href="#funny">Divertido</a>
+      <a href="#feminine">Femenino</a>
+      <a href="#minimal">Minimal</a>
+    </nav>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Funcionalidades</div>
+    <nav class="nav">
+      <a href="#f1">F1 Inicio</a>
+      <a href="#f2">F2 Entreno</a>
+      <a href="#f3">F3 Biblioteca</a>
+      <a href="#f4">F4 Turnos</a>
+      <a href="#f5">F5 Tienda</a>
+      <a href="#f6">F6 Membresía</a>
+    </nav>
+  </div>
+</div>
+
+<div class="section-divider">
+  <div class="eyebrow">Parte 1</div>
+  <h2>ESTILOS VISUALES</h2>
+  <p>La misma pantalla — "Entreno de hoy" — en 4 personalidades distintas.</p>
+</div>
+
+<!-- ================= ENERGETIC ================= -->
+<section class="style-section" id="energetic">
+  <div class="style-label" style="color:#C6FF3D">Estilo 1</div>
+  <div class="style-title">Energético ⚡</div>
+  <div class="phone energetic-phone">
+    <div class="phone-screen">
+      <div class="e-header">
+        <div class="e-header-content">
+          <div class="e-greet">Hola, Cami 👋</div>
+          <div class="e-day">Día de pierna 🔥</div>
+          <div class="e-zigzag">
+            <svg width="260" height="16" viewBox="0 0 260 16" fill="none">
+              <path d="M2 12 L24 4 L46 12 L68 4 L90 12 L112 4 L134 12 L156 4 L178 12 L200 4 L222 12 L244 4 L258 8" stroke="#FF4D6D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="e-body">
+        <div class="e-stat-row">
+          <div class="e-stat"><span class="num">5</span><span class="lbl">Ejercicios</span></div>
+          <div class="e-stat"><span class="num">38</span><span class="lbl">Minutos</span></div>
+          <div class="e-stat"><span class="num">2/5</span><span class="lbl">Hechos</span></div>
+        </div>
+        <div class="e-card done"><div class="e-card-icon">🦵</div><div class="e-card-text"><div class="ex-name">Sentadilla goblet</div><div class="ex-meta">4 series × 12 reps</div></div><div class="e-check"></div></div>
+        <div class="e-card done"><div class="e-card-icon">🍑</div><div class="e-card-text"><div class="ex-name">Hip thrust</div><div class="ex-meta">4 series × 15 reps</div></div><div class="e-check"></div></div>
+        <div class="e-card"><div class="e-card-icon">🦿</div><div class="e-card-text"><div class="ex-name">Zancadas búlgaras</div><div class="ex-meta">3 series × 10 reps c/lado</div></div><div class="e-check"></div></div>
+        <div class="e-card"><div class="e-card-icon">💪</div><div class="e-card-text"><div class="ex-name">Peso muerto rumano</div><div class="ex-meta">3 series × 12 reps</div></div><div class="e-check"></div></div>
+      </div>
+      <button class="e-cta">Marcar entreno como hecho 💥</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#C6FF3D;">↑ volver arriba</a>
+</section>
+
+<!-- ================= FUNNY ================= -->
+<section class="style-section" id="funny">
+  <div class="style-label" style="color:#F2B705">Estilo 2</div>
+  <div class="style-title" style="color:#fff">Divertido 😜</div>
+  <div class="phone funny-phone">
+    <div class="phone-screen">
+      <div class="f-header">
+        <div class="f-greet">Holaaa Cami 👋</div>
+        <div class="f-day">Día de pierna 🔥</div>
+      </div>
+      <div class="f-body">
+        <div class="f-bubble">¡Dale que hoy rompemos todo! 💪😆</div>
+        <div class="f-card done"><div class="f-card-icon">🦵</div><div class="f-card-text"><div class="ex-name">Sentadilla goblet</div><div class="ex-meta">4 series × 12 reps</div></div><div class="f-check">✓</div></div>
+        <div class="f-card done"><div class="f-card-icon">🍑</div><div class="f-card-text"><div class="ex-name">Hip thrust</div><div class="ex-meta">4 series × 15 reps</div></div><div class="f-check">✓</div></div>
+        <div class="f-card"><div class="f-card-icon">🦿</div><div class="f-card-text"><div class="ex-name">Zancadas búlgaras</div><div class="ex-meta">3 series × 10 reps c/lado</div></div><div class="f-check"></div></div>
+        <div class="f-card"><div class="f-card-icon">💪</div><div class="f-card-text"><div class="ex-name">Peso muerto rumano</div><div class="ex-meta">3 series × 12 reps</div></div><div class="f-check"></div></div>
+      </div>
+      <button class="f-cta">¡Listo, lo logré! 🙌</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#">↑ volver arriba</a>
+</section>
+
+<!-- ================= FEMININE ================= -->
+<section class="style-section" id="feminine">
+  <div class="style-label" style="color:#7D2E4A">Estilo 3</div>
+  <div class="style-title" style="color:#fff">Femenino 🌸</div>
+  <div class="phone feminine-phone">
+    <div class="phone-screen">
+      <div class="fe-header">
+        <div class="fe-greet">Hola, Cami</div>
+        <div class="fe-day">Día de pierna</div>
+      </div>
+      <div class="fe-body">
+        <div class="fe-ring-wrap"><div class="fe-ring"><div class="fe-ring-inner"><span class="num">2/5</span><span class="lbl">Hechos</span></div></div></div>
+        <div class="fe-card done"><div class="fe-card-icon">◐</div><div class="fe-card-text"><div class="ex-name">Sentadilla goblet</div><div class="ex-meta">4 series × 12 reps</div></div><div class="fe-check"></div></div>
+        <div class="fe-card done"><div class="fe-card-icon">◐</div><div class="fe-card-text"><div class="ex-name">Hip thrust</div><div class="ex-meta">4 series × 15 reps</div></div><div class="fe-check"></div></div>
+        <div class="fe-card"><div class="fe-card-icon">◐</div><div class="fe-card-text"><div class="ex-name">Zancadas búlgaras</div><div class="ex-meta">3 series × 10 reps c/lado</div></div><div class="fe-check"></div></div>
+        <div class="fe-card"><div class="fe-card-icon">◐</div><div class="fe-card-text"><div class="ex-name">Peso muerto rumano</div><div class="ex-meta">3 series × 12 reps</div></div><div class="fe-check"></div></div>
+      </div>
+      <button class="fe-cta">Completar entreno</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#d8a8b0;">↑ volver arriba</a>
+</section>
+
+<!-- ================= MINIMAL ================= -->
+<section class="style-section" id="minimal">
+  <div class="style-label" style="color:#0E7C7B">Estilo 4</div>
+  <div class="style-title" style="color:#1a1a1a">Minimal</div>
+  <div class="phone minimal-phone">
+    <div class="phone-screen">
+      <div class="m-header">
+        <div class="m-greet">Hola, Cami</div>
+        <div class="m-day">Día de pierna</div>
+      </div>
+      <div class="m-body">
+        <div class="m-progress-row"><span class="num">2 de 5</span><span class="of">ejercicios completados</span></div>
+        <div class="m-bar"><div class="m-bar-fill" style="width:40%"></div></div>
+        <div class="m-card done"><span class="m-index">01</span><div class="m-card-text"><div class="ex-name">Sentadilla goblet</div><div class="ex-meta">4 series × 12 reps</div></div><div class="m-check"></div></div>
+        <div class="m-card done"><span class="m-index">02</span><div class="m-card-text"><div class="ex-name">Hip thrust</div><div class="ex-meta">4 series × 15 reps</div></div><div class="m-check"></div></div>
+        <div class="m-card"><span class="m-index">03</span><div class="m-card-text"><div class="ex-name">Zancadas búlgaras</div><div class="ex-meta">3 series × 10 reps por lado</div></div><div class="m-check"></div></div>
+        <div class="m-card"><span class="m-index">04</span><div class="m-card-text"><div class="ex-name">Peso muerto rumano</div><div class="ex-meta">3 series × 12 reps</div></div><div class="m-check"></div></div>
+      </div>
+      <button class="m-cta">Marcar entreno como hecho</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#999;">↑ volver arriba</a>
+</section>
+
+<div class="section-divider">
+  <div class="eyebrow">Parte 2</div>
+  <h2>FUNCIONALIDADES</h2>
+  <p>Las 6 pantallas clave del producto, todas en minimal, para enfocarnos en qué hace cada una.</p>
+</div>
+
+<!-- ================= F1: CLIENT HOME ================= -->
+<section class="style-section" id="f1" style="background:#fafafa; color:#1a1a1a;">
+  <div class="style-label" style="color:#0E7C7B">F1</div>
+  <div class="style-title">Inicio del cliente</div>
+  <div class="phone m-phone" style="background:#fafafa;">
+    <div class="phone-screen">
+      <div class="m-header">
+        <div class="m-greet">Hola, Cami</div>
+        <div class="m-day">Día de pierna</div>
+      </div>
+      <div class="m-body">
+        <div class="m-progress-row"><span class="num" id="f1-count">2 de 5</span><span class="of">ejercicios completados</span></div>
+        <div class="m-bar"><div class="m-bar-fill" id="f1-bar" style="width:40%"></div></div>
+        <div class="m-card done" data-f1><span class="m-index">01</span><div class="m-card-text"><div class="ex-name">Sentadilla goblet</div><div class="ex-meta">4 series × 12 reps</div></div><div class="m-check"></div></div>
+        <div class="m-card done" data-f1><span class="m-index">02</span><div class="m-card-text"><div class="ex-name">Hip thrust</div><div class="ex-meta">4 series × 15 reps</div></div><div class="m-check"></div></div>
+        <div class="m-card" data-f1><span class="m-index">03</span><div class="m-card-text"><div class="ex-name">Zancadas búlgaras</div><div class="ex-meta">3 series × 10 reps por lado</div></div><div class="m-check"></div></div>
+        <div class="m-card" data-f1><span class="m-index">04</span><div class="m-card-text"><div class="ex-name">Peso muerto rumano</div><div class="ex-meta">3 series × 12 reps</div></div><div class="m-check"></div></div>
+        <div class="m-card" data-f1><span class="m-index">05</span><div class="m-card-text"><div class="ex-name">Plancha</div><div class="ex-meta">3 series × 40 segundos</div></div><div class="m-check"></div></div>
+      </div>
+      <button class="m-cta" onclick="sendPrompt('Quiero empezar el entreno de hoy')">Empezar entreno →</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#999;">↑ volver arriba</a>
+</section>
+
+<!-- ================= F2: ACTIVE WORKOUT LOGGING ================= -->
+<section class="style-section" id="f2" style="background:#fafafa; color:#1a1a1a;">
+  <div class="style-label" style="color:#0E7C7B">F2</div>
+  <div class="style-title">Registrar el entreno</div>
+  <div class="phone" style="background:#fafafa;">
+    <div class="phone-screen" style="background:#fff; border:1px solid #e5e5e5;">
+      <div class="m-header" style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <div class="m-greet">Ejercicio 3 de 5</div>
+          <div class="m-day" style="font-size:20px;">Zancadas búlgaras</div>
+        </div>
+        <div style="font-size:12px; color:#999; border:1px solid #ececec; padding:6px 10px; border-radius:8px;">⏱ 00:24</div>
+      </div>
+      <div class="m-body">
+        <div style="font-size:12px; color:#999; margin-bottom:14px;">Serie <span id="f2-serie">1</span> de 3 · objetivo 10 reps por lado</div>
+
+        <div style="display:flex; gap:10px; margin-bottom:18px;">
+          <div style="flex:1; border:1px solid #ececec; border-radius:10px; padding:14px; text-align:center;">
+            <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Peso (kg)</div>
+            <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+              <button onclick="f2Adjust(-2.5)" style="width:30px;height:30px;border:1px solid #ddd;background:#fff;border-radius:50%;font-size:16px;cursor:pointer;">−</button>
+              <span id="f2-weight" style="font-size:20px; font-weight:600; min-width:42px;">14</span>
+              <button onclick="f2Adjust(2.5)" style="width:30px;height:30px;border:1px solid #ddd;background:#fff;border-radius:50%;font-size:16px;cursor:pointer;">+</button>
+            </div>
+          </div>
+          <div style="flex:1; border:1px solid #ececec; border-radius:10px; padding:14px; text-align:center;">
+            <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Reps</div>
+            <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+              <button onclick="f2RepsAdjust(-1)" style="width:30px;height:30px;border:1px solid #ddd;background:#fff;border-radius:50%;font-size:16px;cursor:pointer;">−</button>
+              <span id="f2-reps" style="font-size:20px; font-weight:600; min-width:30px;">10</span>
+              <button onclick="f2RepsAdjust(1)" style="width:30px;height:30px;border:1px solid #ddd;background:#fff;border-radius:50%;font-size:16px;cursor:pointer;">+</button>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="f2LogSet()" style="width:100%; background:#1a1a1a; color:#fff; border:none; padding:14px; font-size:14px; font-weight:500; cursor:pointer; margin-bottom:18px;">Registrar serie</button>
+
+        <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">Series registradas</div>
+        <div id="f2-log" style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:13px; color:#bbb;">Todavía no registraste ninguna serie.</div>
+        </div>
+      </div>
+      <button class="m-cta" onclick="sendPrompt('Quiero pasar al siguiente ejercicio')">Siguiente ejercicio →</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#999;">↑ volver arriba</a>
+</section>
+
+<!-- ================= F3: LIBRARY + BUILDER + ASSIGN ================= -->
+<section class="style-section" id="f3" style="background:#fafafa; color:#1a1a1a;">
+  <div class="style-label" style="color:#0E7C7B">F3</div>
+  <div class="style-title">Biblioteca, armado y asignación</div>
+
+  <div class="phone" style="background:#fafafa;">
+    <div class="phone-screen" style="background:#fff; border:1px solid #e5e5e5;">
+
+      <!-- STEP 1: LIBRARY -->
+      <div id="f3-step-library">
+        <div class="m-header">
+          <div class="m-greet">Biblioteca de ejercicios</div>
+          <div class="m-day" style="font-size:20px;">Elegí ejercicios</div>
+        </div>
+        <div style="padding:16px 24px 0; display:flex; gap:8px; overflow-x:auto;">
+          <button class="f3-filter active" data-group="todos" onclick="f3Filter('todos', this)" style="white-space:nowrap; border:1px solid #1a1a1a; background:#1a1a1a; color:#fff; padding:7px 14px; border-radius:999px; font-size:12px; cursor:pointer;">Todos</button>
+          <button class="f3-filter" data-group="pierna" onclick="f3Filter('pierna', this)" style="white-space:nowrap; border:1px solid #ddd; background:#fff; color:#1a1a1a; padding:7px 14px; border-radius:999px; font-size:12px; cursor:pointer;">Pierna</button>
+          <button class="f3-filter" data-group="espalda" onclick="f3Filter('espalda', this)" style="white-space:nowrap; border:1px solid #ddd; background:#fff; color:#1a1a1a; padding:7px 14px; border-radius:999px; font-size:12px; cursor:pointer;">Espalda</button>
+          <button class="f3-filter" data-group="core" onclick="f3Filter('core', this)" style="white-space:nowrap; border:1px solid #ddd; background:#fff; color:#1a1a1a; padding:7px 14px; border-radius:999px; font-size:12px; cursor:pointer;">Core</button>
+        </div>
+        <div class="m-body" style="padding-top:14px; max-height:380px;">
+          <div id="f3-library-list"></div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 24px; border-top:1px solid #ececec;">
+          <span style="font-size:13px; color:#999;"><span id="f3-selected-count">0</span> ejercicios seleccionados</span>
+        </div>
+        <button class="m-cta" id="f3-to-builder" onclick="f3GoToStep('builder')" disabled style="opacity:0.35; cursor:not-allowed;">Armar el día →</button>
+      </div>
+
+      <!-- STEP 2: BUILDER -->
+      <div id="f3-step-builder" style="display:none;">
+        <div class="m-header" style="display:flex; align-items:center; gap:10px;">
+          <button onclick="f3GoToStep('library')" style="border:none; background:none; font-size:18px; cursor:pointer; padding:0;">←</button>
+          <div>
+            <div class="m-greet">Armando el día</div>
+            <div class="m-day" style="font-size:20px;">Día de pierna</div>
+          </div>
+        </div>
+        <div class="m-body" style="max-height:380px;">
+          <div style="font-size:12px; color:#999; margin-bottom:14px;">Tocá cada ejercicio para ajustar series y reps.</div>
+          <div id="f3-builder-list"></div>
+        </div>
+        <button class="m-cta" onclick="f3GoToStep('assign')">Asignar a una alumna →</button>
+      </div>
+
+      <!-- STEP 3: ASSIGN -->
+      <div id="f3-step-assign" style="display:none;">
+        <div class="m-header" style="display:flex; align-items:center; gap:10px;">
+          <button onclick="f3GoToStep('builder')" style="border:none; background:none; font-size:18px; cursor:pointer; padding:0;">←</button>
+          <div>
+            <div class="m-greet">Asignar programa</div>
+            <div class="m-day" style="font-size:20px;">¿A quién se lo asignás?</div>
+          </div>
+        </div>
+        <div class="m-body" style="max-height:420px;">
+          <div id="f3-student-list"></div>
+        </div>
+        <button class="m-cta" id="f3-confirm-assign" onclick="f3ConfirmAssign()" disabled style="opacity:0.35; cursor:not-allowed;">Confirmar asignación</button>
+      </div>
+
+      <!-- STEP 4: DONE -->
+      <div id="f3-step-done" style="display:none; flex:1; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px 30px;">
+        <div style="width:56px; height:56px; border-radius:50%; background:#0E7C7B; color:#fff; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:18px;">✓</div>
+        <div style="font-size:18px; font-weight:600; margin-bottom:8px;">Programa asignado</div>
+        <div style="font-size:13px; color:#999; margin-bottom:28px;" id="f3-done-text">Le llegó una notificación.</div>
+        <button onclick="f3Reset()" style="border:1px solid #ddd; background:#fff; padding:12px 20px; border-radius:8px; font-size:13px; cursor:pointer;">Armar otro programa</button>
+      </div>
+
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#999;">↑ volver arriba</a>
+</section>
+
+<!-- ================= F4: BOOKING CALENDAR ================= -->
+<section class="style-section" id="f4" style="background:#fafafa; color:#1a1a1a;">
+  <div class="style-label" style="color:#0E7C7B">F4</div>
+  <div class="style-title">Turnos presenciales</div>
+
+  <div class="phone" style="background:#fafafa;">
+    <div class="phone-screen" style="background:#fff; border:1px solid #e5e5e5;">
+      <div class="m-header" style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <div class="m-greet" id="f4-mode-label">Vista alumna</div>
+          <div class="m-day" style="font-size:20px;">Reservar turno</div>
+        </div>
+        <div style="display:flex; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
+          <button id="f4-tab-client" onclick="f4SetMode('client')" style="border:none; background:#1a1a1a; color:#fff; padding:7px 12px; font-size:11px; cursor:pointer;">Alumna</button>
+          <button id="f4-tab-admin" onclick="f4SetMode('admin')" style="border:none; background:#fff; color:#1a1a1a; padding:7px 12px; font-size:11px; cursor:pointer;">Juli</button>
+        </div>
+      </div>
+
+      <div class="m-body" style="max-height:440px;">
+        <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:18px;">
+          <button class="f4-day active" data-day="lun" onclick="f4PickDay('lun', this)" style="white-space:nowrap; border:1px solid #1a1a1a; background:#1a1a1a; color:#fff; padding:8px 14px; border-radius:10px; font-size:12px; cursor:pointer;">Lun 22</button>
+          <button class="f4-day" data-day="mar" onclick="f4PickDay('mar', this)" style="white-space:nowrap; border:1px solid #ddd; background:#fff; color:#1a1a1a; padding:8px 14px; border-radius:10px; font-size:12px; cursor:pointer;">Mar 23</button>
+          <button class="f4-day" data-day="mie" onclick="f4PickDay('mie', this)" style="white-space:nowrap; border:1px solid #ddd; background:#fff; color:#1a1a1a; padding:8px 14px; border-radius:10px; font-size:12px; cursor:pointer;">Mié 24</button>
+          <button class="f4-day" data-day="jue" onclick="f4PickDay('jue', this)" style="white-space:nowrap; border:1px solid #ddd; background:#fff; color:#1a1a1a; padding:8px 14px; border-radius:10px; font-size:12px; cursor:pointer;">Jue 25</button>
+        </div>
+
+        <!-- CLIENT VIEW -->
+        <div id="f4-client-view">
+          <div style="font-size:12px; color:#999; margin-bottom:10px;">Horarios disponibles</div>
+          <div id="f4-slot-list"></div>
+        </div>
+
+        <!-- ADMIN VIEW -->
+        <div id="f4-admin-view" style="display:none;">
+          <div style="font-size:12px; color:#999; margin-bottom:10px;">Tu disponibilidad — tocá para abrir o cerrar un horario</div>
+          <div id="f4-admin-slot-list"></div>
+        </div>
+      </div>
+
+      <button class="m-cta" id="f4-cta" onclick="f4Confirm()" disabled style="opacity:0.35; cursor:not-allowed;">Confirmar turno</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#999;">↑ volver arriba</a>
+</section>
+
+<!-- ================= F5: STOREFRONT ================= -->
+<section class="style-section" id="f5" style="background:#fafafa; color:#1a1a1a;">
+  <div class="style-label" style="color:#0E7C7B">F5</div>
+  <div class="style-title">Tienda de programas</div>
+
+  <div class="phone" style="background:#fafafa;">
+    <div class="phone-screen" style="background:#fff; border:1px solid #e5e5e5;">
+
+      <!-- CATALOG -->
+      <div id="f5-catalog">
+        <div class="m-header">
+          <div class="m-greet">Programas</div>
+          <div class="m-day" style="font-size:20px;">Listos para empezar hoy</div>
+        </div>
+        <div class="m-body" id="f5-catalog-list" style="max-height:480px;"></div>
+      </div>
+
+      <!-- DETAIL -->
+      <div id="f5-detail" style="display:none;">
+        <div class="m-header" style="display:flex; align-items:center; gap:10px;">
+          <button onclick="f5ShowCatalog()" style="border:none; background:none; font-size:18px; cursor:pointer; padding:0;">←</button>
+          <div class="m-greet">Detalle del programa</div>
+        </div>
+        <div class="m-body" id="f5-detail-content" style="max-height:480px;"></div>
+        <button class="m-cta" id="f5-buy-btn">Comprar — <span id="f5-price"></span></button>
+      </div>
+
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#999;">↑ volver arriba</a>
+</section>
+
+<!-- ================= F6: MEMBERSHIP ================= -->
+<section class="style-section" id="f6" style="background:#fafafa; color:#1a1a1a;">
+  <div class="style-label" style="color:#0E7C7B">F6</div>
+  <div class="style-title">Membresía y cuenta</div>
+
+  <div class="phone" style="background:#fafafa;">
+    <div class="phone-screen" style="background:#fff; border:1px solid #e5e5e5;">
+      <div class="m-header">
+        <div class="m-greet">Tu cuenta</div>
+        <div class="m-day" style="font-size:20px;">Cami Rodríguez</div>
+      </div>
+      <div class="m-body" style="max-height:480px;">
+        <div style="border:1px solid #0E7C7B; border-radius:12px; padding:18px; margin-bottom:24px; background:#f0f7f7;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <div style="font-size:11px; color:#0E7C7B; text-transform:uppercase; letter-spacing:0.08em; font-weight:700;">Plan actual</div>
+              <div style="font-size:18px; font-weight:600; margin-top:4px;">Online + Presencial</div>
+            </div>
+            <span style="font-size:11px; background:#0E7C7B; color:#fff; padding:4px 10px; border-radius:999px;">Activo</span>
+          </div>
+          <div style="font-size:13px; color:#666; margin-top:12px;">Renueva el 1 de julio · $45.000/mes</div>
+        </div>
+
+        <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; font-weight:700;">Otros planes</div>
+
+        <div style="border:1px solid #ececec; border-radius:12px; padding:16px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-weight:500; font-size:14px;">Solo online</div>
+            <div style="font-size:12px; color:#999; margin-top:2px;">Programas + seguimiento</div>
+          </div>
+          <div style="font-size:14px; font-weight:600;">$25.000</div>
+        </div>
+        <div style="border:1px solid #ececec; border-radius:12px; padding:16px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-weight:500; font-size:14px;">Solo presencial</div>
+            <div style="font-size:12px; color:#999; margin-top:2px;">4 sesiones por mes</div>
+          </div>
+          <div style="font-size:14px; font-weight:600;">$32.000</div>
+        </div>
+
+        <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; font-weight:700;">Historial de pagos</div>
+        <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #ececec; font-size:13px;"><span>1 jun 2026</span><span style="color:#999;">$45.000</span></div>
+        <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #ececec; font-size:13px;"><span>1 may 2026</span><span style="color:#999;">$45.000</span></div>
+      </div>
+      <button class="m-cta" style="background:#fff; color:#c0392b; border:1px solid #f0d0d0;" onclick="sendPrompt('Quiero cancelar mi membresía')">Cancelar membresía</button>
+    </div>
+  </div>
+  <a class="back-to-top" href="#" style="color:#999;">↑ volver arriba</a>
+</section>
+
+<footer>
+  Hecho para Juli 💛 — exploración completa, sin funcionalidad real todavía.
+</footer>
+
+<script>
+  document.querySelectorAll('.e-card, .f-card, .fe-card, .m-card[data-f1]').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('done');
+      updateF1Progress();
+    });
+  });
+
+  function updateF1Progress() {
+    const cards = document.querySelectorAll('.m-card[data-f1]');
+    const total = cards.length;
+    const done = document.querySelectorAll('.m-card[data-f1].done').length;
+    const countEl = document.getElementById('f1-count');
+    const barEl = document.getElementById('f1-bar');
+    if (countEl) countEl.textContent = `${done} de ${total}`;
+    if (barEl) barEl.style.width = `${(done / total) * 100}%`;
+  }
+
+  // ---- F2: active workout logging ----
+  let f2Weight = 14;
+  let f2Reps = 10;
+  let f2Serie = 1;
+  const F2_MAX_SERIES = 3;
+
+  function f2Adjust(delta) {
+    f2Weight = Math.max(0, f2Weight + delta);
+    document.getElementById('f2-weight').textContent = f2Weight;
+  }
+  function f2RepsAdjust(delta) {
+    f2Reps = Math.max(0, f2Reps + delta);
+    document.getElementById('f2-reps').textContent = f2Reps;
+  }
+  function f2LogSet() {
+    if (f2Serie > F2_MAX_SERIES) return;
+    const log = document.getElementById('f2-log');
+    if (f2Serie === 1) log.innerHTML = '';
+    const row = document.createElement('div');
+    row.style = 'display:flex; justify-content:space-between; align-items:center; font-size:13px; padding:10px 12px; background:#f7f7f7; border-radius:8px;';
+    row.innerHTML = `<span>Serie ${f2Serie}</span><span style="color:#0E7C7B; font-weight:600;">${f2Weight} kg × ${f2Reps} reps</span>`;
+    log.appendChild(row);
+    document.getElementById('f2-serie').textContent = Math.min(f2Serie + 1, F2_MAX_SERIES);
+    f2Serie++;
+  }
+
+  // ---- F3: library + builder + assign ----
+  const F3_EXERCISES = [
+    { id: 'sq', name: 'Sentadilla goblet', group: 'pierna', icon: '🦵', sets: 4, reps: 12 },
+    { id: 'ht', name: 'Hip thrust', group: 'pierna', icon: '🍑', sets: 4, reps: 15 },
+    { id: 'bl', name: 'Zancadas búlgaras', group: 'pierna', icon: '🦿', sets: 3, reps: 10 },
+    { id: 'rdl', name: 'Peso muerto rumano', group: 'pierna', icon: '💪', sets: 3, reps: 12 },
+    { id: 'pu', name: 'Remo con barra', group: 'espalda', icon: '🏋️', sets: 4, reps: 10 },
+    { id: 'lp', name: 'Jalón al pecho', group: 'espalda', icon: '🔽', sets: 3, reps: 12 },
+    { id: 'pl', name: 'Plancha', group: 'core', icon: '🧘', sets: 3, reps: 40 },
+    { id: 'db', name: 'Dead bug', group: 'core', icon: '🐞', sets: 3, reps: 12 },
+  ];
+  const F3_STUDENTS = [
+    { id: 'cami', name: 'Cami Rodríguez', meta: 'Última actividad: hoy' },
+    { id: 'sol', name: 'Sol Ibáñez', meta: 'Última actividad: ayer' },
+    { id: 'mar', name: 'Mariana Paz', meta: 'Última actividad: hace 3 días' },
+  ];
+  let f3Selected = new Set();
+  let f3CurrentFilter = 'todos';
+  let f3StudentChosen = null;
+
+  function f3RenderLibrary() {
+    const list = document.getElementById('f3-library-list');
+    const items = F3_EXERCISES.filter(ex => f3CurrentFilter === 'todos' || ex.group === f3CurrentFilter);
+    list.innerHTML = items.map(ex => `
+      <div class="m-card" style="cursor:pointer;" onclick="f3ToggleSelect('${ex.id}')">
+        <div style="width:38px; height:38px; border-radius:8px; background:#f3f3f3; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;">${ex.icon}</div>
+        <div class="m-card-text">
+          <div class="ex-name">${ex.name}</div>
+          <div class="ex-meta">${ex.sets} series × ${ex.reps} ${ex.reps > 30 ? 'segundos' : 'reps'}</div>
+        </div>
+        <div class="m-check" style="${f3Selected.has(ex.id) ? 'background:#0E7C7B; border-color:#0E7C7B;' : ''}"></div>
+      </div>
+    `).join('');
+  }
+
+  function f3Filter(group, btn) {
+    f3CurrentFilter = group;
+    document.querySelectorAll('.f3-filter').forEach(b => {
+      b.style.background = '#fff'; b.style.color = '#1a1a1a'; b.style.borderColor = '#ddd';
+    });
+    btn.style.background = '#1a1a1a'; btn.style.color = '#fff'; btn.style.borderColor = '#1a1a1a';
+    f3RenderLibrary();
+  }
+
+  function f3ToggleSelect(id) {
+    if (f3Selected.has(id)) f3Selected.delete(id); else f3Selected.add(id);
+    f3RenderLibrary();
+    const count = f3Selected.size;
+    document.getElementById('f3-selected-count').textContent = count;
+    const btn = document.getElementById('f3-to-builder');
+    if (count > 0) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
+    else { btn.disabled = true; btn.style.opacity = '0.35'; btn.style.cursor = 'not-allowed'; }
+  }
+
+  function f3RenderBuilder() {
+    const list = document.getElementById('f3-builder-list');
+    const items = F3_EXERCISES.filter(ex => f3Selected.has(ex.id));
+    list.innerHTML = items.map(ex => `
+      <div style="display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #ececec;">
+        <div style="width:38px; height:38px; border-radius:8px; background:#f3f3f3; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;">${ex.icon}</div>
+        <div style="flex:1;">
+          <div style="font-weight:500; font-size:14px;">${ex.name}</div>
+          <div style="font-size:12px; color:#999; margin-top:2px;">${ex.sets} series × ${ex.reps} ${ex.reps > 30 ? 'segundos' : 'reps'}</div>
+        </div>
+        <button onclick="f3RemoveFromBuilder('${ex.id}')" style="border:none; background:none; color:#bbb; font-size:18px; cursor:pointer; padding:4px;">×</button>
+      </div>
+    `).join('');
+  }
+
+  function f3RemoveFromBuilder(id) {
+    f3Selected.delete(id);
+    f3RenderBuilder();
+    if (f3Selected.size === 0) f3GoToStep('library');
+  }
+
+  function f3RenderStudents() {
+    const list = document.getElementById('f3-student-list');
+    list.innerHTML = F3_STUDENTS.map(s => `
+      <div class="m-card" style="cursor:pointer;" onclick="f3SelectStudent('${s.id}')">
+        <div style="width:38px; height:38px; border-radius:50%; background:#f3f3f3; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; flex-shrink:0;">${s.name.split(' ').map(p=>p[0]).slice(0,2).join('')}</div>
+        <div class="m-card-text">
+          <div class="ex-name">${s.name}</div>
+          <div class="ex-meta">${s.meta}</div>
+        </div>
+        <div class="m-check" style="border-radius:50%; ${f3StudentChosen === s.id ? 'background:#0E7C7B; border-color:#0E7C7B;' : ''}"></div>
+      </div>
+    `).join('');
+  }
+
+  function f3SelectStudent(id) {
+    f3StudentChosen = id;
+    f3RenderStudents();
+    const btn = document.getElementById('f3-confirm-assign');
+    btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+  }
+
+  function f3GoToStep(step) {
+    ['library', 'builder', 'assign', 'done'].forEach(s => {
+      document.getElementById(`f3-step-${s}`).style.display = 'none';
+    });
+    const target = document.getElementById(`f3-step-${step}`);
+    target.style.display = (step === 'done') ? 'flex' : 'block';
+    if (step === 'builder') f3RenderBuilder();
+    if (step === 'assign') f3RenderStudents();
+  }
+
+  function f3ConfirmAssign() {
+    if (!f3StudentChosen) return;
+    const student = F3_STUDENTS.find(s => s.id === f3StudentChosen);
+    document.getElementById('f3-done-text').textContent = `${student.name} ya puede ver el programa en su app.`;
+    f3GoToStep('done');
+  }
+
+  function f3Reset() {
+    f3Selected = new Set();
+    f3StudentChosen = null;
+    f3CurrentFilter = 'todos';
+    document.querySelectorAll('.f3-filter').forEach(b => {
+      b.style.background = '#fff'; b.style.color = '#1a1a1a'; b.style.borderColor = '#ddd';
+    });
+    document.querySelector('.f3-filter[data-group="todos"]').style.background = '#1a1a1a';
+    document.querySelector('.f3-filter[data-group="todos"]').style.color = '#fff';
+    document.getElementById('f3-selected-count').textContent = '0';
+    const btn = document.getElementById('f3-to-builder');
+    btn.disabled = true; btn.style.opacity = '0.35'; btn.style.cursor = 'not-allowed';
+    f3RenderLibrary();
+    f3GoToStep('library');
+  }
+
+  f3RenderLibrary();
+
+  // ---- F4: booking calendar ----
+  const F4_SLOTS = {
+    lun: [
+      { time: '08:00', status: 'open' }, { time: '09:00', status: 'booked', who: 'Sol Ibáñez' },
+      { time: '17:00', status: 'open' }, { time: '18:00', status: 'open' },
+    ],
+    mar: [
+      { time: '08:00', status: 'booked', who: 'Mariana Paz' }, { time: '10:00', status: 'open' },
+      { time: '17:00', status: 'closed' }, { time: '19:00', status: 'open' },
+    ],
+    mie: [
+      { time: '09:00', status: 'open' }, { time: '11:00', status: 'open' },
+      { time: '16:00', status: 'booked', who: 'Cami Rodríguez' },
+    ],
+    jue: [
+      { time: '08:00', status: 'open' }, { time: '09:00', status: 'closed' },
+      { time: '18:00', status: 'open' }, { time: '19:00', status: 'open' },
+    ],
+  };
+  let f4Mode = 'client';
+  let f4Day = 'lun';
+  let f4ChosenSlot = null;
+
+  function f4SetMode(mode) {
+    f4Mode = mode;
+    document.getElementById('f4-tab-client').style.background = mode === 'client' ? '#1a1a1a' : '#fff';
+    document.getElementById('f4-tab-client').style.color = mode === 'client' ? '#fff' : '#1a1a1a';
+    document.getElementById('f4-tab-admin').style.background = mode === 'admin' ? '#1a1a1a' : '#fff';
+    document.getElementById('f4-tab-admin').style.color = mode === 'admin' ? '#fff' : '#1a1a1a';
+    document.getElementById('f4-mode-label').textContent = mode === 'client' ? 'Vista alumna' : 'Vista de Juli';
+    document.getElementById('f4-client-view').style.display = mode === 'client' ? 'block' : 'none';
+    document.getElementById('f4-admin-view').style.display = mode === 'admin' ? 'block' : 'none';
+    const cta = document.getElementById('f4-cta');
+    if (mode === 'admin') {
+      cta.textContent = 'Guardar disponibilidad';
+      cta.disabled = false; cta.style.opacity = '1'; cta.style.cursor = 'pointer';
+    } else {
+      cta.textContent = 'Confirmar turno';
+      f4ChosenSlot = null;
+      cta.disabled = true; cta.style.opacity = '0.35'; cta.style.cursor = 'not-allowed';
+    }
+    f4Render();
+  }
+
+  function f4PickDay(day, btn) {
+    f4Day = day;
+    f4ChosenSlot = null;
+    document.querySelectorAll('.f4-day').forEach(b => { b.style.background = '#fff'; b.style.color = '#1a1a1a'; b.style.borderColor = '#ddd'; });
+    btn.style.background = '#1a1a1a'; btn.style.color = '#fff'; btn.style.borderColor = '#1a1a1a';
+    if (f4Mode === 'client') {
+      const cta = document.getElementById('f4-cta');
+      cta.disabled = true; cta.style.opacity = '0.35'; cta.style.cursor = 'not-allowed';
+    }
+    f4Render();
+  }
+
+  function f4Render() {
+    const slots = F4_SLOTS[f4Day];
+    if (f4Mode === 'client') {
+      const list = document.getElementById('f4-slot-list');
+      list.innerHTML = slots.map((s, i) => {
+        if (s.status === 'booked' || s.status === 'closed') {
+          return `<div style="display:flex; align-items:center; justify-content:space-between; padding:14px; border:1px solid #ececec; border-radius:10px; margin-bottom:8px; opacity:0.45;">
+            <span style="font-size:14px;">${s.time}</span>
+            <span style="font-size:11px; color:#bbb;">${s.status === 'booked' ? 'Ocupado' : 'No disponible'}</span>
+          </div>`;
+        }
+        const chosen = f4ChosenSlot === i;
+        return `<div onclick="f4ChooseSlot(${i})" style="display:flex; align-items:center; justify-content:space-between; padding:14px; border:1px solid ${chosen ? '#0E7C7B' : '#ececec'}; ${chosen ? 'background:#f0f7f7;' : ''} border-radius:10px; margin-bottom:8px; cursor:pointer;">
+            <span style="font-size:14px; font-weight:500;">${s.time}</span>
+            <span style="font-size:11px; color:${chosen ? '#0E7C7B' : '#0E7C7B'}; font-weight:600;">${chosen ? 'Seleccionado' : 'Disponible'}</span>
+          </div>`;
+      }).join('');
+    } else {
+      const list = document.getElementById('f4-admin-slot-list');
+      list.innerHTML = slots.map((s, i) => {
+        let bg = '#fff', border = '#ececec', label = 'Abierto', labelColor = '#0E7C7B';
+        if (s.status === 'booked') { label = `Reservado — ${s.who}`; labelColor = '#999'; }
+        if (s.status === 'closed') { bg = '#fafafa'; label = 'Cerrado'; labelColor = '#bbb'; }
+        const clickable = s.status !== 'booked';
+        return `<div ${clickable ? `onclick="f4ToggleAdminSlot(${i})"` : ''} style="display:flex; align-items:center; justify-content:space-between; padding:14px; border:1px solid ${border}; background:${bg}; border-radius:10px; margin-bottom:8px; cursor:${clickable ? 'pointer' : 'default'};">
+            <span style="font-size:14px; font-weight:500;">${s.time}</span>
+            <span style="font-size:11px; color:${labelColor}; font-weight:600;">${label}</span>
+          </div>`;
+      }).join('');
+    }
+  }
+
+  function f4ChooseSlot(i) {
+    f4ChosenSlot = i;
+    f4Render();
+    const cta = document.getElementById('f4-cta');
+    cta.disabled = false; cta.style.opacity = '1'; cta.style.cursor = 'pointer';
+  }
+
+  function f4ToggleAdminSlot(i) {
+    const slot = F4_SLOTS[f4Day][i];
+    slot.status = slot.status === 'open' ? 'closed' : 'open';
+    f4Render();
+  }
+
+  function f4Confirm() {
+    const cta = document.getElementById('f4-cta');
+    if (f4Mode === 'client') {
+      const slot = F4_SLOTS[f4Day][f4ChosenSlot];
+      cta.textContent = `Turno confirmado: ${slot.time} ✓`;
+      slot.status = 'booked';
+      slot.who = 'Vos';
+    } else {
+      cta.textContent = 'Disponibilidad guardada ✓';
+    }
+    cta.disabled = true; cta.style.opacity = '0.6'; cta.style.cursor = 'default';
+    setTimeout(() => { f4Render(); f4SetMode(f4Mode); }, 1400);
+  }
+
+  f4Render();
+
+  // ---- F5: storefront ----
+  const F5_PROGRAMS = [
+    { id: 'glute6', name: 'Glúteos en 6 semanas', tag: 'Más vendido', price: '$8.000', level: 'Intermedio', duration: '6 semanas · 4 días/semana', equipment: 'Mancuernas, banda elástica', desc: 'Un programa progresivo enfocado en fuerza de glúteo e isquiotibiales, pensado para entrenar en casa o en el gimnasio con equipo mínimo.' },
+    { id: 'beginner4', name: 'Fuerza desde cero', tag: 'Para empezar', price: '$6.500', level: 'Principiante', duration: '4 semanas · 3 días/semana', equipment: 'Solo peso corporal', desc: 'Ideal si nunca entrenaste con un plan estructurado. Construye base de fuerza y técnica antes de sumar peso externo.' },
+    { id: 'upperbody', name: 'Tren superior intenso', tag: 'Nuevo', price: '$7.000', level: 'Intermedio/Avanzado', duration: '5 semanas · 4 días/semana', equipment: 'Barra, mancuernas', desc: 'Enfocado en espalda, hombros y brazos, con progresión de cargas semana a semana y técnica detallada en cada ejercicio.' },
+    { id: 'mobility', name: 'Movilidad y postura', tag: '', price: '$5.000', level: 'Todos los niveles', duration: '3 semanas · diario (15 min)', equipment: 'Ninguno', desc: 'Rutinas cortas diarias para mejorar postura y movilidad general, pensadas para sumar a cualquier otra rutina que ya tengas.' },
+  ];
+
+  function f5RenderCatalog() {
+    const list = document.getElementById('f5-catalog-list');
+    list.innerHTML = F5_PROGRAMS.map(p => `
+      <div onclick="f5ShowDetail('${p.id}')" style="border:1px solid #ececec; border-radius:14px; padding:16px; margin-bottom:14px; cursor:pointer;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <div style="font-weight:600; font-size:15px; max-width:75%;">${p.name}</div>
+          ${p.tag ? `<span style="font-size:10px; background:#0E7C7B; color:#fff; padding:3px 8px; border-radius:999px; white-space:nowrap;">${p.tag}</span>` : ''}
+        </div>
+        <div style="font-size:12px; color:#999; margin-bottom:10px;">${p.duration}</div>
+        <div style="font-size:16px; font-weight:700;">${p.price}</div>
+      </div>
+    `).join('');
+  }
+
+  function f5ShowDetail(id) {
+    const p = F5_PROGRAMS.find(x => x.id === id);
+    document.getElementById('f5-catalog').style.display = 'none';
+    document.getElementById('f5-detail').style.display = 'block';
+    document.getElementById('f5-detail-content').innerHTML = `
+      <div style="width:100%; height:140px; border-radius:12px; background:linear-gradient(135deg,#0E7C7B,#0a5c5b); margin-bottom:18px; display:flex; align-items:center; justify-content:center; font-size:34px;">🏋️‍♀️</div>
+      <div style="font-size:19px; font-weight:700; margin-bottom:6px;">${p.name}</div>
+      <div style="font-size:13px; color:#666; line-height:1.55; margin-bottom:18px;">${p.desc}</div>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; padding:10px 0; border-top:1px solid #ececec;"><span style="color:#999;">Nivel</span><span style="font-weight:500;">${p.level}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:13px; padding:10px 0; border-top:1px solid #ececec;"><span style="color:#999;">Duración</span><span style="font-weight:500;">${p.duration}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:13px; padding:10px 0; border-top:1px solid #ececec; border-bottom:1px solid #ececec;"><span style="color:#999;">Equipo</span><span style="font-weight:500;">${p.equipment}</span></div>
+      </div>
+    `;
+    document.getElementById('f5-price').textContent = p.price;
+  }
+
+  function f5ShowCatalog() {
+    document.getElementById('f5-detail').style.display = 'none';
+    document.getElementById('f5-catalog').style.display = 'block';
+  }
+
+  f5RenderCatalog();
+
+</script>
+
+</body>
+</html>
