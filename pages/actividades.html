@@ -1,0 +1,116 @@
+---
+layout: page
+permalink: /actividades/
+title: "Actividades <em>Científicas</em>"
+label: "Ciencia abierta"
+description: "Charlas, conversatorios, arte y ciencia — el espacio de la APA para compartir conocimiento."
+
+---
+
+<section class="section" style="padding-top:0;">
+  <div class="section-inner">
+
+    <!-- Parasitología en la Nube -->
+    <div id="nube" style="margin-bottom:4rem;">
+      <div class="section-label" style="margin-bottom:0.5rem;">Charlas en línea</div>
+      <h2 class="section-title" style="margin-bottom:1rem;">Parasitología <em>en la Nube</em></h2>
+      <p style="color:var(--text-mid); max-width:640px; margin-bottom:2rem; line-height:1.8;">
+        Ciclo de charlas virtuales abiertas a toda la comunidad parasitológica. Investigadores e investigadoras
+        de Argentina y el mundo presentan sus líneas de trabajo con acceso libre y gratuito.
+      </p>
+      <div class="grid-3">
+        {% assign charlas = site.posts | where: "categoria", "charla" %}
+        {% if charlas.size > 0 %}
+          {% for post in charlas limit:6 %}
+          <a href="{{ post.url | relative_url }}" style="text-decoration:none;">
+            <article class="card fade-up">
+              <div class="card-body">
+                <span class="card-tag">Charla</span>
+                <h3 class="card-title" style="font-size:1rem;">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+                {% if post.orador %}<div style="font-size:0.82rem;color:var(--text-dim);">{{ post.orador }}</div>{% endif %}
+                <span class="card-link" style="margin-top:0.75rem;">Ver más →</span>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        {% else %}
+          <div class="card"><div class="card-body" style="color:var(--text-dim); font-size:0.85rem;">
+            Agregá entradas con <code>categoria: charla</code> en <code>_posts/</code> para que aparezcan aquí.
+          </div></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
+
+    <!-- Conversatorios -->
+    <div id="conversatorios" style="margin-bottom:4rem;">
+      <div class="section-label" style="margin-bottom:0.5rem;">Debates disciplinares</div>
+      <h2 class="section-title" style="margin-bottom:1rem;"><em>Conversatorios</em> Disciplinares</h2>
+      <p style="color:var(--text-mid); max-width:640px; margin-bottom:2rem; line-height:1.8;">
+        Espacios de debate y discusión profunda sobre problemáticas específicas de la parasitología,
+        con un formato dialógico que invita a múltiples voces y perspectivas.
+      </p>
+      <div class="grid-3">
+        {% assign conversatorios = site.posts | where: "categoria", "conversatorio" %}
+        {% if conversatorios.size > 0 %}
+          {% for post in conversatorios limit:6 %}
+          <a href="{{ post.url | relative_url }}" style="text-decoration:none;">
+            <article class="card fade-up">
+              <div class="card-body">
+                <span class="card-tag">Conversatorio</span>
+                <h3 class="card-title" style="font-size:1rem;">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+                <span class="card-link" style="margin-top:0.75rem;">Ver más →</span>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        {% else %}
+          <div class="card"><div class="card-body" style="color:var(--text-dim); font-size:0.85rem;">
+            Agregá entradas con <code>categoria: conversatorio</code> en <code>_posts/</code>
+          </div></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
+
+    <!-- Arte y Ciencia -->
+    <div id="arte" style="margin-bottom:2rem;">
+      <div class="section-label" style="margin-bottom:0.5rem;">Comisión de Arte y Ciencia</div>
+      <h2 class="section-title" style="margin-bottom:1rem;"><em>Arte</em> y Ciencia</h2>
+      <p style="color:var(--text-mid); max-width:640px; margin-bottom:2rem; line-height:1.8;">
+        La APA explora la intersección entre la práctica científica y la expresión artística.
+        El programa incluye calendarios ilustrados, talleres y exposiciones que muestran la belleza
+        del mundo parasitológico bajo una mirada creativa.
+      </p>
+      <div class="grid-3">
+        {% assign arte = site.posts | where: "categoria", "arte" %}
+        {% if arte.size > 0 %}
+          {% for post in arte limit:6 %}
+          <a href="{{ post.url | relative_url }}" style="text-decoration:none;">
+            <article class="card fade-up">
+              {% if post.imagen %}
+              <img src="{{ post.imagen | relative_url }}" alt="{{ post.title }}" style="width:100%;height:180px;object-fit:cover;" />
+              {% endif %}
+              <div class="card-body">
+                <span class="card-tag" style="color:var(--amber);background:var(--amber-dim);">Arte y Ciencia</span>
+                <h3 class="card-title" style="font-size:1rem;">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+                <span class="card-link" style="margin-top:0.75rem;">Ver más →</span>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        {% else %}
+          <div class="card"><div class="card-body" style="color:var(--text-dim); font-size:0.85rem;">
+            Agregá entradas con <code>categoria: arte</code> en <code>_posts/</code>
+          </div></div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
