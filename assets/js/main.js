@@ -2,24 +2,40 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Mobile navbar toggle ──────────────────────────────────────────────
-  const toggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-  if (toggle && navLinks) {
+  // ── Mobile / tablet nav overlay ────────────────────────────────────
+  const toggle = document.getElementById('menu-toggle');
+  const overlay = document.getElementById('nav-overlay');
+
+  if (toggle && overlay) {
+    const closeMenu = () => {
+      overlay.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+    };
+    const openMenu = () => {
+      overlay.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('no-scroll');
+    };
+
     toggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      toggle.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+      const isOpen = overlay.classList.contains('is-open');
+      isOpen ? closeMenu() : openMenu();
     });
-    // Close on link click
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        toggle.textContent = '☰';
-      });
+
+    overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // If the viewport grows past the desktop breakpoint while open, reset it
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1100) closeMenu();
     });
   }
 
-  // ── Intersection Observer for fade-up animations ──────────────────────
+  // ── Fade-up on scroll ───────────────────────────────────────────────
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -34,12 +50,28 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // ── Active nav link ───────────────────────────────────────────────────
-  const currentPath = window.location.pathname;
-  document.querySelectorAll('.navbar-links a').forEach(a => {
-    if (a.getAttribute('href') === currentPath) {
-      a.classList.add('active');
-    }
-  });
+  // ── Simple category/year filter (used on the Eventos archive) ─────
+  const filterBar = document.querySelector('[data-filters]');
+  if (filterBar) {
+    const buttons = filterBar.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('[data-archive-item]');
+
+    const applyFilter = (value) => {
+      items.forEach(item => {
+        const matches = value === 'all' || item.dataset.archiveItem === value;
+        item.classList.toggle('is-visible', matches);
+      });
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        applyFilter(btn.dataset.filter);
+      });
+    });
+
+    applyFilter('all');
+  }
 
 });

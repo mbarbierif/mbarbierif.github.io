@@ -1,11 +1,13 @@
-<footer class="footer">
-  <div class="footer-inner">
+<footer class="site-footer">
+  <div class="wrap">
     <div class="footer-grid">
 
-      <!-- Brand -->
       <div>
-        <div class="footer-brand-title">Asociación Parasitológica Argentina</div>
-        <p class="footer-brand-desc">
+        <div class="footer-brand">
+          <img src="{{ '/assets/img/logo.png' | relative_url }}" alt="APA">
+          <span>Asociación Parasitológica Argentina</span>
+        </div>
+        <p class="footer-desc">
           Entidad científica sin fines de lucro dedicada a la promoción, difusión y asesoramiento
           en Parasitología con un enfoque multidisciplinario, desde Argentina para el mundo.
         </p>
@@ -17,52 +19,31 @@
         </div>
       </div>
 
-      <!-- Links -->
       <div>
         <div class="footer-col-title">La Asociación</div>
         <ul class="footer-links">
           <li><a href="{{ '/asociacion/' | relative_url }}">Quiénes somos</a></li>
-          <li><a href="{{ '/asociacion/#estatuto' | relative_url }}">Estatuto</a></li>
           <li><a href="{{ '/asociacion/#comision' | relative_url }}">Comisión Directiva</a></li>
-          <li><a href="{{ '/delegados/' | relative_url }}">Delegados Regionales</a></li>
-          <li><a href="{{ '/asociacion/#convenios' | relative_url }}">Convenios</a></li>
+          <li><a href="{{ '/asociacion/#delegados' | relative_url }}">Delegados Regionales</a></li>
+          <li><a href="{{ site.revista_url }}" target="_blank" rel="noopener">Revista ↗</a></li>
         </ul>
       </div>
 
       <div>
-        <div class="footer-col-title">Ciencia</div>
+        <div class="footer-col-title">Participar</div>
         <ul class="footer-links">
-          <li><a href="{{ '/revista/' | relative_url }}">Revista Arg. de Parasitología</a></li>
-          <li><a href="{{ '/actividades/' | relative_url }}">Parasitología en la Nube</a></li>
-          <li><a href="{{ '/actividades/#conversatorios' | relative_url }}">Conversatorios</a></li>
-          <li><a href="{{ '/actividades/#arte' | relative_url }}">Arte y Ciencia</a></li>
-          <li><a href="{{ '/eventos/' | relative_url }}">Congresos</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <div class="footer-col-title">Socios</div>
-        <ul class="footer-links">
+          <li><a href="{{ '/eventos/' | relative_url }}">Eventos</a></li>
+          <li><a href="{{ '/formacion-convocatorias/' | relative_url }}">Formación y Convocatorias</a></li>
           <li><a href="{{ '/asociate/' | relative_url }}">Asociate</a></li>
-          <li><a href="{{ '/asociate/#aranceles' | relative_url }}">Aranceles</a></li>
-          <li><a href="{{ '/eventos/#convocatorias' | relative_url }}">Convocatorias</a></li>
-          <li><a href="{{ '/eventos/#becas' | relative_url }}">Becas y Concursos</a></li>
-          <li><a href="{{ '/contacto/' | relative_url }}">Contacto</a></li>
+          <li><a href="mailto:{{ site.email }}">Contacto</a></li>
         </ul>
       </div>
 
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copy">
-        © {{ 'now' | date: "%Y" }} Asociación Parasitológica Argentina.
-        Sitio generado con Jekyll y alojado en GitHub Pages.
-      </p>
-      <div class="footer-legal">
-        <a href="{{ '/contacto/' | relative_url }}">Contacto</a>
-        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
-      </div>
+      <span>© {{ 'now' | date: "%Y" }} Asociación Parasitológica Argentina. Sitio generado con Jekyll y alojado en GitHub Pages.</span>
+      <span>{{ site.email }}</span>
     </div>
-
   </div>
 </footer>

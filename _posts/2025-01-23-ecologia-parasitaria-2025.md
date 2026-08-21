@@ -8,14 +8,6 @@ excerpt: "Inscripciones abiertas para el curso de posgrado Ecología Parasitaria
 
 Se encuentran abiertas las inscripciones para el curso de posgrado **Ecología Parasitaria Aplicada**, edición 2025.
 
-## Sobre el curso
-
-El curso aborda los fundamentos teóricos y metodológicos de la ecología parasitaria, incluyendo el análisis de comunidades de parásitos, ecología de la transmisión, modelos epidemiológicos y herramientas estadísticas para el análisis de datos parasitológicos.
-
-## Destinatarios
-
-Estudiantes de posgrado, investigadores y profesionales interesados en la ecología de las interacciones hospedador-parásito.
-
 ## Carga horaria y modalidad
 
 - **Duración:** 40 horas
@@ -24,4 +16,4 @@ Estudiantes de posgrado, investigadores y profesionales interesados en la ecolog
 
 ## Inscripciones
 
-Los socios/as activos de la APA tienen prioridad de inscripción y aranceles reducidos. Para inscribirte escribí a [info@apargentina.org.ar](mailto:info@apargentina.org.ar).
+Los socios/as activos de la APA tienen prioridad de inscripción y aranceles reducidos. Escribí a [info@apargentina.org.ar](mailto:info@apargentina.org.ar).

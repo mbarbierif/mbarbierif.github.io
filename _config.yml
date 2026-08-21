@@ -3,17 +3,14 @@ description: "Entidad científica sin fines de lucro dedicada a la promoción y 
 url: "https://apargentina.org.ar"
 baseurl: ""
 
-# Build settings
 markdown: kramdown
 highlighter: rouge
 permalink: /:categories/:year/:month/:day/:title/
 
-# Collections
 collections:
   posts:
     output: true
 
-# Defaults
 defaults:
   - scope:
       path: ""
@@ -26,27 +23,23 @@ defaults:
     values:
       layout: "page"
 
-# Plugins (available natively in GitHub Pages)
 plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# Exclude from build
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
   - node_modules
 
-# Site info
 email: info@apargentina.org.ar
 twitter: "@APA_Argentina"
+revista_url: "http://www.revargparasitologia.com.ar/ojs/index.php/rap"
 
-# Navigation — Opción B (5 secciones), aprobada por el equipo
-# Nota: "Revista" ya no es un ítem de nav — vive solo como link externo
-# desde Inicio (revargparasitologia.com.ar tiene su propio sitio).
-# "Delegados" pasó a vivir dentro de La Asociación (ver footer.html
-# y pages/asociacion.html), no como ítem de nav propio.
+# Navegación — Opción B (5 secciones), aprobada por el equipo.
+# "Revista" no es un ítem de nav: vive como link externo desde Inicio
+# (tiene su propio sitio). "Delegados" vive dentro de La Asociación.
 nav:
   - title: "La Asociación"
     url: "/asociacion/"

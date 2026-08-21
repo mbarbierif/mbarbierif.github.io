@@ -13,12 +13,6 @@ El **X Congreso Argentino de Parasitología (X CAP)** ya cuenta con su cronogram
 
 El X CAP es el evento científico más importante de la parasitología argentina, con una convocatoria bienal que reúne a investigadores, docentes, estudiantes y profesionales de todo el país y de América Latina.
 
-## Cronograma de actividades
-
-El programa incluye conferencias plenarias, simposios temáticos, presentación de trabajos libres (orales y pósters), cursos pre-congreso y actividades sociales.
-
-Para acceder al cronograma completo y al libro de resúmenes, consultá el sitio oficial del congreso.
-
 ## Inscripción y aranceles
 
-Las inscripciones para socios activos de la APA tienen un descuento significativo. Para más información sobre aranceles y modalidades de pago, contactá a la secretaría de la APA.
+Las inscripciones para socios activos de la APA tienen un descuento significativo. Para más información, contactá a la secretaría de la APA.

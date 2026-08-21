@@ -1,0 +1,96 @@
+---
+layout: page
+permalink: /formacion-convocatorias/
+title: "Formación y <em>Convocatorias</em>"
+label: "Crecimiento profesional"
+description: "Cursos, talleres, becas y convocatorias abiertas para socios y socias de la APA."
+---
+
+<div class="section" style="padding-top:0;">
+  <div class="wrap">
+
+    <div id="convocatorias" style="margin-bottom: 3rem;">
+      <div class="section-label">En curso</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">Convocatorias <em>abiertas</em></h2>
+      {% assign convocatorias = site.posts | where: "categoria", "convocatoria" %}
+      <div class="grid grid-3">
+        {% if convocatorias.size > 0 %}
+          {% for post in convocatorias %}
+          <a href="{{ post.url | relative_url }}">
+            <article class="card fade-up">
+              <div class="card-body">
+                <span class="card-tag">Convocatoria</span>
+                <h3 class="card-title">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+                <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+                <span class="card-link">Ver detalle →</span>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        {% else %}
+          <div class="card"><div class="card-body" style="color:var(--muted); font-size:0.88rem;">
+            No hay convocatorias abiertas en este momento.
+          </div></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <div id="formacion" style="margin-bottom: 3rem;">
+      <div class="section-label">Capacitación</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">Cursos y <em>talleres</em></h2>
+      {% assign cursos = site.posts | where: "categoria", "curso" %}
+      <div class="grid grid-3">
+        {% if cursos.size > 0 %}
+          {% for post in cursos %}
+          <a href="{{ post.url | relative_url }}">
+            <article class="card fade-up">
+              <div class="card-body">
+                <span class="card-tag">Curso</span>
+                <h3 class="card-title">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
+                <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+                <span class="card-link">Ver detalle →</span>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        {% else %}
+          <div class="card"><div class="card-body" style="color:var(--muted); font-size:0.88rem;">
+            Agregá entradas con <code>categoria: curso</code> en <code>_posts/</code>.
+          </div></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <div id="becas">
+      <div class="section-label">Financiamiento</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">Apoyos <em>económicos</em></h2>
+      <div class="grid grid-3">
+        <div class="card fade-up"><div class="card-body">
+          <span class="card-tag">Postgrado</span>
+          <h3 class="card-title">Apoyo para cursos de posgrado</h3>
+          <p class="card-excerpt">Financiamiento para socios/as estudiantes que asisten a cursos de posgrado en Argentina.</p>
+          <a href="{{ '/assets/docs/apoyo-postgrado.pdf' | relative_url }}" class="card-link">Ver bases →</a>
+        </div></div>
+        <div class="card fade-up"><div class="card-body">
+          <span class="card-tag">Salidas de campo</span>
+          <h3 class="card-title">Apoyo para salidas de campo</h3>
+          <p class="card-excerpt">Para socios/as estudiantes de posgrado y posdoctorales que realizan trabajo de campo.</p>
+          <a href="{{ '/assets/docs/apoyo-campo.pdf' | relative_url }}" class="card-link">Ver bases →</a>
+        </div></div>
+        <div class="card fade-up"><div class="card-body">
+          <span class="card-tag">Investigación</span>
+          <h3 class="card-title">Apoyo a proyectos de investigación</h3>
+          <p class="card-excerpt">Para socios/as estudiantes y posdoctorales con proyectos de investigación en parasitología.</p>
+          <a href="{{ '/assets/docs/apoyo-investigacion.pdf' | relative_url }}" class="card-link">Ver bases →</a>
+        </div></div>
+      </div>
+    </div>
+
+  </div>
+</div>

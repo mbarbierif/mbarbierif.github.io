@@ -3,12 +3,10 @@ layout: default
 ---
 
 <div class="page-header">
-  <div class="page-header-inner fade-up">
+  <div class="wrap fade-up">
     {% if page.label %}<div class="section-label">{{ page.label }}</div>{% endif %}
     <h1 class="page-header-title">{{ page.title }}</h1>
-    {% if page.description %}
-    <p class="page-header-desc">{{ page.description }}</p>
-    {% endif %}
+    {% if page.description %}<p class="page-header-desc">{{ page.description }}</p>{% endif %}
   </div>
 </div>
 

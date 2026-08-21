@@ -1,126 +1,61 @@
 ---
 layout: page
 permalink: /asociacion/
-title: "La <em>Asociación</em>"
-label: "Quiénes somos"
-description: "Entidad científica sin fines de lucro con Personería Jurídica desde 2008."
-
+title: "La Asociación"
+label: "Institucional"
+description: "Quiénes somos, comisión directiva y delegados regionales de la APA."
+use_map: true
 ---
 
-<section class="section" style="padding-top: 0;">
-  <div class="section-inner">
+<div class="section" style="padding-top:0;">
+  <div class="wrap">
 
-    <!-- About -->
-    <div style="display:grid; grid-template-columns:2fr 1fr; gap:3rem; margin-bottom:4rem;">
-      <div class="post-content" style="max-width:100%;">
-        <p>
-          La <strong>Asociación Parasitológica Argentina (APA)</strong> surge como una entidad científica
-          sin fines de lucro con Personería Jurídica. Convoca a distintos especialistas en parasitología
-          y disciplinas afines, expertos en diferentes grupos de hospedadores involucrados en la
-          interacción parasitológica.
-        </p>
-        <p>
-          Procura generar un espacio en donde se den a conocer los avances de las diferentes líneas de
-          investigación a nivel nacional e internacional y se propicien los intercambios de experiencias
-          de trabajo y desarrollo.
-        </p>
-        <p>
-          De este modo contribuye a la promoción, difusión y asesoramiento referida a aspectos de su
-          competencia: <strong>la Parasitología con un enfoque multidisciplinario</strong>.
-        </p>
-      </div>
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="section-label" style="margin-bottom:1rem;">Datos institucionales</div>
-            <dl style="font-size:0.85rem; display:flex; flex-direction:column; gap:0.75rem;">
-              <div>
-                <dt style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Personería Jurídica</dt>
-                <dd style="color:var(--text);">08/02/2008 — Folio 24264</dd>
-              </div>
-              <div>
-                <dt style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Resolución DPPJ</dt>
-                <dd style="color:var(--text);">0113 — 07/02/2008</dd>
-              </div>
-              <div>
-                <dt style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">CUIT</dt>
-                <dd style="color:var(--text);">30-71051474-3</dd>
-              </div>
-              <div>
-                <dt style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Federaciones</dt>
-                <dd><a href="http://www.wfpnet.org" target="_blank">World Federation of Parasitologists</a></dd>
-                <dd style="margin-top:0.25rem;"><a href="#">Federación Latinoamericana de Parasitología</a></dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
-
-    <!-- Comisión Directiva -->
-    <div id="comision">
-      <div class="section-label" style="margin-bottom:0.5rem;">Autoridades</div>
-      <h2 class="section-title" style="margin-bottom:2rem;">Comisión <em>Directiva</em></h2>
-      <div class="grid-3">
-        <!-- Reemplazar con datos reales -->
-        {% assign cargos = "Presidenta,Vicepresidente,Secretaria,Tesorero,Vocal Titular 1,Vocal Titular 2" | split: "," %}
-        {% for cargo in cargos %}
-        <div class="card fade-up">
-          <div class="card-body" style="display:flex; gap:1rem; align-items:center;">
-            <div style="width:48px;height:48px;border-radius:50%;background:var(--bg-subtle);
-                        border:1px solid var(--border);display:flex;align-items:center;
-                        justify-content:center;font-size:1.3rem;flex-shrink:0;">👤</div>
-            <div>
-              <div style="font-size:0.7rem;color:var(--green);text-transform:uppercase;
-                          letter-spacing:0.08em;font-family:var(--font-mono);">{{ cargo }}</div>
-              <div style="font-size:0.92rem;color:var(--text);font-family:var(--font-display);">
-                Nombre Apellido
-              </div>
-              <div style="font-size:0.78rem;color:var(--text-dim);">Institución</div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-      <p style="font-size:0.82rem; color:var(--text-dim); margin-top:1.5rem;">
-        ✏️ <em>Para actualizar estos datos, editá <code>pages/asociacion.html</code> con los nombres y cargos reales.</em>
+    <div class="post-content" style="margin-bottom: 2.5rem;">
+      <p>
+        La <strong>Asociación Parasitológica Argentina (APA)</strong> es una entidad científica sin fines de lucro,
+        con Personería Jurídica desde 2008, dedicada a la promoción, difusión y asesoramiento en Parasitología
+        con un enfoque multidisciplinario, desde Argentina para el mundo.
+      </p>
+      <p>
+        Somos miembros de la World Federation of Parasitologists (WFP) y de la Federación Latinoamericana de
+        Parasitología (FLAP).
       </p>
     </div>
 
-    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
-
-    <!-- Estatuto -->
-    <div id="estatuto">
-      <div class="section-label" style="margin-bottom:0.5rem;">Documentos</div>
-      <h2 class="section-title" style="margin-bottom:1.5rem;"><em>Estatuto</em></h2>
-      <p style="color:var(--text-mid); max-width:640px; margin-bottom:1.5rem;">
-        El estatuto de la APA regula el funcionamiento de la asociación, los derechos y obligaciones de
-        los socios, y el funcionamiento de la Comisión Directiva.
-      </p>
-      <a href="{{ '/assets/docs/estatuto-apa.pdf' | relative_url }}" class="btn btn-secondary" target="_blank">
-        📄 Descargar Estatuto (PDF)
-      </a>
-    </div>
-
-    <hr style="border:none; border-top:1px solid var(--border); margin:3rem 0;" />
-
-    <!-- Convenios -->
-    <div id="convenios">
-      <div class="section-label" style="margin-bottom:0.5rem;">Alianzas</div>
-      <h2 class="section-title" style="margin-bottom:1.5rem;">Convenios de <em>Cooperación</em></h2>
-      <p style="color:var(--text-mid); max-width:640px; margin-bottom:2rem;">
-        La APA ha firmado convenios de cooperación con instituciones nacionales e internacionales
-        para fortalecer la investigación y formación en parasitología.
-      </p>
-      <!-- Agregar convenios aquí -->
-      <div class="grid-3">
-        <div class="card"><div class="card-body" style="color:var(--text-dim); font-size:0.85rem;">
-          Agregar convenios en <code>pages/asociacion.html</code>
+    <div id="comision" style="margin-bottom: 3rem;">
+      <div class="section-label">Autoridades</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">Comisión <em>Directiva</em></h2>
+      <div class="grid grid-3">
+        <div class="card fade-up"><div class="card-body">
+          <span class="card-tag">Presidencia</span>
+          <h3 class="card-title" style="font-size:1rem;">A completar</h3>
+        </div></div>
+        <div class="card fade-up"><div class="card-body">
+          <span class="card-tag">Secretaría</span>
+          <h3 class="card-title" style="font-size:1rem;">A completar</h3>
+        </div></div>
+        <div class="card fade-up"><div class="card-body">
+          <span class="card-tag">Tesorería</span>
+          <h3 class="card-title" style="font-size:1rem;">A completar</h3>
         </div></div>
       </div>
     </div>
 
+    <hr class="section-divider" />
+
+    <div id="delegados">
+      <div class="section-label">Red federal</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">Delegados <em>Regionales</em></h2>
+      <p style="color:var(--text-mid); margin-bottom: 1.5rem; max-width: 620px;">
+        Contactos regionales de la APA en todo el país. Hacé clic en un marcador para ver los datos de contacto.
+      </p>
+      <div class="map-container">
+        <div id="delegados-map"></div>
+      </div>
+      <div class="grid grid-3" id="delegados-cards">
+        <div style="color:var(--muted); font-size:0.88rem; padding:1rem;">Cargando delegados…</div>
+      </div>
+    </div>
+
   </div>
-</section>
+</div>
