@@ -17,7 +17,8 @@ description: "Congresos, Parasitología en la Nube, Conversatorios Disciplinares
       <button class="filter-btn" data-filter="arte">Arte y Ciencia</button>
     </div>
 
-    {% assign eventos_posts = site.posts | where_exp: "p", "p.categoria == 'congreso' or p.categoria == 'charla' or p.categoria == 'conversatorio' or p.categoria == 'arte'" %}
+    {% assign eventos_cats = "congreso,charla,conversatorio,arte" | split: "," %}
+    {% assign eventos_posts = site.posts | where_exp: "p", "eventos_cats contains p.categoria" %}
 
     <div class="grid grid-3">
       {% if eventos_posts.size > 0 %}
