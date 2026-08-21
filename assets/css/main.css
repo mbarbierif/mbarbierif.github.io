@@ -1,38 +1,41 @@
 /* =============================================
    APA — Asociación Parasitológica Argentina
-   Design System: Scientific Dark + Organic
-   Fonts: Cormorant Garamond (display) + DM Sans (body)
+   Design System: Editorial Cálido (aprobado — ronda de feedback)
+   Fonts: PT Serif (display) + PT Sans (body)
+   Nota: los nombres de variables (--green, --amber, --font-mono, etc.)
+   se mantienen por compatibilidad con estilos inline ya usados en
+   pages/*.html — solo cambiaron los VALORES, no los nombres.
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=PT+Sans:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap');
 
 /* ── Variables ── */
 :root {
-  --bg:         #0d1117;
-  --bg-card:    #131920;
-  --bg-subtle:  #1a2330;
-  --border:     rgba(100, 160, 120, 0.15);
-  --border-mid: rgba(100, 160, 120, 0.3);
+  --bg:         #FFF5EE; /* Seashell */
+  --bg-card:    #FFFFFF;
+  --bg-subtle:  #F1E9DA;
+  --border:     #BBB7AC;
+  --border-mid: #9A9587;
 
-  --green:      #6db88a;
-  --green-light:#9dd4b2;
-  --green-dim:  rgba(109, 184, 138, 0.12);
-  --amber:      #c9a84c;
-  --amber-dim:  rgba(201, 168, 76, 0.12);
+  --green:      #E87838; /* accent naranja (nombre de variable histórico) */
+  --green-light:#F2966A;
+  --green-dim:  rgba(232, 120, 56, 0.10);
+  --amber:      #584D36; /* texto de etiquetas/tags */
+  --amber-dim:  rgba(180, 194, 184, 0.35); /* tinte salvia para fondo de tags */
 
-  --text:       #e8ede9;
-  --text-mid:   #9aab9e;
-  --text-dim:   #5a6b60;
+  --text:       #090201;
+  --text-mid:   #584D36;
+  --text-dim:   #B1B0B5;
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-display: 'PT Serif', Georgia, serif;
+  --font-body:    'PT Sans', system-ui, sans-serif;
   --font-mono:    'DM Mono', monospace;
 
-  --radius:   8px;
-  --radius-lg: 16px;
+  --radius:   12px;
+  --radius-lg: 18px;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow:   0 4px 24px rgba(0,0,0,0.4);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
+  --shadow:   0 4px 24px rgba(9,2,1,0.08);
+  --shadow-lg: 0 8px 48px rgba(9,2,1,0.12);
 }
 
 /* ── Reset ── */
@@ -58,7 +61,7 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 /* ── Navbar ── */
@@ -66,7 +69,7 @@ body::before {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13, 17, 23, 0.92);
+  background: rgba(255, 245, 238, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -83,23 +86,24 @@ body::before {
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   text-decoration: none;
 }
-.navbar-brand .brand-acronym {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--green);
-  letter-spacing: 0.04em;
+.navbar-brand .brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: none;
 }
-.navbar-brand .brand-name {
-  font-size: 0.72rem;
-  color: var(--text-mid);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.3;
-  max-width: 160px;
+/* Wordmark: una sola línea de texto con el mismo estilo en toda la frase
+   (ya no hay tratamiento distinto entre "Asociación Parasitológica" y "Argentina") */
+.navbar-brand .brand-word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  color: var(--text);
+  max-width: 190px;
 }
 .navbar-links {
   display: flex;
@@ -109,30 +113,29 @@ body::before {
 }
 .navbar-links a {
   font-size: 0.82rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-mid);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius);
   transition: all var(--transition);
 }
 .navbar-links a:hover,
 .navbar-links a.active {
-  color: var(--green-light);
+  color: var(--green);
   background: var(--green-dim);
 }
 .navbar-cta {
   font-size: 0.82rem !important;
   font-weight: 600 !important;
-  color: var(--bg) !important;
+  color: #fff !important;
   background: var(--green) !important;
-  padding: 0.4rem 1rem !important;
+  padding: 0.5rem 1.1rem !important;
   border-radius: 99px !important;
 }
 .navbar-cta:hover {
   background: var(--green-light) !important;
-  color: var(--bg) !important;
+  color: #fff !important;
 }
 .navbar-toggle {
   display: none;
@@ -158,8 +161,8 @@ body::before {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(109,184,138,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,120,56,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(180,194,184,0.14) 0%, transparent 50%),
     var(--bg);
 }
 .hero-orb {
@@ -170,13 +173,13 @@ body::before {
 }
 .hero-orb-1 {
   width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(109,184,138,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(232,120,56,0.14) 0%, transparent 70%);
   right: -100px; top: -100px;
   animation: orbFloat 12s ease-in-out infinite;
 }
 .hero-orb-2 {
   width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(180,194,184,0.20) 0%, transparent 70%);
   left: 10%; bottom: 10%;
   animation: orbFloat 16s ease-in-out infinite reverse;
 }
@@ -213,14 +216,14 @@ body::before {
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.8rem, 5vw, 4.5rem);
-  font-weight: 300;
+  font-weight: 700;
   line-height: 1.1;
   color: var(--text);
   margin-bottom: 1.5rem;
 }
 .hero-title em {
   font-style: italic;
-  color: var(--green-light);
+  color: var(--green);
 }
 .hero-subtitle {
   font-size: 1.05rem;
@@ -237,31 +240,36 @@ body::before {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
+  width: 200px;
+  padding: 0.75rem 1.25rem;
   border-radius: 99px;
   font-family: var(--font-body);
   font-size: 0.88rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all var(--transition);
-  border: none;
+  border: 1.5px solid transparent;
   text-decoration: none;
+  text-align: center;
 }
 .btn-primary {
   background: var(--green);
-  color: var(--bg);
+  border-color: var(--green);
+  color: #fff;
 }
 .btn-primary:hover {
   background: var(--green-light);
-  color: var(--bg);
+  border-color: var(--green-light);
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(109,184,138,0.3);
+  box-shadow: 0 8px 24px rgba(232,120,56,0.25);
 }
 .btn-secondary {
   background: transparent;
   color: var(--text-mid);
-  border: 1px solid var(--border-mid);
+  border-color: var(--text-mid);
 }
 .btn-secondary:hover {
   border-color: var(--green);
@@ -286,8 +294,8 @@ body::before {
 .hero-stat-num {
   font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 600;
-  color: var(--green-light);
+  font-weight: 700;
+  color: var(--green);
   line-height: 1;
 }
 .hero-stat-label {
@@ -324,7 +332,7 @@ body::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.85;
+  opacity: 0.9;
   transition: opacity var(--transition);
 }
 .hero-image-cell:hover img { opacity: 1; }
@@ -344,7 +352,7 @@ body::before {
   min-height: 120px;
 }
 .hero-image-placeholder svg {
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 /* ── Section layout ── */
@@ -370,11 +378,11 @@ body::before {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 300;
+  font-weight: 700;
   color: var(--text);
   line-height: 1.2;
 }
-.section-title em { font-style: italic; color: var(--green-light); }
+.section-title em { font-style: italic; color: var(--green); }
 .section-divider {
   border: none;
   border-top: 1px solid var(--border);
@@ -403,7 +411,7 @@ body::before {
   text-transform: uppercase;
   color: var(--amber);
   background: var(--amber-dim);
-  border: 1px solid rgba(201,168,76,0.2);
+  border: 1px solid rgba(180,194,184,0.5);
   border-radius: 99px;
   padding: 0.2rem 0.6rem;
   display: inline-block;
@@ -412,7 +420,7 @@ body::before {
 .card-title {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--text);
   line-height: 1.3;
   margin-bottom: 0.6rem;
@@ -433,7 +441,7 @@ body::before {
   align-items: center;
   gap: 0.4rem;
   font-size: 0.82rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--green);
   margin-top: 1rem;
   transition: gap var(--transition);
@@ -505,7 +513,7 @@ body::before {
 }
 .quick-link-label {
   font-size: 0.82rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
@@ -534,7 +542,7 @@ body::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 100% at 80% 50%, rgba(109,184,138,0.05) 0%, transparent 60%);
+  background: radial-gradient(ellipse 60% 100% at 80% 50%, rgba(232,120,56,0.06) 0%, transparent 60%);
   pointer-events: none;
 }
 .page-header-inner {
@@ -545,11 +553,11 @@ body::before {
 .page-header-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 300;
+  font-weight: 700;
   line-height: 1.1;
   margin-bottom: 0.75rem;
 }
-.page-header-title em { font-style: italic; color: var(--green-light); }
+.page-header-title em { font-style: italic; color: var(--green); }
 .page-header-desc {
   font-size: 1rem;
   color: var(--text-mid);
@@ -564,14 +572,14 @@ body::before {
 .post-content h2 {
   font-family: var(--font-display);
   font-size: 1.6rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--text);
   margin: 2.5rem 0 1rem;
 }
 .post-content h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--green-light);
+  color: var(--green);
   margin: 2rem 0 0.75rem;
 }
 .post-content p { margin-bottom: 1.25rem; color: var(--text-mid); }
@@ -610,7 +618,7 @@ body::before {
 }
 .membership-card.featured {
   border-color: var(--green);
-  background: linear-gradient(135deg, var(--bg-card), rgba(109,184,138,0.05));
+  background: linear-gradient(135deg, var(--bg-card), rgba(232,120,56,0.05));
 }
 .membership-card:hover {
   transform: translateY(-3px);
@@ -627,7 +635,7 @@ body::before {
 .membership-price {
   font-family: var(--font-display);
   font-size: 2.2rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
   line-height: 1;
   margin-bottom: 0.3rem;
@@ -653,7 +661,7 @@ body::before {
 .membership-features li::before {
   content: '✓';
   color: var(--green);
-  font-weight: 600;
+  font-weight: 700;
   flex-shrink: 0;
 }
 
@@ -676,8 +684,8 @@ body::before {
 .footer-brand-title {
   font-family: var(--font-display);
   font-size: 1.3rem;
-  font-weight: 300;
-  color: var(--green-light);
+  font-weight: 700;
+  color: var(--text);
   margin-bottom: 0.5rem;
 }
 .footer-brand-desc {
@@ -703,7 +711,7 @@ body::before {
 }
 .footer-col-title {
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-mid);
@@ -778,7 +786,7 @@ body::before {
     flex-direction: column;
     position: absolute;
     top: 64px; left: 0; right: 0;
-    background: rgba(13,17,23,0.97);
+    background: rgba(255,245,238,0.97);
     border-bottom: 1px solid var(--border);
     padding: 1rem;
     z-index: 99;
@@ -788,4 +796,5 @@ body::before {
   .footer-grid { grid-template-columns: 1fr; }
   .hero { padding: 4rem 1.25rem; }
   .section { padding: 3.5rem 1.25rem; }
+  .btn { width: 100%; }
 }

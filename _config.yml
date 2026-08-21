@@ -42,17 +42,17 @@ exclude:
 email: info@apargentina.org.ar
 twitter: "@APA_Argentina"
 
-# Navigation
+# Navigation — Opción B (5 secciones), aprobada por el equipo
+# Nota: "Revista" ya no es un ítem de nav — vive solo como link externo
+# desde Inicio (revargparasitologia.com.ar tiene su propio sitio).
+# "Delegados" pasó a vivir dentro de La Asociación (ver footer.html
+# y pages/asociacion.html), no como ítem de nav propio.
 nav:
   - title: "La Asociación"
     url: "/asociacion/"
-  - title: "Revista"
-    url: "/revista/"
-  - title: "Actividades"
-    url: "/actividades/"
   - title: "Eventos"
     url: "/eventos/"
-  - title: "Delegados"
-    url: "/delegados/"
+  - title: "Formación y Convocatorias"
+    url: "/formacion-convocatorias/"
   - title: "Asociate"
     url: "/asociate/"
