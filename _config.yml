@@ -33,9 +33,13 @@ exclude:
   - Gemfile.lock
   - node_modules
 
-email: info@apargentina.org.ar
-twitter: "@APA_Argentina"
+email: secretaria@apargentina.org.ar
 revista_url: "http://www.revargparasitologia.com.ar/ojs/index.php/rap"
+
+# Redes sociales (footer). Si un valor queda vacío (""), el botón no se muestra.
+instagram_url: "https://www.instagram.com/asocparasitologicaargentina/"            # Instagram de la APA
+revista_instagram_url: "https://www.instagram.com/revargparasitologia/"    # Instagram de la Revista
+facebook_url: "https://www.facebook.com/share/1WZXD5F2YC/"             # Facebook de la APA
 
 # Navegación — aprobada por el equipo.
 # "Revista" no es un ítem de nav: vive como link externo desde Inicio

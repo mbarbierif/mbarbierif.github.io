@@ -328,17 +328,26 @@ ul { list-style: none; }
 /* ── Footer ── */
 .site-footer { border-top: 1px solid var(--border); padding: 2.5rem 0 1.75rem; margin-top: 3rem; }
 .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 2rem; }
-.footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+.footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; }
 .footer-brand img { width: 30px; height: 30px; object-fit: contain; }
 .footer-brand span { font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
-.footer-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 0.9rem; }
-.footer-badges { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.footer-badge { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem; }
+.footer-social { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.1rem; }
+.social-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 40px; min-width: 40px;
+  border: 1px solid var(--border); border-radius: 999px;
+  color: var(--text-mid);
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.social-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.social-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.social-btn--label { padding: 0 16px 0 13px; font-family: var(--font-body); font-weight: 600; font-size: 13px; }
+.footer-address { font-style: normal; font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; max-width: 280px; }
 .footer-col-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.8rem; }
 .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
 .footer-links a { font-size: 0.85rem; color: var(--text-mid); }
 .footer-links a:hover { color: var(--accent); }
-.footer-bottom { border-top: 1px solid var(--border); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.78rem; color: var(--muted); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 1.25rem; font-size: 0.78rem; color: var(--muted); }
 
 /* ── Map page ── */
 .map-container { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 2rem; }
