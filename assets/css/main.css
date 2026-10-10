@@ -382,7 +382,13 @@ ul { list-style: none; }
   .desktop-nav { display: flex; align-items: center; gap: 26px; }
   .desktop-nav a { font-family: var(--font-body); font-weight: 600; font-size: 13.5px; color: var(--text-mid); }
   .desktop-nav a:hover, .desktop-nav a.is-active { color: var(--accent); }
-  .desktop-cta { display: inline-flex; }
+  .desktop-cta {
+    display: inline-flex;
+    font-size: 20px;
+    text-transform: uppercase;
+    line-height: 1;       /* sin esto, 20px heredaría 1.65 y el botón crecería */
+    padding: 11px 14px;   /* antes 12px 14px → ~48px de alto, ahora ~45px */
+  }
 
   .site-header .wrap { height: 76px; }
   :root { --header-h: 76px; --btn-w: 190px; }

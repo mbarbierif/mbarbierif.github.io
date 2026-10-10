@@ -37,9 +37,12 @@ email: info@apargentina.org.ar
 twitter: "@APA_Argentina"
 revista_url: "http://www.revargparasitologia.com.ar/ojs/index.php/rap"
 
-# Navegación — Opción B (5 secciones), aprobada por el equipo.
+# Navegación — aprobada por el equipo.
 # "Revista" no es un ítem de nav: vive como link externo desde Inicio
 # (tiene su propio sitio). "Delegados" vive dentro de La Asociación.
+# "Asociate" ya no es un ítem de nav: es el botón (CTA) al lado del menú,
+# definido en _includes/header.html. "Contacto" es una sección nueva
+# (página pendiente: pages/contacto.html).
 nav:
   - title: "La Asociación"
     url: "/asociacion/"
@@ -47,5 +50,5 @@ nav:
     url: "/eventos/"
   - title: "Formación y Convocatorias"
     url: "/formacion-convocatorias/"
-  - title: "Asociate"
-    url: "/asociate/"
+  - title: "Contacto"
+    url: "/contacto/"
