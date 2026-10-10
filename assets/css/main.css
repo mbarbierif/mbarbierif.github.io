@@ -390,9 +390,98 @@ ul { list-style: none; }
 .footer-links a:hover { color: var(--accent); }
 .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.25rem; font-size: 0.78rem; color: var(--muted); }
 
+/* ── La Asociación: personas, grupos, documentos, convenios ── */
+#comision, #delegados, #convenios { scroll-margin-top: calc(var(--header-h) + 16px); }
+
+.person { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem; }
+.card.person:hover { transform: none; box-shadow: none; }
+.person-info { min-width: 0; }
+.person .card-title { display: block; min-height: 0; margin-bottom: 0; font-size: 1rem; overflow: visible; }
+.person-meta { font-size: 0.8rem; color: var(--text-mid); line-height: 1.5; margin-top: 0.15rem; }
+.person-email { display: block; font-size: 0.78rem; color: var(--accent); word-break: break-all; margin-top: 0.25rem; }
+.card .avatar {
+  width: 64px; height: 64px; flex: none;
+  border-radius: 50%; object-fit: cover;
+  border: 2px solid rgba(232,120,56,0.3);
+  background: var(--surface-subtle);
+}
+.avatar--empty { display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.avatar--empty svg { width: 46%; height: 46%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.group-title { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; line-height: 1.25; margin-bottom: 0.4rem; }
+.group-desc { color: var(--text-mid); font-size: 0.92rem; max-width: 620px; margin-bottom: 1.25rem; }
+.group-title + .grid { margin-top: 1.25rem; }
+.group-desc + .grid { margin-top: 0; }
+
+.doc-links { display: flex; flex-wrap: wrap; gap: 0.9rem 2rem; }
+.doc-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-body); font-weight: 700; font-size: 0.78rem;
+  letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3;
+  color: var(--accent);
+  padding-bottom: 3px; border-bottom: 1.5px solid currentColor;
+}
+.doc-link:hover { color: var(--accent-light); }
+.doc-link svg, .convenio svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.doc-link.is-pending, .convenio.is-pending { opacity: 0.55; cursor: default; }
+.doc-link.is-pending { border-bottom-style: dashed; }
+
+/* Convenios: tres estilos de badge (se elige con convenios_estilo en pages/asociacion.html) */
+.convenios { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+.convenio { display: inline-flex; align-items: center; gap: 8px; transition: color var(--transition), border-color var(--transition), background var(--transition); }
+a.convenio:hover { color: var(--accent); }
+/* A — píldora (mismo lenguaje que los chips) */
+.convenios--a .convenio { font-family: var(--font-body); font-weight: 600; font-size: 12.5px; padding: 9px 16px 9px 13px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-mid); }
+.convenios--a a.convenio:hover { border-color: var(--accent); background: var(--accent-dim); }
+.convenios--a .convenio-meta { display: none; }
+/* B — ficha */
+.convenios--b .convenio { padding: 10px 14px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent-2); font-weight: 600; font-size: 0.85rem; color: var(--text); }
+.convenios--b a.convenio:hover { border-color: var(--accent); border-left-color: var(--accent); }
+.convenios--b .convenio svg { display: none; }
+.convenios--b .convenio-meta { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--text-mid); padding-left: 10px; margin-left: 4px; border-left: 1px solid var(--border); }
+/* C — etiqueta */
+.convenios--c .convenio { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px; background: rgba(180,194,184,0.3); border: 1px solid transparent; color: var(--text-mid); }
+.convenios--c a.convenio:hover { background: var(--accent-dim); border-color: var(--accent); }
+.convenios--c .convenio-meta { display: none; }
+
 /* ── Map page ── */
-.map-container { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 2rem; }
+/* isolation: los z-index internos de Leaflet (hasta 1000) quedan dentro del mapa y no tapan el navbar */
+.map-container { position: relative; isolation: isolate; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 1.5rem; }
 #delegados-map { height: 380px; width: 100%; background: var(--surface-subtle); }
+
+/* Marcador: pin naranja; al pasar el mouse se reemplaza por la foto de la persona */
+.apa-marker { position: relative; }
+.apa-marker-pin {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: var(--accent); border: 2px solid #fff;
+  box-shadow: 0 0 0 4px rgba(232,120,56,0.2), 0 4px 12px rgba(9,2,1,0.25);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.apa-marker-pin svg { width: 12px; height: 12px; fill: #fff; }
+.apa-marker-photo {
+  position: absolute; left: 50%; top: 50%;
+  width: 60px; height: 60px; margin: -30px 0 0 -30px;
+  border-radius: 50%; overflow: hidden;
+  background: var(--surface-subtle); border: 3px solid var(--accent);
+  box-shadow: 0 6px 18px rgba(9,2,1,0.3);
+  display: flex; align-items: center; justify-content: center; color: var(--muted);
+  opacity: 0; transform: scale(0.4); pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.apa-marker-photo img { width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.apa-marker-photo svg { width: 46%; height: 46%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.apa-marker:hover .apa-marker-photo, .apa-marker:focus .apa-marker-photo { opacity: 1; transform: scale(1); pointer-events: auto; }
+.apa-marker:hover .apa-marker-pin, .apa-marker:focus .apa-marker-pin { opacity: 0; transform: scale(0.4); }
+
+.leaflet-tooltip.apa-tooltip {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(9,2,1,0.18); padding: 8px 12px;
+  color: var(--text); font-family: var(--font-body); font-size: 0.78rem; line-height: 1.4; white-space: normal; max-width: 240px; text-align: center;
+}
+.leaflet-tooltip-bottom.apa-tooltip::before { border-bottom-color: var(--border); }
+.apa-tooltip strong { display: block; font-weight: 700; }
+.apa-tooltip span { color: var(--accent); word-break: break-all; }
 
 /* ── Fade-up animation ── */
 .fade-up { opacity: 0; transform: translateY(18px); animation: fadeUp 0.5s ease forwards; }
