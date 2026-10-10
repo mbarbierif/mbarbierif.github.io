@@ -221,15 +221,7 @@ ul { list-style: none; }
 
 /* ── Hero ── */
 .hero { padding: 2rem 0 2.5rem; position: relative; overflow: hidden; }
-.hero .wrap { display: flex; flex-direction: column; gap: 8px; position: relative; }
-.hero-graphic {
-  align-self: center;
-  width: 120px; height: 120px;
-  color: var(--accent);
-  opacity: 0.55;
-  margin-bottom: 4px;
-}
-.hero-graphic circle { stroke: currentColor; fill: none; stroke-width: 0.8; }
+.hero .wrap { display: flex; flex-direction: column; gap: 28px; position: relative; }
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 10.5px;
@@ -250,10 +242,48 @@ ul { list-style: none; }
   margin-bottom: 10px;
 }
 .hero p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.55; margin-bottom: 18px; max-width: 480px; }
-.hero-note { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); margin-top: 12px; }
 
-/* ── Quick nav (home) ── */
-.quicknav { padding: 0.5rem 0 2rem; }
+/* ── Carousel (home hero) ── */
+.carousel {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
+  aspect-ratio: 4 / 3;
+}
+.carousel-track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-slide { flex: 0 0 100%; scroll-snap-align: start; margin: 0; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carousel-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,245,238,0.88);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.carousel-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--bg); }
+.carousel-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.carousel-btn--prev { left: 12px; }
+.carousel-btn--next { right: 12px; }
+.carousel-dots { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; gap: 8px; }
+.carousel-dot {
+  width: 8px; height: 8px; padding: 0; border-radius: 999px;
+  border: 1px solid #fff; background: rgba(255,255,255,0.45);
+  cursor: pointer;
+  transition: background var(--transition), width var(--transition);
+}
+.carousel-dot.is-active { background: var(--accent); border-color: var(--accent); width: 22px; }
 
 /* ── Cards / grid ── */
 .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
@@ -265,7 +295,18 @@ ul { list-style: none; }
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-.card-body { padding: 1.3rem; }
+.card-body { padding: 1.3rem; display: flex; flex-direction: column; flex: 1; }
+/* Mismo alto para todas las cards: la foto ocupa siempre el mismo espacio
+   (con o sin imagen) y título (2 líneas) y extracto (3 líneas) ocupan siempre el mismo espacio. */
+.grid > a { display: flex; }
+.grid > a > .card { display: flex; flex-direction: column; flex: 1; }
+.card-media { height: 170px; flex: none; overflow: hidden; background: var(--surface-subtle); position: relative; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-media--empty::after {
+  content: ""; position: absolute; inset: 0;
+  background: url('../img/logo.png') center / 56px auto no-repeat;
+  opacity: 0.35;
+}
 .card-tag {
   font-family: var(--font-mono);
   font-size: 0.62rem;
@@ -278,10 +319,10 @@ ul { list-style: none; }
   display: inline-block;
   margin-bottom: 0.6rem;
 }
-.card-title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1.35; color: var(--text); margin-bottom: 0.4rem; }
+.card-title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1.35; color: var(--text); margin-bottom: 0.4rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: calc(1.35em * 2); }
 .card-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 0.6rem; }
-.card-excerpt { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; }
-.card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-top: 0.75rem; }
+.card-excerpt { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: calc(1.6em * 3); }
+.card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-top: auto; padding-top: 0.75rem; }
 .card img { width: 100%; height: 170px; object-fit: cover; }
 
 /* ── Page header ── */
@@ -366,9 +407,7 @@ ul { list-style: none; }
   .membership-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
 
-  .hero .wrap { flex-direction: row; align-items: center; gap: 40px; text-align: left; }
-  .hero-graphic { order: 2; align-self: flex-start; width: 170px; height: 170px; margin: 0; flex: none; }
-  .hero-copy { order: 1; flex: 1; }
+  .carousel { aspect-ratio: 16 / 9; }
   .hero h1 { font-size: 2.4rem; }
   .hero p { font-size: 1rem; }
 
@@ -403,9 +442,11 @@ ul { list-style: none; }
   :root { --header-h: 76px; --btn-w: 190px; }
 
   .hero { padding: 3.5rem 0 4rem; }
-  .hero h1 { font-size: 3rem; max-width: 620px; }
+  .hero .wrap { flex-direction: row; align-items: center; gap: 56px; }
+  .hero-copy, .carousel { flex: 1 1 0; min-width: 0; }
+  .carousel { aspect-ratio: 4 / 3; }
+  .hero h1 { font-size: 3rem; }
   .hero p { font-size: 1.05rem; max-width: 520px; }
-  .hero-graphic { width: 220px; height: 220px; }
 
   .section { padding: 4.5rem 0; }
   .page-header { padding: 4rem 0 2.5rem; }

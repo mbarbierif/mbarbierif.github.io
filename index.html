@@ -4,48 +4,55 @@ title: "Inicio"
 description: "Entidad científica sin fines de lucro dedicada a la Parasitología en Argentina y el mundo."
 ---
 
+{%- comment -%}
+  Carrusel: toma automáticamente todas las imágenes de assets/img/homepage_carrousel/
+  (en orden alfabético por nombre de archivo). Si la carpeta está vacía, el carrusel no se muestra.
+{%- endcomment -%}
+{% assign img_exts = ".jpg,.jpeg,.png,.webp,.JPG,.JPEG,.PNG,.WEBP" | split: "," %}
+{% assign slides = site.static_files | where_exp: "f", "f.path contains '/assets/img/homepage_carrousel/'" | where_exp: "f", "img_exts contains f.extname" | sort: "path" %}
+
 <section class="hero">
   <div class="wrap">
-    <svg class="hero-graphic" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="80" cy="80" r="70"/><circle cx="80" cy="80" r="48"/><circle cx="80" cy="80" r="26"/>
-      <circle cx="118" cy="42" r="8"/><circle cx="30" cy="118" r="5"/>
-    </svg>
     <div class="hero-copy fade-up">
-      <span class="eyebrow">Desde 2008 · Ciencia Argentina</span>
-      <h1>Ciencia, investigación y comunidad parasitológica</h1>
-      <p>La APA convoca a especialistas en parasitología y disciplinas afines para promover la investigación, difusión e intercambio científico a nivel nacional e internacional.</p>
-      <div class="btn-row">
-        <a href="{{ '/formacion-convocatorias/' | relative_url }}" class="btn btn-primary">Ver convocatorias</a>
-        <a href="{{ '/asociacion/' | relative_url }}" class="btn btn-secondary">Conocé la Asociación</a>
-      </div>
-      <div class="hero-note">Fundada en 1965 · Personería Jurídica 2008</div>
+      <span class="eyebrow">Nuestra asociación</span>
+      <h1>Parasitología con un enfoque multidisciplinario</h1>
+      <p>Somos una entidad científica sin fines de lucro y con personería jurídica. Reúne a especialistas en parasitología y disciplinas afines.</p>
+      <a href="{{ '/asociacion/' | relative_url }}" class="btn btn-secondary">Conocenos</a>
     </div>
-  </div>
-</section>
 
-<section class="quicknav">
-  <div class="wrap">
-    <div class="chips">
-      <a href="{{ '/asociacion/' | relative_url }}" class="chip is-accent">La Asociación</a>
-      <a href="{{ '/eventos/' | relative_url }}" class="chip">Eventos</a>
-      <a href="{{ '/formacion-convocatorias/' | relative_url }}" class="chip">Formación y Convocatorias</a>
-      <a href="{{ '/asociate/' | relative_url }}" class="chip">Asociate</a>
-      <a href="{{ site.revista_url }}" target="_blank" rel="noopener" class="chip">Revista ↗</a>
+    {% if slides.size > 0 %}
+    <div class="carousel fade-up" data-carousel role="region" aria-roledescription="carrusel" aria-label="Fotografías de la Asociación">
+      <div class="carousel-track">
+        {% for img in slides %}
+        <figure class="carousel-slide" aria-label="{{ forloop.index }} de {{ slides.size }}">
+          <img src="{{ img.path | relative_url }}" alt="Fotografía {{ forloop.index }} de la Asociación Parasitológica Argentina" {% unless forloop.first %}loading="lazy"{% endunless %}>
+        </figure>
+        {% endfor %}
+      </div>
+      {% if slides.size > 1 %}
+      <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button type="button" class="carousel-btn carousel-btn--next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="carousel-dots"></div>
+      {% endif %}
     </div>
+    {% endif %}
   </div>
 </section>
 
 <section class="section" style="padding-top: 0.5rem;">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-label">Novedades</div>
-      <h2 class="section-title">Últimas <em>publicaciones</em></h2>
+      <h2 class="section-title">Últimas <em>novedades</em></h2>
     </div>
     <div class="grid grid-3">
       {% for post in site.posts limit:3 %}
       <a href="{{ post.url | relative_url }}" class="fade-up">
         <article class="card">
-          {% if post.imagen %}<img src="{{ post.imagen | relative_url }}" alt="{{ post.title }}">{% endif %}
+          {% if post.imagen %}
+          <div class="card-media"><img src="{{ post.imagen | relative_url }}" alt="{{ post.title }}"></div>
+          {% else %}
+          <div class="card-media card-media--empty" aria-hidden="true"></div>
+          {% endif %}
           <div class="card-body">
             {% if post.categoria %}<span class="card-tag">{{ post.categoria }}</span>{% endif %}
             <h3 class="card-title">{{ post.title }}</h3>
@@ -57,22 +64,5 @@ description: "Entidad científica sin fines de lucro dedicada a la Parasitologí
       </a>
       {% endfor %}
     </div>
-  </div>
-</section>
-
-<hr class="section-divider wrap" />
-
-<section class="section" style="padding-top: 0;">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="section-label">Quiénes somos</div>
-      <h2 class="section-title">Una comunidad <em>científica</em> de alcance nacional</h2>
-    </div>
-    <p style="color:var(--text-mid); line-height:1.7; max-width: 640px; margin-bottom: 1.5rem;">
-      La Asociación Parasitológica Argentina surge como entidad científica sin fines de lucro con
-      Personería Jurídica desde 2008. Somos miembros de la <strong style="color:var(--text)">World Federation of Parasitologists</strong>
-      y de la <strong style="color:var(--text)">Federación Latinoamericana de Parasitología (FLAP)</strong>.
-    </p>
-    <a href="{{ '/asociacion/' | relative_url }}" class="btn btn-secondary">Conocer más</a>
   </div>
 </section>

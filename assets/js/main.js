@@ -50,6 +50,53 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
+  // ── Carrusel del Home ───────────────────────────────────────────────
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('.carousel-track');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dotsBox = carousel.querySelector('.carousel-dots');
+    const prev = carousel.querySelector('.carousel-btn--prev');
+    const next = carousel.querySelector('.carousel-btn--next');
+    if (!track || slides.length < 2 || !dotsBox) return;
+
+    const dots = Array.from(slides).map((_, i) => {
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'carousel-dot';
+      d.setAttribute('aria-label', 'Ir a la foto ' + (i + 1));
+      d.addEventListener('click', () => { stop(); goTo(i); });
+      dotsBox.appendChild(d);
+      return d;
+    });
+
+    const index = () => Math.round(track.scrollLeft / track.clientWidth);
+    const goTo = (i) => {
+      const n = (i + slides.length) % slides.length;
+      track.scrollTo({ left: n * track.clientWidth, behavior: 'smooth' });
+    };
+    const sync = () => dots.forEach((d, i) => d.classList.toggle('is-active', i === index()));
+    track.addEventListener('scroll', sync, { passive: true });
+    sync();
+
+    // Pasar fotos solo: se detiene al interactuar, con el mouse encima, y si el
+    // visitante pidió menos movimiento en su sistema.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timer = null, hovering = false;
+    const stop = () => { clearInterval(timer); timer = null; };
+    const start = () => {
+      if (reduceMotion || timer) return;
+      timer = setInterval(() => { if (!hovering && !document.hidden) goTo(index() + 1); }, 5000);
+    };
+
+    prev.addEventListener('click', () => { stop(); goTo(index() - 1); });
+    next.addEventListener('click', () => { stop(); goTo(index() + 1); });
+    track.addEventListener('touchstart', stop, { passive: true });
+    carousel.addEventListener('mouseenter', () => { hovering = true; });
+    carousel.addEventListener('mouseleave', () => { hovering = false; });
+    carousel.addEventListener('focusin', stop);
+    start();
+  });
+
   // ── Simple category/year filter (used on the Eventos archive) ─────
   const filterBar = document.querySelector('[data-filters]');
   if (filterBar) {
