@@ -48,9 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Mapa ───────────────────────────────────────────────────────────
   const map = L.map(mapEl, { zoomControl: true, scrollWheelZoom: false, minZoom: 3 });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a> · Límites: IGN',
-    subdomains: 'abcd',
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Límites: IGN',
     maxZoom: 19,
   }).addTo(map);
   const ARGENTINA = [[-55.2, -73.8], [-21.7, -53.4]];   // sin Antártida ni islas, para encuadrar

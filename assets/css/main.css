@@ -408,7 +408,7 @@ ul { list-style: none; }
 .avatar--empty { display: flex; align-items: center; justify-content: center; color: var(--muted); }
 .avatar--empty svg { width: 46%; height: 46%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-.group-title { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; line-height: 1.25; margin-bottom: 0.4rem; }
+.group-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; line-height: 1.25; margin-bottom: 0.4rem; }
 .group-desc { color: var(--text-mid); font-size: 0.92rem; max-width: 620px; margin-bottom: 1.25rem; }
 .group-title + .grid { margin-top: 1.25rem; }
 .group-desc + .grid { margin-top: 0; }
@@ -469,7 +469,7 @@ a.convenio:hover { color: var(--accent); }
   list-style: none; cursor: pointer;
   display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.2rem 0.9rem;
   padding: 1.1rem 0;
-  font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; line-height: 1.3; color: var(--text);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; line-height: 1.3; color: var(--text);
 }
 .disclosure > summary::-webkit-details-marker { display: none; }
 .disclosure > summary::after {
@@ -508,7 +508,8 @@ a.convenio:hover { color: var(--accent); }
   color: var(--text); font-family: var(--font-body); font-size: 0.78rem; line-height: 1.4;
   white-space: normal; max-width: 240px;
 }
-.leaflet-tooltip.apa-tooltip--card { max-width: 300px; padding: 12px 14px; }
+.leaflet-tooltip.apa-tooltip--card { width: 280px; max-width: 280px; box-sizing: border-box; padding: 14px 16px; border-radius: 12px; box-shadow: 0 8px 32px rgba(9,2,1,0.18); }
+.leaflet-tooltip.apa-tooltip--card::before { display: none; }
 .leaflet-tooltip-top.apa-tooltip::before { border-top-color: var(--border); }
 .apa-card { font-size: 0.8rem; line-height: 1.45; color: var(--text-mid); }
 .apa-card-kicker { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
