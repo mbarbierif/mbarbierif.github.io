@@ -14,7 +14,6 @@ on:
 
 permissions:
   contents: write   # para guardar los PDF en el repositorio
-  pages: write      # para pedir un nuevo despliegue del sitio
 
 concurrency:
   group: build-pdfs
@@ -39,7 +38,6 @@ jobs:
         run: python scripts/build_pdfs.py
 
       - name: Guardar PDFs en el repositorio
-        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -53,12 +51,3 @@ jobs:
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
-
-      # Los commits hechos con GITHUB_TOKEN no disparan otros workflows,
-      # así que pedimos el despliegue de GitHub Pages explícitamente.
-      - name: Desplegar sitio
-        if: steps.commit.outputs.changed == 'true'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/${{ github.repository }}/pages/builds"
