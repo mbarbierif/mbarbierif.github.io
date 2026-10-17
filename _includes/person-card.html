@@ -1,22 +1,14 @@
 {%- comment -%}
   Tarjeta con foto circular (o ícono) + datos. Parámetros (todos opcionales salvo nombre):
-  nombre, cargo (píldora), foto (nombre de archivo en assets/img/personas/, o ruta tipo assets/img/x/y.jpg, o URL),
+  nombre, cargo (píldora), foto (nombre de archivo, ruta o URL; ver img-src.html), carpeta (por defecto personas),
   icon ("persona" por defecto, o "edificio"), sub, inst, dir, email (varios separados por ;), tel, web
 {%- endcomment -%}
 {%- assign f = include.foto | default: "" -%}
 <article class="card person fade-up">
   {%- if f != "" -%}
-    {%- if f contains "github.com/" and f contains "/blob/" -%}
-      {%- comment -%} Link "blob" de GitHub (página HTML, no imagen): lo convertimos a la URL directa. {%- endcomment -%}
-      {%- assign src = f | replace: "github.com/", "raw.githubusercontent.com/" | replace: "/blob/", "/" -%}
-    {%- elsif f contains "://" -%}
-      {%- assign src = f -%}
-    {%- elsif f contains "/" -%}
-      {%- assign src = f | prepend: "/" | replace: "//", "/" | relative_url -%}
-    {%- else -%}
-      {%- assign src = f | prepend: "/assets/img/personas/" | relative_url -%}
-    {%- endif -%}
-    <img class="avatar" src="{{ src }}" alt="" loading="lazy">
+    {%- assign carpeta = include.carpeta | default: "personas" -%}
+    {%- capture src %}{% include img-src.html valor=f carpeta=carpeta %}{% endcapture -%}
+    <img class="avatar" src="{{ src | strip }}" alt="" loading="lazy">
   {%- elsif include.icon == "edificio" -%}
     <span class="avatar avatar--empty" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></span>
   {%- else -%}

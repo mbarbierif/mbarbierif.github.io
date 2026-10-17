@@ -48,6 +48,16 @@ directorio_delegados_url: "/assets/docs/directorio-delegados.pdf"
 directorio_grupos_url: "/assets/docs/directorio-grupos.pdf"
 registro_grupo_url: ""           # Google Form
 
+# Convenios (La Asociación): un badge por convenio, en este orden.
+# url: PDF subido a assets/docs/ (ej. "/assets/docs/convenio-x.pdf") o link completo. Vacío ("") = badge sin link.
+convenios:
+  - nombre: "Convenio 1 (completar)"
+    url: ""
+  - nombre: "Convenio 2 (completar)"
+    url: ""
+  - nombre: "Convenio 3 (completar)"
+    url: ""
+
 # Asociate: valores de membresía. Todo se edita acá.
 # Un formulario vacío ("") deja el botón atenuado y sin destino.
 asociate:

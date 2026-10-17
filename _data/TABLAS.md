@@ -10,7 +10,6 @@ Para varios valores en una misma celda (provincias, mails) se separan con punto 
 | `comisiones.csv` | Comisión Directiva y demás comisiones | `comision`, `cargo`, `nombre`, `foto` |
 | `delegaciones.csv` | Mapa de delegaciones (polígonos) y su lista | `delegacion`, `descripcion`, `provincias`, `partidos`, `delegado`, `institucion`, `direccion`, `email`, `telefono`, `foto` |
 | `grupos.csv` | Mapa de grupos (puntos) y su lista | `grupo`, `institucion`, `responsable`, `linea`, `ciudad`, `provincia`, `lat`, `lon`, `email`, `web`, `foto` |
-| `convenios.csv` | Badges de convenios | `nombre`, `url` |
 
 ## Delegaciones: cómo se define el territorio (sin GeoJSON)
 
@@ -34,14 +33,28 @@ Para varios valores en una misma celda (provincias, mails) se separan con punto 
 
 ## Fotos
 
-Subir la imagen a `assets/img/personas/` y escribir solo el nombre del archivo (ej. `espinoza.jpg`).
-Si la foto está en otra carpeta, escribir la ruta desde la raíz del sitio (ej. `assets/img/delegaciones/dora-davies.jpg`).
-También se acepta una URL de imagen. **No pegar el link de la página de GitHub** (el que se ve al abrir el archivo en github.com): ese es una página web, no la imagen. Sin foto se muestra un ícono genérico (persona o edificio).
-Recomendado: cuadradas, ~400×400 px.
+Subir la imagen a la carpeta del tipo y escribir **solo el nombre del archivo** en la columna `foto`:
+
+| Tabla | Carpeta | Ejemplo en la celda |
+|---|---|---|
+| `delegaciones.csv`, `comisiones.csv` | `assets/img/personas/` | `espinoza.jpg` |
+| `grupos.csv` | `assets/img/grupos/` | `lab-parasitologia.jpg` |
+
+- Si la foto está en otra carpeta, escribir la ruta desde la raíz del sitio (ej. `assets/img/otra/foto.jpg`).
+  También se acepta una URL de imagen.
+- **No pegar el link de la página de GitHub** (el que se ve al abrir el archivo en github.com): es una página, no la imagen.
+- Recomendado: cuadradas, ~400×400 px, nombres en minúsculas sin espacios ni tildes. Sin foto se muestra un ícono genérico (persona o edificio).
+- Más detalles sobre imágenes en el `README.md`.
+
+## PDFs de directorios
+
+Los PDF "Directorio de Delegados/as" y "Directorio de grupos de investigación" se generan solos al guardar
+`delegaciones.csv` o `grupos.csv` (tarda 1-2 minutos). Quedan ordenados así: delegaciones, en el orden del archivo;
+grupos, por provincia, ciudad y nombre. Si un CSV tiene un error de formato, la automatización falla y avisa por mail:
+en ese caso el PDF anterior se mantiene. Se puede ver en la pestaña **Actions** de GitHub.
 
 ## Comisiones y convenios
 
 - **Comisiones**: aparecen en el orden del archivo; para crear una nueva, escribir un nombre nuevo en `comision`.
   Si `cargo` tiene texto se muestra como píldora (Comisión Directiva); si está vacío, no.
-- **Convenios**: `url` puede ser una URL completa o un PDF subido a `assets/docs/` (ej. `/assets/docs/convenio.pdf`).
-  Si queda vacía, el badge se ve pero sin link.
+- **Convenios**: no están en una tabla; se editan en `_config.yml`, bloque `convenios` (nombre y url de cada uno).
