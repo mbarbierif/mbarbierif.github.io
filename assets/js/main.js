@@ -127,10 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
         document.body.removeChild(ta);
       }
-      const original = btn.textContent;
-      btn.textContent = ok ? '¡Copiado!' : 'Seleccioná y copiá';
-      if (copyStatus) copyStatus.textContent = ok ? text + ' copiado al portapapeles' : '';
-      setTimeout(() => { btn.textContent = original; if (copyStatus) copyStatus.textContent = ''; }, 1800);
+      btn.classList.toggle('is-copied', ok);
+      if (copyStatus) copyStatus.textContent = ok ? text + ' copiado al portapapeles' : 'No se pudo copiar: seleccioná el correo y copialo a mano.';
+      setTimeout(() => { btn.classList.remove('is-copied'); if (copyStatus) copyStatus.textContent = ''; }, 2200);
     });
   });
 

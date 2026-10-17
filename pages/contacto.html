@@ -30,8 +30,15 @@ no_divider: true
         <div class="contact-actions">
           <a class="contact-mail" href="mailto:{{ c.email }}?subject={{ asunto | uri_escape }}">{{ c.email }}</a>
           <div class="contact-btns">
-            <a class="btn btn-primary" href="mailto:{{ c.email }}?subject={{ asunto | uri_escape }}">Escribir</a>
-            <button type="button" class="btn btn-secondary" data-copy="{{ c.email }}" aria-label="Copiar correo de {{ c.area }}">Copiar</button>
+            <a class="icon-btn icon-btn--primary" href="mailto:{{ c.email }}?subject={{ asunto | uri_escape }}" title="Escribir a {{ c.area }}" aria-label="Escribir a {{ c.area }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              <span class="icon-btn-label">Escribir</span>
+            </a>
+            <button type="button" class="icon-btn" data-copy="{{ c.email }}" title="Copiar correo" aria-label="Copiar correo de {{ c.area }}">
+              <svg class="i-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+              <svg class="i-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>
+              <span class="icon-btn-label">Copiar</span>
+            </button>
           </div>
         </div>
       </li>
