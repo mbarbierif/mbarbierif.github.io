@@ -358,6 +358,15 @@ ul { list-style: none; }
 .membership-type { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
 .membership-price { font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; color: var(--text); }
 .membership-period { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.1rem; }
+.membership-vigencia { text-align: center; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); margin: 0 0 1.5rem; }
+.membership-card { display: flex; flex-direction: column; }
+.membership-cta { margin-top: auto; padding-top: 0.5rem; }
+.membership-cta .btn { width: 100%; justify-content: center; text-align: center; }
+.membership-grid[data-modo="socios"] [data-show="nuevos"],
+.membership-grid[data-modo="nuevos"] [data-show="socios"] { display: none; }
+.btn.is-disabled { opacity: 0.5; cursor: default; pointer-events: none; }
+.membership-contact { text-align: center; font-size: 0.9rem; color: var(--text-mid); margin: 0 0 1rem; }
+.membership-contact a { color: var(--accent); font-weight: 700; text-decoration: underline; }
 .membership-features li { font-size: 0.85rem; color: var(--text-mid); padding: 0.4rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.5rem; }
 .membership-features li::before { content: '✓'; color: var(--accent); font-weight: 700; }
 
@@ -532,7 +541,7 @@ a.convenio:hover { color: var(--accent); }
 @media (min-width: 700px) {
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
-  .membership-grid { grid-template-columns: repeat(2, 1fr); }
+  .membership-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
 
   .carousel { aspect-ratio: 16 / 9; }

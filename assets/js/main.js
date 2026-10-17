@@ -97,6 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
     start();
   });
 
+  // ── Asociate: toggle Socios / Nuevos Socios ───────────────────────
+  const memToggle = document.querySelector('[data-membership-toggle]');
+  const memGrid = document.getElementById('aranceles');
+  if (memToggle && memGrid) {
+    const memButtons = memToggle.querySelectorAll('.map-toggle-btn');
+    memButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        memGrid.dataset.modo = btn.dataset.modo;
+        memButtons.forEach(b => {
+          const on = b === btn;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      });
+    });
+  }
+
   // ── Simple category/year filter (used on the Eventos archive) ─────
   const filterBar = document.querySelector('[data-filters]');
   if (filterBar) {

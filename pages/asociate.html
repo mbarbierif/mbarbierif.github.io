@@ -3,58 +3,56 @@ layout: page
 permalink: /asociate/
 title: "Asociate"
 label: "Sumate a la APA"
-description: "Categorías de membresía y beneficios de asociarte a la Asociación Parasitológica Argentina."
+no_divider: true
 ---
+{%- comment -%} Valores, vigencia y formularios: se editan en _config.yml (bloque "asociate"). {%- endcomment -%}
+{%- assign a = site.asociate -%}
+{%- assign f_socios = a.form_socios | default: "" -%}
+{%- assign f_nuevos = a.form_nuevos | default: "" -%}
 
 <div class="section" style="padding-top:0;">
   <div class="wrap">
 
-    <div id="aranceles" class="membership-grid">
-      <div class="membership-card fade-up">
-        <div class="membership-type">Estudiante</div>
-        <div class="membership-price">$—</div>
-        <div class="membership-period">por año</div>
-        <ul class="membership-features">
-          <li>Aranceles reducidos en cursos y congresos</li>
-          <li>Acceso a becas y apoyos económicos</li>
-          <li>Publicación sin costo en la Revista</li>
-        </ul>
-        <a href="mailto:{{ site.email }}" class="btn btn-secondary">Consultar</a>
-      </div>
-
-      <div class="membership-card featured fade-up">
-        <div class="membership-type">Socio/a activo/a</div>
-        <div class="membership-price">$—</div>
-        <div class="membership-period">por año</div>
-        <ul class="membership-features">
-          <li>Voto en asambleas</li>
-          <li>Prioridad de inscripción en actividades</li>
-          <li>Descuentos en congresos y cursos</li>
-        </ul>
-        <a href="mailto:{{ site.email }}" class="btn btn-primary">Asociarme</a>
-      </div>
-
-      <div class="membership-card fade-up">
-        <div class="membership-type">Institucional</div>
-        <div class="membership-price">$—</div>
-        <div class="membership-period">por año</div>
-        <ul class="membership-features">
-          <li>Membresía para instituciones y laboratorios</li>
-          <li>Cupos preferenciales en actividades</li>
-          <li>Visibilidad institucional en el sitio</li>
-        </ul>
-        <a href="mailto:{{ site.email }}" class="btn btn-secondary">Consultar</a>
+    <div class="map-toggle-wrap">
+      <div class="map-toggle" role="group" aria-label="Tipo de socio" data-membership-toggle>
+        <button type="button" class="map-toggle-btn is-active" data-modo="socios" aria-pressed="true">Socios</button>
+        <button type="button" class="map-toggle-btn" data-modo="nuevos" aria-pressed="false">Nuevos Socios</button>
       </div>
     </div>
+    {%- if a.vigencia and a.vigencia != "" %}
+    <p class="membership-vigencia">Valores vigentes desde el {{ a.vigencia }}</p>
+    {%- endif %}
 
-    <div class="post-content">
-      <h2>Cómo asociarte</h2>
-      <p>
-        Escribinos a <a href="mailto:{{ site.email }}">{{ site.email }}</a> indicando la categoría de
-        membresía que te interesa. Te vamos a responder con el formulario de inscripción y los datos
-        para el pago de la cuota anual.
-      </p>
+    <div id="aranceles" class="membership-grid" data-modo="socios">
+      {%- for c in a.categorias %}
+      <div class="membership-card fade-up">
+        <div class="membership-type">{{ c.nombre }}</div>
+        <div class="membership-price">
+          <span data-show="socios">{{ c.socios }}</span>
+          <span data-show="nuevos">{{ c.nuevos }}</span>
+        </div>
+        <div class="membership-period">{{ a.periodo | default: "por año" }}</div>
+        <div class="membership-cta">
+          <span data-show="socios">
+            {%- if f_socios != "" -%}
+            <a href="{{ f_socios | relative_url }}" class="btn btn-primary" target="_blank" rel="noopener">Asociarme</a>
+            {%- else -%}
+            <span class="btn btn-primary is-disabled" aria-disabled="true" title="Formulario pendiente de completar">Asociarme</span>
+            {%- endif -%}
+          </span>
+          <span data-show="nuevos">
+            {%- if f_nuevos != "" -%}
+            <a href="{{ f_nuevos | relative_url }}" class="btn btn-primary" target="_blank" rel="noopener">Asociarme</a>
+            {%- else -%}
+            <span class="btn btn-primary is-disabled" aria-disabled="true" title="Formulario pendiente de completar">Asociarme</span>
+            {%- endif -%}
+          </span>
+        </div>
+      </div>
+      {%- endfor %}
     </div>
+
+    <p class="membership-contact">¿Consultas? Escribinos a <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
 
   </div>
 </div>

@@ -48,6 +48,24 @@ directorio_delegados_url: "/assets/docs/directorio-delegados.pdf"
 directorio_grupos_url: "/assets/docs/directorio-grupos.pdf"
 registro_grupo_url: ""           # Google Form
 
+# Asociate: valores de membresía. Todo se edita acá.
+# Un formulario vacío ("") deja el botón atenuado y sin destino.
+asociate:
+  vigencia: "15/06/26"            # "Valores vigentes desde ..."
+  periodo: "cuota anual"          # texto bajo el precio
+  form_socios: ""                 # Google Form para Socios
+  form_nuevos: ""                 # Google Form para Nuevos Socios
+  categorias:                     # una tarjeta por categoría, en este orden
+    - nombre: "Profesionales"
+      socios: "$50.000"
+      nuevos: "$35.000"
+    - nombre: "Estudiantes de Posgrado / Becarios/as"
+      socios: "$35.000"
+      nuevos: "$25.000"
+    - nombre: "Estudiantes de Grado"
+      socios: "$20.000"
+      nuevos: "$15.000"
+
 # Navegación — aprobada por el equipo.
 # "Revista" no es un ítem de nav: vive como link externo desde Inicio
 # (tiene su propio sitio). "Delegados" vive dentro de La Asociación.
