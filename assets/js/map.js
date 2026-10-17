@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lat = parseFloat(g.lat), lon = parseFloat(g.lon);
     if (isNaN(lat) || isNaN(lon)) return;
     const m = L.marker([lat, lon], { icon: pinIcon, keyboard: true, title: g.grupo || '' })
-      .bindTooltip(`<strong>${esc(g.grupo)}</strong>${g.institucion ? '<br>' + esc(g.institucion) : ''}`, { direction: 'top', className: 'apa-tooltip', opacity: 1 })
+      .bindTooltip(grupoHTML(g, false), { direction: 'top', className: 'apa-tooltip apa-tooltip--card', opacity: 1 })
       .bindPopup(grupoHTML(g, true), { maxWidth: 300, className: 'apa-popup' });
     gruposLayer.addLayer(m);
     gruposBounds.push([lat, lon]);
