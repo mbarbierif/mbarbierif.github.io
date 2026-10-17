@@ -35,7 +35,8 @@ Para varios valores en una misma celda (provincias, mails) se separan con punto 
 ## Fotos
 
 Subir la imagen a `assets/img/personas/` y escribir solo el nombre del archivo (ej. `espinoza.jpg`).
-También se acepta una URL completa. Sin foto se muestra un ícono genérico (persona o edificio).
+Si la foto está en otra carpeta, escribir la ruta desde la raíz del sitio (ej. `assets/img/delegaciones/dora-davies.jpg`).
+También se acepta una URL de imagen. **No pegar el link de la página de GitHub** (el que se ve al abrir el archivo en github.com): ese es una página web, no la imagen. Sin foto se muestra un ícono genérico (persona o edificio).
 Recomendado: cuadradas, ~400×400 px.
 
 ## Comisiones y convenios

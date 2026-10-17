@@ -298,8 +298,9 @@ ul { list-style: none; }
 .card-body { padding: 1.3rem; display: flex; flex-direction: column; flex: 1; }
 /* Mismo alto para todas las cards: la foto ocupa siempre el mismo espacio
    (con o sin imagen) y título (2 líneas) y extracto (3 líneas) ocupan siempre el mismo espacio. */
-.grid > a { display: flex; }
-.grid > a > .card { display: flex; flex-direction: column; flex: 1; }
+.grid > a, .archive-item > a { display: flex; }
+.archive-item > a { flex: 1; min-width: 0; }
+.grid > a > .card, .archive-item > a > .card { display: flex; flex-direction: column; flex: 1; }
 .card-media { height: 170px; flex: none; overflow: hidden; background: var(--surface-subtle); position: relative; }
 .card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card-media--empty::after {
@@ -346,7 +347,9 @@ ul { list-style: none; }
 }
 .filter-btn.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
 .archive-item { display: none; }
-.archive-item.is-visible { display: block; }
+.archive-item.is-visible { display: flex; }
+.card-tag--fit { align-self: flex-start; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.page-header--bare { border-bottom: none; margin-bottom: 0; padding-bottom: 0.5rem; }
 
 /* ── Membership / asociate ── */
 .membership-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 2.5rem; }

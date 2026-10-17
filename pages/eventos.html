@@ -3,47 +3,11 @@ layout: page
 permalink: /eventos/
 title: "Eventos"
 label: "Agenda científica"
-description: "Congresos, Parasitología en la Nube, Conversatorios Disciplinares y Arte y Ciencia — todo en un mismo archivo."
+no_divider: true
 ---
 
 <div class="section" style="padding-top:0;">
   <div class="wrap">
-
-    <div class="filters" data-filters>
-      <button class="filter-btn is-active" data-filter="all">Todo</button>
-      <button class="filter-btn" data-filter="congreso">Congreso</button>
-      <button class="filter-btn" data-filter="charla">Parasitología en la Nube</button>
-      <button class="filter-btn" data-filter="conversatorio">Conversatorios</button>
-      <button class="filter-btn" data-filter="arte">Arte y Ciencia</button>
-    </div>
-
-    {% assign eventos_cats = "congreso,charla,conversatorio,arte" | split: "," %}
-    {% assign eventos_posts = site.posts | where_exp: "p", "eventos_cats contains p.categoria" %}
-
-    <div class="grid grid-3">
-      {% if eventos_posts.size > 0 %}
-        {% for post in eventos_posts %}
-        <div class="archive-item is-visible" data-archive-item="{{ post.categoria }}">
-          <a href="{{ post.url | relative_url }}">
-            <article class="card fade-up">
-              {% if post.imagen %}<img src="{{ post.imagen | relative_url }}" alt="{{ post.title }}">{% endif %}
-              <div class="card-body">
-                <span class="card-tag">{{ post.categoria }}</span>
-                <h3 class="card-title">{{ post.title }}</h3>
-                <div class="card-date">{{ post.date | date: "%d %b %Y" }}</div>
-                <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
-                <span class="card-link">Ver detalle →</span>
-              </div>
-            </article>
-          </a>
-        </div>
-        {% endfor %}
-      {% else %}
-        <div class="card"><div class="card-body" style="color:var(--muted); font-size:0.88rem;">
-          Agregá entradas con <code>categoria: congreso</code>, <code>charla</code>, <code>conversatorio</code> o <code>arte</code> en <code>_posts/</code>.
-        </div></div>
-      {% endif %}
-    </div>
-
+    {% include category-archive.html categoria="Eventos" vacio="Todavía no hay eventos publicados." %}
   </div>
 </div>
