@@ -114,6 +114,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Contacto: botón "Copiar" correo ───────────────────────────────
+  const copyStatus = document.querySelector('[data-copy-status]');
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy;
+      let ok = false;
+      try { await navigator.clipboard.writeText(text); ok = true; } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+        document.body.removeChild(ta);
+      }
+      const original = btn.textContent;
+      btn.textContent = ok ? '¡Copiado!' : 'Seleccioná y copiá';
+      if (copyStatus) copyStatus.textContent = ok ? text + ' copiado al portapapeles' : '';
+      setTimeout(() => { btn.textContent = original; if (copyStatus) copyStatus.textContent = ''; }, 1800);
+    });
+  });
+
   // ── Simple category/year filter (used on the Eventos archive) ─────
   const filterBar = document.querySelector('[data-filters]');
   if (filterBar) {

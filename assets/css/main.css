@@ -590,3 +590,27 @@ a.convenio:hover { color: var(--accent); }
 
   #red-map { height: 600px; }
 }
+
+/* ── Contacto ── */
+.contact-list { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 14px; }
+.contact-row {
+  display: grid; grid-template-columns: auto 1fr; gap: 0.9rem 1.1rem; align-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 1.2rem 1.3rem; transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.contact-row:hover, .contact-row:focus-within { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
+.contact-icon { width: 46px; height: 46px; border-radius: 50%; background: var(--accent-dim); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.contact-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.contact-area { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; line-height: 1.2; margin: 0; }
+.contact-desc { font-size: 0.9rem; color: var(--text-mid); margin: 0.2rem 0 0; }
+.contact-actions { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 0.7rem; }
+.contact-mail { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); font-weight: 500; word-break: break-all; }
+.contact-mail:hover { text-decoration: underline; }
+.contact-btns { display: flex; gap: 10px; }
+.contact-btns .btn { flex: 1 1 0; width: auto; min-width: 0; }
+@media (min-width: 900px) { .contact-btns .btn { flex: none; width: var(--btn-w); } }
+.contact-note { min-height: 1.4em; text-align: center; font-size: 0.82rem; color: var(--text-mid); margin: 0; }
+@media (min-width: 900px) {
+  .contact-row { grid-template-columns: auto minmax(0, 1fr) auto; padding: 1.3rem 1.6rem; }
+  .contact-actions { grid-column: auto; align-items: flex-end; text-align: right; }
+}

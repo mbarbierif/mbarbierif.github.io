@@ -66,6 +66,30 @@ asociate:
       socios: "$20.000"
       nuevos: "$15.000"
 
+# Contacto: cada área con su correo. Se muestran en este orden.
+# icono: presidencia | secretaria | tesoreria | difusion | convocatorias
+contactos:
+  - area: "Presidencia"
+    descripcion: "Consultas sobre la Asociación"
+    email: "presidencia@apargentina.org.ar"
+    icono: "presidencia"
+  - area: "Secretaría"
+    descripcion: "Consultas generales y nuevos socios"
+    email: "secretaria@apargentina.org.ar"
+    icono: "secretaria"
+  - area: "Tesorería"
+    descripcion: "Pago de cuotas y de artículos de la Revista"
+    email: "tesoreria@apargentina.org.ar"
+    icono: "tesoreria"
+  - area: "Difusión"
+    descripcion: "Prensa y novedades"
+    email: "difusion@apargentina.org.ar"
+    icono: "difusion"
+  - area: "Convocatorias"
+    descripcion: "Presentación de solicitudes"
+    email: "convocatorias@apargentina.org.ar"
+    icono: "convocatorias"
+
 # Navegación — aprobada por el equipo.
 # "Revista" no es un ítem de nav: vive como link externo desde Inicio
 # (tiene su propio sitio). "Delegados" vive dentro de La Asociación.
