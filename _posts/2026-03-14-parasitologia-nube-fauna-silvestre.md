@@ -2,7 +2,7 @@
 layout: post
 title: "Parasitología en la Nube: Interacciones hospedador-parásito en fauna silvestre"
 date: 2026-03-14
-categoria: charla
+categories: ["Eventos", "Parasitología en la Nube", "Fauna silvestre"]
 excerpt: "Nueva charla del ciclo Parasitología en la Nube sobre interacciones hospedador-parásito en fauna silvestre argentina."
 ---
 

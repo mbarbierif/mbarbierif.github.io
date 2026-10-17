@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const applyFilter = (value) => {
       items.forEach(item => {
-        const matches = value === 'all' || item.dataset.archiveItem === value;
+        const matches = value === 'all' || (item.dataset.archiveItem || '').includes('|' + value + '|');
         item.classList.toggle('is-visible', matches);
       });
     };

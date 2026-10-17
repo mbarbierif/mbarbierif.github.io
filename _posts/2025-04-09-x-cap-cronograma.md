@@ -2,7 +2,7 @@
 layout: post
 title: "X Congreso Argentino de Parasitología — Cronograma definitivo"
 date: 2025-04-09
-categoria: congreso
+categories: ["Eventos", "Congreso"]
 imagen: /assets/img/noticias/x-cap.jpg
 excerpt: "Ya está disponible el cronograma definitivo del X Congreso Argentino de Parasitología."
 ---

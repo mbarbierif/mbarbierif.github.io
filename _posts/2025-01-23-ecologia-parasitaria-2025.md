@@ -2,7 +2,7 @@
 layout: post
 title: "Curso: Ecología Parasitaria Aplicada 2025"
 date: 2025-01-23
-categoria: curso
+categories: ["Formación y Convocatorias", "Curso", "Ecología parasitaria"]
 excerpt: "Inscripciones abiertas para el curso de posgrado Ecología Parasitaria Aplicada, edición 2025."
 ---
 

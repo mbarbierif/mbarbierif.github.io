@@ -92,3 +92,20 @@ bundle exec jekyll serve --livereload
 Settings → Pages → Source: Deploy from a branch → `main` / `(root)`.
 Para el dominio propio (`apargentina.org.ar`), ver Settings → Pages → Custom domain,
 y agregar el registro DNS correspondiente en NIC Argentina.
+
+## Categorías de las entradas (`_posts/`)
+
+Cada entrada declara sus categorías en el encabezado, **siempre entre corchetes y con comillas**:
+
+```yaml
+categories: ["Eventos", "Chagas", "Ectoparásitos de Ratones"]
+```
+
+- La primera categoría "de sección" decide en qué página aparece: `"Eventos"` → página Eventos;
+  `"Formación y Convocatorias"` → página Formación y Convocatorias.
+- Las demás categorías se convierten solas en botones de filtro de esa página (en orden alfabético).
+  Una categoría que no pertenece a ningún post de la sección no genera botón.
+- El texto es **estricto**: se muestra tal cual está entre comillas y `"Zoología"`, `"zoologia"` y
+  `"ZOOLOGIA"` son tres categorías distintas (tres botones). Escribir `"eventos"` en vez de `"Eventos"`
+  deja la entrada fuera de la página. Revisar el sitio después de publicar.
+- Sin corchetes ni comillas (`categories: Eventos Chagas`) Jekyll separa por espacios: no usarlo.
