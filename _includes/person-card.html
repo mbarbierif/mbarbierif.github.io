@@ -1,7 +1,7 @@
 {%- comment -%}
-  Tarjeta de persona (foto circular + nombre). Parámetros:
-  nombre, cargo (opcional, píldora), foto (nombre de archivo en assets/img/personas/ o URL),
-  sub (opcional, texto chico), inst (opcional), email (opcional)
+  Tarjeta con foto circular (o ícono) + datos. Parámetros (todos opcionales salvo nombre):
+  nombre, cargo (píldora), foto (archivo en assets/img/personas/ o URL),
+  icon ("persona" por defecto, o "edificio"), sub, inst, dir, email (varios separados por ;), tel, web
 {%- endcomment -%}
 {%- assign f = include.foto | default: "" -%}
 <article class="card person fade-up">
@@ -12,6 +12,8 @@
       {%- assign src = f | prepend: "/assets/img/personas/" | relative_url -%}
     {%- endif -%}
     <img class="avatar" src="{{ src }}" alt="" loading="lazy">
+  {%- elsif include.icon == "edificio" -%}
+    <span class="avatar avatar--empty" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></span>
   {%- else -%}
     <span class="avatar avatar--empty" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
   {%- endif -%}
@@ -23,7 +25,16 @@
     {%- if sub != "" -%}<div class="person-meta">{{ sub }}</div>{%- endif -%}
     {%- assign inst = include.inst | default: "" -%}
     {%- if inst != "" -%}<div class="person-meta">{{ inst }}</div>{%- endif -%}
-    {%- assign email = include.email | default: "" -%}
-    {%- if email != "" -%}<a class="person-email" href="mailto:{{ email }}">{{ email }}</a>{%- endif -%}
+    {%- assign dir = include.dir | default: "" -%}
+    {%- if dir != "" -%}<div class="person-meta">{{ dir }}</div>{%- endif -%}
+    {%- assign tel = include.tel | default: "" -%}
+    {%- if tel != "" -%}<div class="person-meta">Tel.: {{ tel }}</div>{%- endif -%}
+    {%- assign emails = include.email | default: "" | split: ";" -%}
+    {%- for e in emails -%}
+      {%- assign em = e | strip -%}
+      {%- if em != "" -%}<a class="person-email" href="mailto:{{ em }}">{{ em }}</a>{%- endif -%}
+    {%- endfor -%}
+    {%- assign web = include.web | default: "" -%}
+    {%- if web != "" -%}<a class="person-email" href="{{ web }}" target="_blank" rel="noopener">{{ web | remove: "https://" | remove: "http://" | remove: "www." }}</a>{%- endif -%}
   </div>
 </article>

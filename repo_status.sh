@@ -23,7 +23,11 @@ MAX_BYTES=$((1024 * 1024))   # files bigger than this are listed but not dumped
 # ---- Edit these lists to taste ------------------------------------------
 # Directories are excluded at ANY depth; files are matched by name at any depth.
 EXCLUDE_DIRS=(".git" "_site" "node_modules" ".jekyll-cache" ".sass-cache" ".bundle" "vendor")
-EXCLUDE_FILES=(".DS_Store" "Thumbs.db" "README.md")
+EXCLUDE_FILES=(".DS_Store" "Thumbs.db")
+
+# Files that stay in the tree and keep their section, but WITHOUT their contents.
+# Glob patterns matched against the path from the repo root ("*" also matches "/").
+OMIT_CONTENT=("assets/geo/*" "*.geojson")
 # --------------------------------------------------------------------------
 
 [ -d "$REPO_DIR" ] || { echo "Error: '$REPO_DIR' is not a directory" >&2; exit 1; }
@@ -113,6 +117,17 @@ while IFS= read -r f; do
     fi
 
     size="$(wc -c < "$f" | tr -d ' ')"
+
+    omit=0
+    for pat in "${OMIT_CONTENT[@]}"; do
+      case "$f" in $pat) omit=1; break ;; esac
+    done
+    if [ "$omit" -eq 1 ]; then
+      echo "_Contents omitted ($size bytes)._"
+      echo
+      continue
+    fi
+
     if [ "$size" -gt "$MAX_BYTES" ]; then
       echo "_Skipped: file is $size bytes (limit is $MAX_BYTES)._"
       echo

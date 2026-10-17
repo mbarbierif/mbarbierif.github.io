@@ -1,26 +1,46 @@
 # Tablas editables del sitio
 
-Estos archivos CSV alimentan secciones de la página "La Asociación".
-Se pueden editar directamente en GitHub (lápiz ✏️ → editar → "Commit changes").
-Cada fila es una persona o un ítem; la primera fila son los nombres de las columnas y **no se cambia**.
+Estos archivos CSV alimentan la página "La Asociación". Se pueden editar directamente en GitHub
+(lápiz ✏️ → editar → "Commit changes"). La primera fila son los nombres de las columnas y **no se cambia**.
 Si un dato tiene coma, va entre comillas: `"Hola, mundo"`. Las celdas vacías están permitidas.
+Para varios valores en una misma celda (provincias, mails) se separan con punto y coma: `Salta; Jujuy`.
 
 | Archivo | Qué alimenta | Columnas |
 |---|---|---|
 | `comisiones.csv` | Comisión Directiva y demás comisiones | `comision`, `cargo`, `nombre`, `foto` |
-| `delegados.csv` | Mapa y tarjetas de delegados/as | `nombre`, `institucion`, `ciudad`, `provincia`, `delegacion`, `lat`, `lon`, `email`, `foto` |
-| `delegaciones.csv` | Descripción de cada delegación | `delegacion`, `descripcion` |
+| `delegaciones.csv` | Mapa de delegaciones (polígonos) y su lista | `delegacion`, `descripcion`, `provincias`, `partidos`, `delegado`, `institucion`, `direccion`, `email`, `telefono`, `foto` |
+| `grupos.csv` | Mapa de grupos (puntos) y su lista | `grupo`, `institucion`, `responsable`, `linea`, `ciudad`, `provincia`, `lat`, `lon`, `email`, `web`, `foto` |
 | `convenios.csv` | Badges de convenios | `nombre`, `url` |
 
-**Comisiones:** las comisiones aparecen en el orden en que figuran en el archivo. Para crear una nueva,
-basta escribir un nombre nuevo en la columna `comision`. Si `cargo` tiene texto, se muestra como píldora
-(se usa en la Comisión Directiva); si está vacío, no se muestra.
+## Delegaciones: cómo se define el territorio (sin GeoJSON)
 
-**Delegados:** la columna `delegacion` agrupa las tarjetas bajo "Delegación X". Si querés una descripción
-para esa delegación, agregá una fila en `delegaciones.csv` con el mismo nombre exacto.
+- **`provincias`**: nombres de provincias separados por `;`. Se pintan completas.
+  Se escriben como siempre (con o sin tildes, mayúsculas indiferentes). Se aceptan `Tierra del Fuego` y `CABA`.
+- **`partidos`**: para delegaciones que son **parte de la provincia de Buenos Aires**.
+  Nombres de partidos separados por `;` (ej. `La Plata; Berisso; Ensenada`). El nombre debe ser el oficial
+  (ej. `General Pueyrredón` para Mar del Plata, `Bahía Blanca`, `Adolfo Gonzales Chaves`).
+  El valor especial `resto` significa "todos los partidos de Buenos Aires que no estén en otra delegación".
+  Un partido o provincia no puede estar en dos delegaciones.
+- Si un nombre está mal escrito, **ese territorio simplemente no se pinta**. Para revisar, abrir el sitio,
+  apretar F12 y mirar la pestaña "Consola": avisa qué nombres no encontró.
+- **`email`**: puede haber varios, separados por `;`.
 
-**Fotos:** subí la imagen a `assets/img/personas/` y escribí solo el nombre del archivo (ej. `espinoza.jpg`).
-También se acepta una URL completa. Sin foto, se muestra un ícono genérico. Recomendado: cuadradas, ~400×400 px.
+## Grupos
 
-**Convenios:** `url` puede ser una URL completa o un PDF subido a `assets/docs/` (ej. `/assets/docs/convenio-unlp.pdf`).
-Si queda vacía, el badge se ve pero sin link.
+- `lat` y `lon` son las coordenadas (en Google Maps: clic derecho sobre el lugar → copiar el primer número de cada par).
+  Con punto decimal, ej. `-34.9050`. Varios grupos en la misma institución pueden usar las mismas coordenadas:
+  el mapa los agrupa y los separa al hacer zoom.
+- Las filas actuales son **de prueba** (laboratorios de las delegaciones y dos "Grupo de ejemplo"); reemplazarlas por los reales.
+
+## Fotos
+
+Subir la imagen a `assets/img/personas/` y escribir solo el nombre del archivo (ej. `espinoza.jpg`).
+También se acepta una URL completa. Sin foto se muestra un ícono genérico (persona o edificio).
+Recomendado: cuadradas, ~400×400 px.
+
+## Comisiones y convenios
+
+- **Comisiones**: aparecen en el orden del archivo; para crear una nueva, escribir un nombre nuevo en `comision`.
+  Si `cargo` tiene texto se muestra como píldora (Comisión Directiva); si está vacío, no.
+- **Convenios**: `url` puede ser una URL completa o un PDF subido a `assets/docs/` (ej. `/assets/docs/convenio.pdf`).
+  Si queda vacía, el badge se ve pero sin link.

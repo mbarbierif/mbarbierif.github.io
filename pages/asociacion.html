@@ -58,36 +58,66 @@ convenios_estilo: "a"
     <hr class="section-divider" />
 
     <div id="delegados">
-      <div class="section-label">Red federal</div>
-      <h2 class="section-title" style="margin-bottom: 1.5rem;">Delegados <em>Regionales</em></h2>
-      <p style="color:var(--text-mid); margin-bottom: 1.5rem; max-width: 620px;">
-        Contactos regionales de la APA en todo el país. Pasá el mouse por un marcador para ver la institución y el correo;
-        hacé clic para ver todos los datos de contacto.
+      <h2 class="section-title" style="margin-bottom: 1rem;">Red de <em>Parasitología Argentina</em></h2>
+      <p id="mapa-hint" style="color:var(--text-mid); margin-bottom: 1.25rem; max-width: 620px;">
+        Pasá el mouse por una delegación para ver sus datos de contacto; hacé clic para fijarlos.
       </p>
-      <div class="map-container">
-        <div id="delegados-map" data-fotos="{{ '/assets/img/personas/' | relative_url }}"></div>
+
+      <div class="map-toggle-wrap">
+        <div class="map-toggle" role="group" aria-label="Qué mostrar en el mapa">
+          <button type="button" class="map-toggle-btn is-active" data-mode="delegaciones" aria-pressed="true">Delegaciones Regionales</button>
+          <button type="button" class="map-toggle-btn" data-mode="grupos" aria-pressed="false">Grupos de Investigación</button>
+        </div>
       </div>
-      <script type="application/json" id="delegados-data">{{ site.data.delegados | jsonify }}</script>
+
+      <div class="map-container">
+        <div id="red-map"
+             data-provincias="{{ '/assets/geo/provincias.json' | relative_url }}"
+             data-partidos="{{ '/assets/geo/partidos-buenos-aires.json' | relative_url }}"></div>
+      </div>
+      <script type="application/json" id="delegaciones-data">{{ site.data.delegaciones | jsonify }}</script>
+      <script type="application/json" id="grupos-data">{{ site.data.grupos | jsonify }}</script>
+
+      <div class="disclosures">
+        <details class="disclosure" id="lista-delegaciones">
+          <summary>
+            <span>Delegaciones Regionales</span>
+            {%- assign pdf_del = site.directorio_delegados_url | default: "" -%}
+            {%- if pdf_del != "" %} <a class="disclosure-link" href="{{ pdf_del | relative_url }}" target="_blank" rel="noopener">(Descargar PDF)</a>{% endif %}
+          </summary>
+          <div class="disclosure-body">
+            {% for d in site.data.delegaciones %}
+              {% unless forloop.first %}<hr class="section-divider" />{% endunless %}
+              <h3 class="group-title">Delegación {{ d.delegacion }}</h3>
+              {% if d.descripcion %}<p class="group-desc">{{ d.descripcion }}</p>{% endif %}
+              <div class="grid grid-3">
+                {% include person-card.html nombre=d.delegado foto=d.foto inst=d.institucion dir=d.direccion email=d.email tel=d.telefono %}
+              </div>
+            {% endfor %}
+          </div>
+        </details>
+
+        <details class="disclosure" id="lista-grupos">
+          <summary>
+            <span>Grupos de Investigación</span>
+            {%- assign pdf_gru = site.directorio_grupos_url | default: "" -%}
+            {%- if pdf_gru != "" %} <a class="disclosure-link" href="{{ pdf_gru | relative_url }}" target="_blank" rel="noopener">(Descargar PDF)</a>{% endif %}
+          </summary>
+          <div class="disclosure-body">
+            <div class="grid grid-3">
+              {% for g in site.data.grupos %}
+                {% capture lugar %}{{ g.ciudad }}{% if g.provincia and g.provincia != g.ciudad %}, {{ g.provincia }}{% endif %}{% endcapture %}
+                {% capture resp %}{% if g.responsable %}Responsable: {{ g.responsable }}{% endif %}{% endcapture %}
+                {% include person-card.html nombre=g.grupo foto=g.foto icon="edificio" inst=g.institucion sub=resp dir=lugar email=g.email web=g.web %}
+              {% endfor %}
+            </div>
+          </div>
+        </details>
+      </div>
 
       <div class="doc-links">
-        {% include doc-link.html url=site.directorio_delegados_url label="Directorio de delegados/as" icon="pdf" %}
-        {% include doc-link.html url=site.directorio_grupos_url label="Directorio de grupos de investigación" icon="pdf" %}
         {% include doc-link.html url=site.registro_grupo_url label="Registro de nuevo grupo de investigación" icon="form" %}
       </div>
-
-      {% assign delegaciones = site.data.delegados | group_by: "delegacion" %}
-      {% for g in delegaciones %}
-        <hr class="section-divider" />
-        {% assign info = site.data.delegaciones | where: "delegacion", g.name | first %}
-        <h3 class="group-title">Delegación {{ g.name }}</h3>
-        {% if info.descripcion %}<p class="group-desc">{{ info.descripcion }}</p>{% endif %}
-        <div class="grid grid-3">
-          {% for d in g.items %}
-            {% capture sub %}{{ d.ciudad }}{% if d.provincia %}, {{ d.provincia }}{% endif %}{% endcapture %}
-            {% include person-card.html nombre=d.nombre foto=d.foto sub=sub inst=d.institucion email=d.email %}
-          {% endfor %}
-        </div>
-      {% endfor %}
     </div>
 
   </div>
